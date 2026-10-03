@@ -36,6 +36,8 @@ class TransportationCardController extends Portabilis_Controller_ReportCoreContr
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->dynamic('matricula', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

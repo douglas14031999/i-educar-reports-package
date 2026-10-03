@@ -38,6 +38,8 @@ class StudentMedicalFormController extends Portabilis_Controller_ReportCoreContr
         $this->inputsHelper()->dynamic('matricula', ['required' => false]);
         $this->inputsHelper()->checkbox('emitir_nome_diretor', ['label' => 'Emitir assinatura do gestor escolar']);
         $this->inputsHelper()->checkbox('emitir_secretario_escolar', ['label' => 'Emitir assinatura do secretário escolar']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

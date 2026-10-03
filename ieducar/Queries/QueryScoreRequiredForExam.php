@@ -72,8 +72,7 @@ WHERE instituicao.cod_instituicao = $P{instituicao}
       WHERE mt.ref_cod_matricula = matricula.cod_matricula
         AND mt.ref_cod_turma = turma.cod_turma
   )
-  AND NOT public.verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
-ORDER BY componente_curricular.ordenamento, componente_curricular.nome, pessoa.nome
+  ORDER BY componente_curricular.ordenamento, componente_curricular.nome, pessoa.nome
 SQL;
     }
 }

@@ -34,6 +34,8 @@ class StudentDisciplinaryOccurrenceController extends Portabilis_Controller_Repo
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->simpleSearchAluno('aluno', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

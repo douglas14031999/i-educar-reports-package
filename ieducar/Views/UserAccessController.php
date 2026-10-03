@@ -35,6 +35,8 @@ class UserAccessController extends Portabilis_Controller_ReportCoreController
         $this->inputsHelper()->date('data_final', ['label' => 'Data final']);
         $this->inputsHelper()->dynamic('EscolaObrigatorioParaNivelEscolar', ['required' => false]);
         $this->inputsHelper()->simpleSearchPessoa('pessoa_id', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

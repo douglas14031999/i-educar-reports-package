@@ -20,7 +20,11 @@ SELECT
     public.fcn_upper(instituicao.nm_instituicao) AS nm_instituicao,
     public.fcn_upper(instituicao.nm_responsavel) AS nm_responsavel,
     escola.cod_escola,
-    pessoa_escola.nome AS nm_escola,
+    COALESCE(
+        (SELECT j.fantasia FROM cadastro.juridica j WHERE j.idpes = escola.ref_idpes LIMIT 1),
+        pessoa_escola.nome,
+        relatorio.get_nome_escola(escola.cod_escola)
+    ) AS nm_escola,
     curso.nm_curso,
     serie.nm_serie,
     turma.nm_turma,
@@ -39,13 +43,13 @@ SELECT
     COALESCE(falta_disciplina.total_faltas, 0) AS total_faltas,
     to_char(CURRENT_DATE, 'DD/MM/YYYY') AS data_atual,
     public.data_para_extenso(CURRENT_DATE) AS data_extenso,
-    (SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_gestor = p.idpes LIMIT 1) AS gestor_escolar,
-    (SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_secretario_escolar = p.idpes LIMIT 1) AS secretario_escolar
+    COALESCE((SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_gestor = p.idpes LIMIT 1), 'Direção Escolar') AS gestor_escolar,
+    COALESCE((SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_secretario_escolar = p.idpes LIMIT 1), 'Secretaria Escolar') AS secretario_escolar
 FROM pmieducar.instituicao
 INNER JOIN pmieducar.escola ON (escola.ref_cod_instituicao = instituicao.cod_instituicao)
-INNER JOIN cadastro.pessoa pessoa_escola ON (pessoa_escola.idpes = escola.ref_idpes)
-INNER JOIN pmieducar.escola_ano_letivo ON (escola_ano_letivo.ref_cod_escola = escola.cod_escola)
-INNER JOIN pmieducar.matricula ON (matricula.ref_ref_cod_escola = escola.cod_escola AND matricula.ano = escola_ano_letivo.ano AND matricula.ativo = 1)
+LEFT JOIN cadastro.pessoa pessoa_escola ON (pessoa_escola.idpes = escola.ref_idpes)
+LEFT JOIN pmieducar.escola_ano_letivo ON (escola_ano_letivo.ref_cod_escola = escola.cod_escola AND escola_ano_letivo.ano = $P{ano})
+INNER JOIN pmieducar.matricula ON (matricula.ref_ref_cod_escola = escola.cod_escola AND matricula.ano = $P{ano} AND matricula.ativo = 1)
 INNER JOIN pmieducar.aluno ON (aluno.cod_aluno = matricula.ref_cod_aluno AND aluno.ativo = 1)
 INNER JOIN cadastro.fisica ON (fisica.idpes = aluno.ref_idpes)
 INNER JOIN cadastro.pessoa ON (pessoa.idpes = fisica.idpes)
@@ -69,8 +73,7 @@ LEFT JOIN (
     GROUP BY f.matricula_id, f.componente_curricular_id
 ) falta_disciplina ON (falta_disciplina.matricula_id = matricula.cod_matricula AND falta_disciplina.componente_curricular_id = componente_curricular.id)
 WHERE instituicao.cod_instituicao = $P{instituicao}
-  AND escola.cod_escola = $P{escola}
-  AND escola_ano_letivo.ano = $P{ano}
+  AND (CASE WHEN $P{escola} = 0 THEN TRUE ELSE escola.cod_escola = $P{escola} END)
   AND (CASE WHEN $P{curso} = 0 THEN TRUE ELSE curso.cod_curso = $P{curso} END)
   AND (CASE WHEN $P{serie} = 0 THEN TRUE ELSE serie.cod_serie = $P{serie} END)
   AND (CASE WHEN $P{turma} = 0 THEN TRUE ELSE turma.cod_turma = $P{turma} END)
@@ -81,8 +84,7 @@ WHERE instituicao.cod_instituicao = $P{instituicao}
       WHERE mt.ref_cod_matricula = matricula.cod_matricula
         AND mt.ref_cod_turma = turma.cod_turma
   )
-  AND NOT public.verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
-ORDER BY pessoa.nome, componente_curricular.ordenamento, componente_curricular.nome
+  ORDER BY pessoa.nome, componente_curricular.ordenamento, componente_curricular.nome
 SQL;
     }
 }

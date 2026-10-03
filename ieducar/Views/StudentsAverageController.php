@@ -37,6 +37,8 @@ class StudentsAverageController extends Portabilis_Controller_ReportCoreControll
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->dynamic('etapa', ['required' => false]);
         $this->inputsHelper()->text('limite', ['required' => false, 'label' => 'Limite de posições', 'size' => 5, 'max_length' => 7, 'placeholder' => ' ']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

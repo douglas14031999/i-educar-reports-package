@@ -37,6 +37,8 @@ class DistributionOfUniformPerStudentController extends Portabilis_Controller_Re
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->simpleSearchAluno(null, ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

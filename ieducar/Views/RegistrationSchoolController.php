@@ -38,6 +38,8 @@ class RegistrationSchoolController extends Portabilis_Controller_ReportCoreContr
             'value' => 0
         ];
         $this->inputsHelper()->select('dependencia', $options);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

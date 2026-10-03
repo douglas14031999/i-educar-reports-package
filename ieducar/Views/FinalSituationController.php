@@ -42,6 +42,8 @@ class FinalSituationController extends Portabilis_Controller_ReportCoreControlle
             'label' => 'Data Final',
             'value' => date('t/m/Y')
         ]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

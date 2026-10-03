@@ -36,6 +36,8 @@ class FinalMapByDisciplineController extends Portabilis_Controller_ReportCoreCon
             1 => 'Modelo trimestral - Recuperação específica',
         ];
         $this->inputsHelper()->select('modelo', ['resources' => $modelos]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

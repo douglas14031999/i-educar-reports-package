@@ -30,6 +30,8 @@ class ScoreAbsenceReleaseController extends Portabilis_Controller_ReportCoreCont
 
         $options = ['label' => 'Sexo', 'resources' => $sexo, 'value' => '', 'required' => false];
         $this->inputsHelper()->select('sexo', $options);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

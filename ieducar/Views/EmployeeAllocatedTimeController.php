@@ -21,6 +21,8 @@ class EmployeeAllocatedTimeController extends Portabilis_Controller_ReportCoreCo
     {
         $this->inputsHelper()->dynamic(['ano', 'instituicao']);
         $this->inputsHelper()->dynamic('escola', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

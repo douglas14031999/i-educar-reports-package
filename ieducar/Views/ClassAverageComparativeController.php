@@ -47,6 +47,8 @@ class ClassAverageComparativeController extends Portabilis_Controller_ReportCore
         ];
 
         $this->campoLista('etapa', 'Etapa', $opcoes, null, '', false, '', '', false, true);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

@@ -35,6 +35,8 @@ class LibraryLoanReceiptController extends Portabilis_Controller_ReportCoreContr
         $this->inputsHelper()->dynamic(['BibliotecaPesquisaCliente', 'dataInicial', 'dataFinal'], ['required' => false]);
         $this->inputsHelper()->textArea('observacao', ['required' => false, 'label' => 'Observações', 'placeholder' => 'Utilize este espaço para exibir uma mensagem para o aluno.']);
         $this->inputsHelper()->checkbox('emitir_2via', ['label' => 'Emitir segunda via do documento?']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

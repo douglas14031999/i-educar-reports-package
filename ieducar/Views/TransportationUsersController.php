@@ -33,6 +33,8 @@ class TransportationUsersController extends Portabilis_Controller_ReportCoreCont
     {
         $this->inputsHelper()->dynamic(['ano', 'instituicao']);
         $this->inputsHelper()->simpleSearchPessoaj('destino', ['label' => 'Destino', 'required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

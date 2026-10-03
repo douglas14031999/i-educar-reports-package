@@ -34,6 +34,8 @@ class LibraryClientsController extends Portabilis_Controller_ReportCoreControlle
         $this->inputsHelper()->dynamic(['instituicao', 'escola']);
         $this->inputsHelper()->dynamic('biblioteca', ['required' => false]);
         $this->inputsHelper()->dynamic('bibliotecaTipoCliente', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

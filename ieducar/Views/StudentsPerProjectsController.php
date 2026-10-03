@@ -37,6 +37,8 @@ class StudentsPerProjectsController extends Portabilis_Controller_ReportCoreCont
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->simpleSearchProjeto(null, ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

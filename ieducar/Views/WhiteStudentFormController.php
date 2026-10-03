@@ -27,6 +27,8 @@ class WhiteStudentFormController extends Portabilis_Controller_ReportCoreControl
         $options = ['label' => 'Modelo', 'resources' => $resources, 'value' => 1];
 
         $this->inputsHelper()->select('modelo', $options);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

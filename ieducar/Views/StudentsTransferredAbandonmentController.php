@@ -38,6 +38,8 @@ class StudentsTransferredAbandonmentController extends Portabilis_Controller_Rep
         $this->inputsHelper()->dynamic(['dataInicial', 'dataFinal']);
         $opcoes = [1 => 'Abandono', 2 => 'Transferido', 9 => 'Ambos'];
         $this->campoLista('situacao', 'Situa&ccedil;&atilde;o', $opcoes, 9);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

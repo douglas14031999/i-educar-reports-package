@@ -38,6 +38,8 @@ class AuditEvaluationsFaultsController extends Portabilis_Controller_ReportCoreC
         $this->inputsHelper()->dynamic('etapa', ['required' => false]);
         $this->inputsHelper()->simpleSearchAluno(null, ['required' => false]);
         $this->inputsHelper()->dynamic(['dataInicial', 'dataFinal']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

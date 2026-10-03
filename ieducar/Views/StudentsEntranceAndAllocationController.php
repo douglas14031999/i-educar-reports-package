@@ -40,6 +40,8 @@ class StudentsEntranceAndAllocationController extends Portabilis_Controller_Repo
         $this->inputsHelper()->dynamic('situacaoMatricula', ['required' => false]);
         $this->inputsHelper()->date('data_inicial', ['required' => false, 'label' => 'Data inicial']);
         $this->inputsHelper()->date('data_final', ['required' => false, 'label' => 'Data final']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

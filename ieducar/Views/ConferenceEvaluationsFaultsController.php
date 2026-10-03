@@ -38,6 +38,8 @@ class ConferenceEvaluationsFaultsController extends Portabilis_Controller_Report
         $this->campoLista('modelo', 'Modelo', [
             1 => 'Simplificado'
         ], $this->modelo);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

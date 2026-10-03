@@ -32,6 +32,8 @@ class LibraryAuthorsController extends Portabilis_Controller_ReportCoreControlle
     public function form()
     {
         $this->inputsHelper()->dynamic(['instituicao', 'escola']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

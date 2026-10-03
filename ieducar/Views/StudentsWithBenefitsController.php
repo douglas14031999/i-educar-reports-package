@@ -36,6 +36,8 @@ class StudentsWithBenefitsController extends Portabilis_Controller_ReportCoreCon
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->dynamic('situacaoMatricula', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

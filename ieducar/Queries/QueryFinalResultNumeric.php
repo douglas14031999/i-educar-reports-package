@@ -83,8 +83,7 @@ WHERE escola_ano_letivo.ativo = 1
                                       FROM pmieducar.matricula_turma mt
                                      WHERE mt.ref_cod_matricula = matricula.cod_matricula
                                        AND mt.ref_cod_turma = turma.cod_turma)
-  AND NOT public.verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
-GROUP BY matricula.cod_matricula,
+  GROUP BY matricula.cod_matricula,
          sequencial_fechamento,
          nm_aluno,
          view_situacao.texto_situacao_simplificado,

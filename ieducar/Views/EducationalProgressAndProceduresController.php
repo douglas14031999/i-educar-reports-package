@@ -32,6 +32,8 @@ class EducationalProgressAndProceduresController extends Portabilis_Controller_R
         $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola']);
         $this->inputsHelper()->dynamic('escola', ['required' => false]);
         $this->inputsHelper()->checkbox('imprimir_grafico', ['label' => 'Imprimir gráfico?']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

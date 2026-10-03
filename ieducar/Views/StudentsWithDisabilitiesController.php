@@ -36,6 +36,8 @@ class StudentsWithDisabilitiesController extends Portabilis_Controller_ReportCor
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->dynamic('situacaoMatricula');
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

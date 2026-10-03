@@ -28,6 +28,8 @@ class ReportCardTransferenceController extends Portabilis_Controller_ReportCoreC
     {
         $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola', 'curso', 'serie', 'turma']);
         $this->inputsHelper()->dynamic('transferido', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

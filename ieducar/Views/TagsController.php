@@ -28,6 +28,8 @@ class TagsController extends Portabilis_Controller_ReportCoreController
             6 => 'Abandono', 9 => 'Exceto Transferidos/Abandono', 10 => 'Todas', 12 => 'Aprovado com dependência', 13 => 'Aprovado pelo conselho'];
 
         $this->campoLista('situacao', 'Situação', $opcoes, 10);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

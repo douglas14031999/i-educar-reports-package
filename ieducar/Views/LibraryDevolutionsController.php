@@ -33,6 +33,8 @@ class LibraryDevolutionsController extends Portabilis_Controller_ReportCoreContr
     {
         $this->inputsHelper()->dynamic(['instituicao', 'escola']);
         $this->inputsHelper()->dynamic(['BibliotecaPesquisaCliente', 'dataInicial', 'dataFinal'], ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

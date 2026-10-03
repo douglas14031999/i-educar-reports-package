@@ -46,6 +46,8 @@ class RegistrationCertificateController extends Portabilis_Controller_ReportCore
         $this->campoMemo('observacoes', 'Observações', $this->observacao, 48, 5, false);
         $this->inputsHelper()->checkbox('emitir_nome_diretor', ['label' => 'Emitir nome do diretor na assinatura']);
         $this->inputsHelper()->checkbox('emitir_secretario_escolar', ['label' => 'Emitir assinatura do secretário escolar']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

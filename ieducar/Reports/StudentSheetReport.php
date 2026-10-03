@@ -634,7 +634,7 @@ SELECT (cod_aluno), public.fcn_upper(nm_instituicao) AS nome_instituicao,
           AND m.ativo = 1)) AS data_matricula
 FROM pmieducar.instituicao
 INNER JOIN pmieducar.escola ON (escola.ref_cod_instituicao = instituicao.cod_instituicao)
-INNER JOIN pmieducar.escola_ano_letivo ON (escola_ano_letivo.ref_cod_escola = escola.cod_escola)
+LEFT JOIN pmieducar.escola_ano_letivo ON (escola_ano_letivo.ref_cod_escola = escola.cod_escola AND escola_ano_letivo.ano = {$ano})
 INNER JOIN pmieducar.escola_curso ON (escola_curso.ativo = 1
                                       AND escola_curso.ref_cod_escola = escola.cod_escola)
 INNER JOIN pmieducar.curso ON (curso.cod_curso = escola_curso.ref_cod_curso
@@ -661,11 +661,11 @@ LEFT JOIN cadastro.fisica_raca ON (pessoa.idpes = fisica_raca.ref_idpes)
 LEFT JOIN cadastro.raca ON (fisica_raca.ref_cod_raca = raca.cod_raca)
 INNER JOIN pmieducar.turma_tipo ON (turma.ref_cod_turma_tipo = turma_tipo.cod_turma_tipo)
 WHERE instituicao.cod_instituicao = {$instituicao}
-  AND escola.cod_escola = {$escola}
-  AND curso.cod_curso = {$curso}
-  AND serie.cod_serie = {$serie}
-  AND turma.cod_turma = {$turma}
-  AND escola_ano_letivo.ano = {$ano}
+  AND (CASE WHEN {$escola} = 0 THEN TRUE ELSE escola.cod_escola = {$escola} END)
+  AND (CASE WHEN {$curso} = 0 THEN TRUE ELSE curso.cod_curso = {$curso} END)
+  AND (CASE WHEN {$serie} = 0 THEN TRUE ELSE serie.cod_serie = {$serie} END)
+  AND (CASE WHEN {$turma} = 0 THEN TRUE ELSE turma.cod_turma = {$turma} END)
+  AND matricula.ano = {$ano}
   AND (CASE WHEN {$matricula} = 0 THEN TRUE ELSE matricula.cod_matricula = {$matricula} END)
 ORDER BY seque_fecha,
          aluno

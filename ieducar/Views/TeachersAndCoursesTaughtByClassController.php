@@ -36,6 +36,8 @@ class TeachersAndCoursesTaughtByClassController extends Portabilis_Controller_Re
         $this->inputsHelper()->dynamic('curso');
         $this->inputsHelper()->dynamic('serie');
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

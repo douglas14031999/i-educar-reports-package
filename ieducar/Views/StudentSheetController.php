@@ -39,6 +39,8 @@ class StudentSheetController extends Portabilis_Controller_ReportCoreController
                 1 => 'Modelo 1',
             ], 'value' => 1
         ]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

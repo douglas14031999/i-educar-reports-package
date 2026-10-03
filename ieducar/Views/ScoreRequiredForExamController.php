@@ -36,6 +36,8 @@ class ScoreRequiredForExamController extends Portabilis_Controller_ReportCoreCon
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => true]);
 
+        $this->loadResourceAssets($this->getDispatcher());
+
     }
 
     /**

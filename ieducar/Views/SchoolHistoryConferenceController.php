@@ -36,6 +36,8 @@ class SchoolHistoryConferenceController extends Portabilis_Controller_ReportCore
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->dynamic('matricula', ['required' => true]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     /**

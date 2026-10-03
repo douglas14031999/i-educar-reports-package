@@ -22,6 +22,8 @@ class PendingStudentsController extends Portabilis_Controller_ReportCoreControll
         $this->inputsHelper()->dynamic(['ano', 'instituicao']);
         $this->inputsHelper()->dynamic(['EscolaObrigatorioParaNivelEscolar', 'curso', 'serie', 'turma'], ['required' => false]);
         $this->inputsHelper()->text('etapa', ['label' => 'Etapas', 'required' => false, 'size' => 32, 'placeholder' => 'Ex: 1, 2, 3']);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

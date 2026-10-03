@@ -53,6 +53,8 @@ class ServantsController extends Portabilis_Controller_ReportCoreController
         if ($lista_funcoes) {
             foreach ($lista_funcoes as $funcao) {
                 $opcoes[$funcao->cod_funcao] = $funcao->nm_funcao;
+
+        $this->loadResourceAssets($this->getDispatcher());
             }
         }
 

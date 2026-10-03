@@ -24,6 +24,8 @@ class TeachersPerSchoolClassController extends Portabilis_Controller_ReportCoreC
         $this->inputsHelper()->dynamic('curso', ['required' => false]);
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()

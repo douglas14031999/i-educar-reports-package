@@ -23,6 +23,8 @@ class NotEnrollmentController extends Portabilis_Controller_ReportCoreController
         $this->inputsHelper()->dynamic('EscolaObrigatorioParaNivelEscolar', ['required' => false]);
         $this->inputsHelper()->dynamic('curso', ['required' => false]);
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
+
+        $this->loadResourceAssets($this->getDispatcher());
     }
 
     public function report()
