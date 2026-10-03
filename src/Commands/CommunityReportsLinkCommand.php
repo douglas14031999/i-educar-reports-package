@@ -34,12 +34,16 @@ class CommunityReportsLinkCommand extends Command
             mkdir(dirname($target), 0755, true);
         }
 
-        if (is_link($target) || file_exists($target)) {
-            if (PHP_OS_FAMILY === 'Windows' && is_dir($target) && !is_link($target)) {
-                @rmdir($target);
+        if (is_link($target)) {
+            @unlink($target);
+        } elseif (is_dir($target)) {
+            if (PHP_OS_FAMILY === 'Windows') {
+                exec(sprintf('rmdir /S /Q "%s"', str_replace('/', '\\', $target)));
             } else {
-                @unlink($target);
+                exec(sprintf('rm -rf %s', escapeshellarg($target)));
             }
+        } elseif (file_exists($target)) {
+            @unlink($target);
         }
 
         if (PHP_OS_FAMILY === 'Windows') {

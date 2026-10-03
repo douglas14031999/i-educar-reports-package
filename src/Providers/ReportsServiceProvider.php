@@ -5,9 +5,7 @@ namespace iEducar\Community\Reports\Providers;
 use iEducar\Community\Reports\Commands\CommunityReportsCompileCommand;
 use iEducar\Community\Reports\Commands\CommunityReportsInstallCommand;
 use iEducar\Community\Reports\Commands\CommunityReportsLinkCommand;
-use iEducar\Reports\Contracts\TeacherReportCard;
 use Illuminate\Support\ServiceProvider;
-use TeacherReportCardReport;
 
 class ReportsServiceProvider extends ServiceProvider
 {
@@ -33,6 +31,5 @@ class ReportsServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(TeacherReportCard::class, TeacherReportCardReport::class);
     }
 }
