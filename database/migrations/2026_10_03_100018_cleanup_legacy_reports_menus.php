@@ -89,8 +89,26 @@ return new class extends Migration
         })->all();
 
         if (!empty($oldMenuIds)) {
-            // 2. Remove Foreign Keys que apontam para menus.id antes de excluir
-            // Consulta dinâmica no catálogo do PostgreSQL para descobrir todas as FKs apontando para menus.id
+            $idList = implode(',', $oldMenuIds);
+
+            // 1. Limpa explicitamente menu_tipo_usuario (todas as variações de tabela)
+            try {
+                DB::statement("DELETE FROM menu_tipo_usuario WHERE menu_id IN ({$idList})");
+            } catch (\Throwable $e) {
+            }
+
+            try {
+                DB::statement("DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id IN ({$idList})");
+            } catch (\Throwable $e) {
+            }
+
+            // 2. Desvincula qualquer parent_id em menus para evitar violação de FK interna
+            try {
+                DB::statement("UPDATE menus SET parent_id = NULL WHERE parent_id IN ({$idList})");
+            } catch (\Throwable $e) {
+            }
+
+            // 3. Remove Foreign Keys adicionais via catálogo dinâmico do PostgreSQL
             try {
                 $foreignKeys = DB::select("
                     SELECT tc.table_schema, tc.table_name, kcu.column_name
@@ -100,7 +118,6 @@ return new class extends Migration
                       AND tc.table_schema = kcu.table_schema
                     JOIN information_schema.constraint_column_usage AS ccu
                       ON ccu.constraint_name = tc.constraint_name
-                      AND ccu.table_schema = tc.table_schema
                     WHERE tc.constraint_type = 'FOREIGN KEY' 
                       AND ccu.table_name = 'menus' 
                       AND ccu.column_name = 'id'
@@ -110,26 +127,22 @@ return new class extends Migration
                     $table = $fk->table_name;
                     $column = $fk->column_name;
                     $schema = $fk->table_schema;
-                    $targetTable = ($schema && $schema !== 'public') ? "{$schema}.{$table}" : $table;
+                    $targetTable = ($schema && $schema !== 'public') ? "\"{$schema}\".\"{$table}\"" : "\"{$table}\"";
 
                     if ($table === 'menus' && $column === 'parent_id') {
-                        // Se algum menu tiver como pai um menu que será excluído, desvincula o parent_id
-                        DB::table('menus')->whereIn('parent_id', $oldMenuIds)->update(['parent_id' => null]);
-                    } else {
-                        DB::table($targetTable)->whereIn($column, $oldMenuIds)->delete();
+                        continue;
+                    }
+
+                    try {
+                        DB::statement("DELETE FROM {$targetTable} WHERE \"{$column}\" IN ({$idList})");
+                    } catch (\Throwable $e) {
                     }
                 }
             } catch (\Throwable $e) {
-                // Fallback via Schema::hasTable
-                foreach (['menu_tipo_usuario', 'pmieducar.menu_tipo_usuario'] as $permTable) {
-                    if (Schema::hasTable($permTable) && Schema::hasColumn($permTable, 'menu_id')) {
-                        DB::table($permTable)->whereIn('menu_id', $oldMenuIds)->delete();
-                    }
-                }
             }
 
-            // 3. Remove os menus antigos da tabela menus
-            DB::table('menus')->whereIn('id', $oldMenuIds)->delete();
+            // 4. Remove os menus antigos da tabela menus
+            DB::statement("DELETE FROM menus WHERE id IN ({$idList})");
         }
 
         // 4. Concede permissão para os 17 relatórios ativos
