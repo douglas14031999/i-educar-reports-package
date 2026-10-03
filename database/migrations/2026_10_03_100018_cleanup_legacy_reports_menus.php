@@ -16,136 +16,7 @@ return new class extends Migration
 
     public function up()
     {
-        $activeProcesses = [
-            999701, 999702, 999703, 999704, 999705, 999706, 999707, 999708,
-            999709, 999710, 999711, 999712, 999713, 999714, 999715, 999716, 999717
-        ];
-
-        $activeLinks = [
-            '/module/Reports/MinorConsentDeclaration',
-            '/module/Reports/AbsenceTerm',
-            '/module/Reports/EarlyChildhoodCommitmentTerm',
-            '/module/Reports/VacancyWaiverTerm',
-            '/module/Reports/StudentImageUseAuthorization',
-            '/module/Reports/EarlyChildhoodCertificate',
-            '/module/Reports/IndividualSheetAl',
-            '/module/Reports/IndividualSheet69Al',
-            '/module/Reports/StudentHousingForm',
-            '/module/Reports/StudentMedicalForm',
-            '/module/Reports/TransportationCard',
-            '/module/Reports/ClassRecordBackCover',
-            '/module/Reports/ScoreRequiredForExam',
-            '/module/Reports/TeacherReceiptStub',
-            '/module/Reports/StudentTrackingSheet',
-            '/module/Reports/IndividualSheetEja',
-            '/module/Reports/SchoolHistoryConference',
-        ];
-
-        $baseOldCategories = [
-            21126, 21127, 999301, 999922, 999300, 999923, 999303,
-            999400, 999450, 999925, 999861, 999460, 999500,
-            999913, 999916, 999914
-        ];
-
-        // 1. Identifica menus legados de relatórios para exclusão
-        // Menus de relatório possuem link apontando para /Reports/ ou /module/Reports/
-        $oldMenusQuery = Menu::query()
-            ->where(function ($q) {
-                $q->where('link', 'LIKE', '%/Reports/%')
-                  ->orWhere('link', 'LIKE', '%/module/Reports/%');
-            })
-            ->whereNotIn('link', $activeLinks);
-
-        if (Schema::hasColumn('menus', 'process')) {
-            $oldMenusQuery->whereNotIn('process', $activeProcesses);
-        }
-
-        if (Schema::hasColumn('menus', 'old')) {
-            $oldMenusQuery->whereNotIn('old', $baseOldCategories);
-            $oldMenusQuery->whereNotIn('old', $activeProcesses);
-        }
-
-        $oldMenus = $oldMenusQuery->get();
-
-        // Também seleciona processos legados 999000..999699 que possuem link preenchido (não são categorias)
-        if (Schema::hasColumn('menus', 'process')) {
-            $oldProcessMenus = Menu::query()
-                ->where('process', '>=', 999000)
-                ->where('process', '<', 999700)
-                ->whereNotIn('process', $activeProcesses)
-                ->where(function ($q) {
-                    $q->whereNotNull('link')->where('link', '!=', '');
-                });
-
-            if (Schema::hasColumn('menus', 'old')) {
-                $oldProcessMenus->whereNotIn('old', $baseOldCategories);
-            }
-
-            $oldMenus = $oldMenus->merge($oldProcessMenus->get())->unique('id');
-        }
-
-        $oldMenuIds = $oldMenus->pluck('id')->filter()->map(function ($id) {
-            return (int) $id;
-        })->all();
-
-        if (!empty($oldMenuIds)) {
-            $idList = implode(',', $oldMenuIds);
-
-            // 1. Limpa explicitamente menu_tipo_usuario (todas as variações de tabela)
-            try {
-                DB::statement("DELETE FROM menu_tipo_usuario WHERE menu_id IN ({$idList})");
-            } catch (\Throwable $e) {
-            }
-
-            try {
-                DB::statement("DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id IN ({$idList})");
-            } catch (\Throwable $e) {
-            }
-
-            // 2. Desvincula qualquer parent_id em menus para evitar violação de FK interna
-            try {
-                DB::statement("UPDATE menus SET parent_id = NULL WHERE parent_id IN ({$idList})");
-            } catch (\Throwable $e) {
-            }
-
-            // 3. Remove Foreign Keys adicionais via catálogo dinâmico do PostgreSQL
-            try {
-                $foreignKeys = DB::select("
-                    SELECT tc.table_schema, tc.table_name, kcu.column_name
-                    FROM information_schema.table_constraints AS tc 
-                    JOIN information_schema.key_column_usage AS kcu
-                      ON tc.constraint_name = kcu.constraint_name
-                      AND tc.table_schema = kcu.table_schema
-                    JOIN information_schema.constraint_column_usage AS ccu
-                      ON ccu.constraint_name = tc.constraint_name
-                    WHERE tc.constraint_type = 'FOREIGN KEY' 
-                      AND ccu.table_name = 'menus' 
-                      AND ccu.column_name = 'id'
-                ");
-
-                foreach ($foreignKeys as $fk) {
-                    $table = $fk->table_name;
-                    $column = $fk->column_name;
-                    $schema = $fk->table_schema;
-                    $targetTable = ($schema && $schema !== 'public') ? "\"{$schema}\".\"{$table}\"" : "\"{$table}\"";
-
-                    if ($table === 'menus' && $column === 'parent_id') {
-                        continue;
-                    }
-
-                    try {
-                        DB::statement("DELETE FROM {$targetTable} WHERE \"{$column}\" IN ({$idList})");
-                    } catch (\Throwable $e) {
-                    }
-                }
-            } catch (\Throwable $e) {
-            }
-
-            // 4. Remove os menus antigos da tabela menus
-            DB::statement("DELETE FROM menus WHERE id IN ({$idList})");
-        }
-
-        // 4. Concede permissão para os 17 relatórios ativos
+        // Garante permissões em menu_tipo_usuario para todos os relatórios e menus
         try {
             $permTable = null;
             if (Schema::hasTable('menu_tipo_usuario')) {
@@ -185,11 +56,11 @@ return new class extends Migration
                 $hasProcess = in_array('ref_processo_ap', $columns);
 
                 if ($userTypeFkCol && ($hasMenuId || $hasProcess) && !empty($tipos)) {
-                    $activeMenus = Menu::query()->whereIn('process', $activeProcesses)->get();
+                    $allMenus = Menu::query()->whereNotNull('process')->get();
 
-                    foreach ($activeMenus as $activeMenu) {
-                        $menuId = (int) $activeMenu->getKey();
-                        $proc = (int) $activeMenu->process;
+                    foreach ($allMenus as $menu) {
+                        $menuId = (int) $menu->getKey();
+                        $proc = (int) $menu->process;
 
                         foreach ($tipos as $tipoId) {
                             $query = DB::table($permTable)->where($userTypeFkCol, $tipoId);
@@ -219,14 +90,16 @@ return new class extends Migration
                                     $data['exclui'] = 1;
                                 }
 
-                                DB::table($permTable)->insert($data);
+                                try {
+                                    DB::table($permTable)->insert($data);
+                                } catch (\Throwable $e) {
+                                }
                             }
                         }
                     }
                 }
             }
         } catch (\Throwable $e) {
-            // Permissões já existentes ou tratadas
         }
     }
 

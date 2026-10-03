@@ -31,5 +31,8 @@ class ReportsServiceProvider extends ServiceProvider
 
     public function register()
     {
+        if (interface_exists(\iEducar\Reports\Contracts\TeacherReportCard::class) && class_exists(\TeacherReportCardReport::class)) {
+            $this->app->bind(\iEducar\Reports\Contracts\TeacherReportCard::class, \TeacherReportCardReport::class);
+        }
     }
 }
