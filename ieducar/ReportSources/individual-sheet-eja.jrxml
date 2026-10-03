@@ -23,6 +23,9 @@
 	</parameter>
 
 
+		<parameter name="emitir_nome_diretor" class="java.lang.Boolean"><defaultValueExpression><![CDATA[true]]></defaultValueExpression></parameter>
+	<parameter name="emitir_secretario_escolar" class="java.lang.Boolean"><defaultValueExpression><![CDATA[true]]></defaultValueExpression></parameter>
+
 	<queryString language="json"><![CDATA[main]]></queryString>
 
 	<field name="nm_instituicao" class="java.lang.String"/>

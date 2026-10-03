@@ -21,6 +21,11 @@
 	</parameter>
 
 
+		<parameter name="SUBREPORT_DIR" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="data_emissao" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="emitir_nome_diretor" class="java.lang.Boolean"><defaultValueExpression><![CDATA[true]]></defaultValueExpression></parameter>
+	<parameter name="emitir_secretario_escolar" class="java.lang.Boolean"><defaultValueExpression><![CDATA[true]]></defaultValueExpression></parameter>
+
 	<queryString language="json"><![CDATA[main]]></queryString>
 
 	<field name="nm_instituicao" class="java.lang.String"/>
