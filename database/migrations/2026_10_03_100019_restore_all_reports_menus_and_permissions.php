@@ -15,7 +15,22 @@ class RestoreAllReportsMenusAndPermissions extends Migration
 
     public function up()
     {
-        // 1. Garante a função PostgreSQL verifica_existe_matricula_posterior_mesma_turma
+        // 1. Limpeza de menus legados duplicados (IDs 457 a 482)
+        try {
+            $duplicateIds = [457, 458, 459, 460, 461, 462, 464, 465, 466, 467, 468, 469, 470, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482];
+            DB::table('menus')->whereIn('id', $duplicateIds)->orWhereIn('old', $duplicateIds)->delete();
+
+            if (Schema::hasTable('menu_tipo_usuario')) {
+                DB::table('menu_tipo_usuario')->whereIn('menu_id', $duplicateIds)->delete();
+            }
+            if (Schema::hasTable('pmieducar.menu_tipo_usuario')) {
+                DB::table('pmieducar.menu_tipo_usuario')->whereIn('menu_id', $duplicateIds)->delete();
+            }
+        } catch (\Throwable $e) {
+            // Ignora se não existir
+        }
+
+        // 2. Garante a função PostgreSQL verifica_existe_matricula_posterior_mesma_turma
         try {
             DB::statement("
                 CREATE OR REPLACE FUNCTION public.verifica_existe_matricula_posterior_mesma_turma(p_cod_matricula integer, p_cod_turma integer)
@@ -35,7 +50,7 @@ class RestoreAllReportsMenusAndPermissions extends Migration
                 \$\$ LANGUAGE plpgsql;
             ");
         } catch (\Throwable $e) {
-            // Ignora se não puder criar função por falta de permissão no DB
+            // Ignora
         }
 
         $categories = [
@@ -62,36 +77,23 @@ class RestoreAllReportsMenusAndPermissions extends Migration
         ];
 
         $items = [
-            ['id' => 457, 'old' => 457, 'parent_old' => 999300, 'title' => 'Distribuição de uniforme por aluno', 'description' => null, 'link' => '/module/Reports/DistributionOfUniformPerStudent', 'order' => 1, 'process' => 999224],
-            ['id' => 458, 'old' => 458, 'parent_old' => 999300, 'title' => 'Relatório de alunos com deficiência', 'description' => null, 'link' => '/module/Reports/StudentsWithDisabilities', 'order' => 2, 'process' => 999227],
-            ['id' => 459, 'old' => 459, 'parent_old' => 999300, 'title' => 'Relatório de alunos que recebem benefícios', 'description' => null, 'link' => '/module/Reports/StudentsWithBenefits', 'order' => 3, 'process' => 999226],
-            ['id' => 460, 'old' => 460, 'parent_old' => 999300, 'title' => 'Relatório de alunos participantes de projetos', 'description' => null, 'link' => '/module/Reports/StudentsPerProjects', 'order' => 4, 'process' => 999228],
-            ['id' => 461, 'old' => 461, 'parent_old' => 999300, 'title' => 'Relatório de ocorrências disciplinares por aluno', 'description' => null, 'link' => '/module/Reports/StudentDisciplinaryOccurrence', 'order' => 5, 'process' => 999868],
-            ['id' => 462, 'old' => 462, 'parent_old' => 999300, 'title' => 'Relatório geral de escolas', 'description' => null, 'link' => '/module/Reports/GeneralSchools', 'order' => 6, 'process' => 999862],
-            ['id' => 464, 'old' => 464, 'parent_old' => 999300, 'title' => 'Turmas (cadastral completo)', 'description' => null, 'link' => '/module/Reports/GeneralSchools', 'order' => 7, 'process' => 999862],
-            ['id' => 465, 'old' => 465, 'parent_old' => 999300, 'title' => 'Alunos por bairro/localização', 'description' => null, 'link' => '/module/Reports/StudentsPerClass', 'order' => 8, 'process' => 999101],
-            ['id' => 466, 'old' => 466, 'parent_old' => 999300, 'title' => 'Alunos em programas sociais', 'description' => null, 'link' => '/module/Reports/StudentsWithBenefits', 'order' => 9, 'process' => 999226],
-            ['id' => 467, 'old' => 467, 'parent_old' => 999300, 'title' => 'Restrições alimentares e saúde', 'description' => null, 'link' => '/module/Reports/StudentMedicalForm', 'order' => 10, 'process' => 999710],
-            ['id' => 468, 'old' => 468, 'parent_old' => 999300, 'title' => 'Relatório de etiquetas para mala direta', 'description' => null, 'link' => '/module/Reports/Tags', 'order' => 11, 'process' => 999235],
-            ['id' => 469, 'old' => 469, 'parent_old' => 999300, 'title' => 'Lista de alunos para assinatura dos pais', 'description' => null, 'link' => '/module/Reports/ParentSignature', 'order' => 12, 'process' => 999870],
-            ['id' => 999807, 'old' => 999807, 'parent_old' => 999300, 'title' => 'Relação de aniversariantes do mês', 'description' => null, 'link' => '/module/Reports/Birthdays', 'order' => 13, 'process' => 999807],
-            ['id' => 999864, 'old' => 999864, 'parent_old' => 999300, 'title' => 'Relatório cadastral de servidores', 'description' => null, 'link' => '/module/Reports/Servants', 'order' => 14, 'process' => 999864],
-            ['id' => 999863, 'old' => 999863, 'parent_old' => 999300, 'title' => 'Ficha do Servidor', 'description' => null, 'link' => '/module/Reports/ServantSheet', 'order' => 15, 'process' => 999863],
-            ['id' => 999201, 'old' => 999201, 'parent_old' => 999300, 'title' => 'Usuários do transporte escolar', 'description' => null, 'link' => '/module/Reports/TransportationUsers', 'order' => 16, 'process' => 999201],
-            ['id' => 999202, 'old' => 999202, 'parent_old' => 999300, 'title' => 'Motoristas do transporte escolar', 'description' => null, 'link' => '/module/Reports/Drivers', 'order' => 17, 'process' => 999202],
-            ['id' => 999208, 'old' => 999208, 'parent_old' => 999300, 'title' => 'Obras da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryWorks', 'order' => 18, 'process' => 999208],
-            ['id' => 999209, 'old' => 999209, 'parent_old' => 999300, 'title' => 'Autores da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryAuthors', 'order' => 19, 'process' => 999209],
-            ['id' => 999210, 'old' => 999210, 'parent_old' => 999300, 'title' => 'Editoras da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryPublishers', 'order' => 20, 'process' => 999210],
-            ['id' => 999211, 'old' => 999211, 'parent_old' => 999300, 'title' => 'Clientes da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryClients', 'order' => 21, 'process' => 999211],
             ['id' => 999224, 'old' => 999224, 'parent_old' => 999300, 'title' => 'Distribuição de uniforme por aluno', 'description' => null, 'link' => '/module/Reports/DistributionOfUniformPerStudent', 'order' => 1, 'process' => 999224],
             ['id' => 999227, 'old' => 999227, 'parent_old' => 999300, 'title' => 'Relatório de alunos com deficiência', 'description' => null, 'link' => '/module/Reports/StudentsWithDisabilities', 'order' => 2, 'process' => 999227],
             ['id' => 999226, 'old' => 999226, 'parent_old' => 999300, 'title' => 'Relatório de alunos que recebem benefícios', 'description' => null, 'link' => '/module/Reports/StudentsWithBenefits', 'order' => 3, 'process' => 999226],
             ['id' => 999228, 'old' => 999228, 'parent_old' => 999300, 'title' => 'Relatório de alunos participantes de projetos', 'description' => null, 'link' => '/module/Reports/StudentsPerProjects', 'order' => 4, 'process' => 999228],
             ['id' => 999868, 'old' => 999868, 'parent_old' => 999300, 'title' => 'Relatório de ocorrências disciplinares por aluno', 'description' => null, 'link' => '/module/Reports/StudentDisciplinaryOccurrence', 'order' => 5, 'process' => 999868],
             ['id' => 999862, 'old' => 999862, 'parent_old' => 999300, 'title' => 'Relatório geral de escolas', 'description' => null, 'link' => '/module/Reports/GeneralSchools', 'order' => 6, 'process' => 999862],
-            ['id' => 999235, 'old' => 999235, 'parent_old' => 999300, 'title' => 'Relatório de etiquetas para mala direta', 'description' => null, 'link' => '/module/Reports/Tags', 'order' => 11, 'process' => 999235],
-            ['id' => 999870, 'old' => 999870, 'parent_old' => 999300, 'title' => 'Lista de alunos para assinatura dos pais', 'description' => null, 'link' => '/module/Reports/ParentSignature', 'order' => 12, 'process' => 999870],
-            ['id' => 470, 'old' => 470, 'parent_old' => 999301, 'title' => 'Relatório de alunos transferidos/abandono', 'description' => null, 'link' => '/module/Reports/StudentsTransferredAbandonment', 'order' => 1, 'process' => 999225],
+            ['id' => 999235, 'old' => 999235, 'parent_old' => 999300, 'title' => 'Relatório de etiquetas para mala direta', 'description' => null, 'link' => '/module/Reports/Tags', 'order' => 7, 'process' => 999235],
+            ['id' => 999870, 'old' => 999870, 'parent_old' => 999300, 'title' => 'Lista de alunos para assinatura dos pais', 'description' => null, 'link' => '/module/Reports/ParentSignature', 'order' => 8, 'process' => 999870],
+            ['id' => 999807, 'old' => 999807, 'parent_old' => 999300, 'title' => 'Relação de aniversariantes do mês', 'description' => null, 'link' => '/module/Reports/Birthdays', 'order' => 9, 'process' => 999807],
+            ['id' => 999864, 'old' => 999864, 'parent_old' => 999300, 'title' => 'Relatório cadastral de servidores', 'description' => null, 'link' => '/module/Reports/Servants', 'order' => 10, 'process' => 999864],
+            ['id' => 999863, 'old' => 999863, 'parent_old' => 999300, 'title' => 'Ficha do Servidor', 'description' => null, 'link' => '/module/Reports/ServantSheet', 'order' => 11, 'process' => 999863],
+            ['id' => 999201, 'old' => 999201, 'parent_old' => 999300, 'title' => 'Usuários do transporte escolar', 'description' => null, 'link' => '/module/Reports/TransportationUsers', 'order' => 12, 'process' => 999201],
+            ['id' => 999202, 'old' => 999202, 'parent_old' => 999300, 'title' => 'Motoristas do transporte escolar', 'description' => null, 'link' => '/module/Reports/Drivers', 'order' => 13, 'process' => 999202],
+            ['id' => 999208, 'old' => 999208, 'parent_old' => 999300, 'title' => 'Obras da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryWorks', 'order' => 14, 'process' => 999208],
+            ['id' => 999209, 'old' => 999209, 'parent_old' => 999300, 'title' => 'Autores da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryAuthors', 'order' => 15, 'process' => 999209],
+            ['id' => 999210, 'old' => 999210, 'parent_old' => 999300, 'title' => 'Editoras da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryPublishers', 'order' => 16, 'process' => 999210],
+            ['id' => 999211, 'old' => 999211, 'parent_old' => 999300, 'title' => 'Clientes da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryClients', 'order' => 17, 'process' => 999211],
             ['id' => 999225, 'old' => 999225, 'parent_old' => 999301, 'title' => 'Relatório de alunos transferidos/abandono', 'description' => null, 'link' => '/module/Reports/StudentsTransferredAbandonment', 'order' => 1, 'process' => 999225],
             ['id' => 9998868, 'old' => 9998868, 'parent_old' => 999301, 'title' => 'Movimento geral', 'description' => null, 'link' => '/module/Reports/GeneralMovement', 'order' => 2, 'process' => 9998868],
             ['id' => 9998862, 'old' => 9998862, 'parent_old' => 999301, 'title' => 'Relatório de Movimento Mensal', 'description' => null, 'link' => '/module/Reports/MonthlyMovement', 'order' => 3, 'process' => 9998862],
@@ -100,28 +102,17 @@ class RestoreAllReportsMenusAndPermissions extends Migration
             ['id' => 999213, 'old' => 999213, 'parent_old' => 999301, 'title' => 'Devoluções da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryDevolutions', 'order' => 6, 'process' => 999213],
             ['id' => 999214, 'old' => 999214, 'parent_old' => 999301, 'title' => 'Comprovante de empréstimo da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryLoanReceipt', 'order' => 7, 'process' => 999214],
             ['id' => 999215, 'old' => 999215, 'parent_old' => 999301, 'title' => 'Comprovante de devolução da biblioteca', 'description' => null, 'link' => '/module/Reports/LibraryDevolutionReceipt', 'order' => 8, 'process' => 999215],
-            ['id' => 472, 'old' => 472, 'parent_old' => 999922, 'title' => 'Relatório de conferência de notas e faltas', 'description' => null, 'link' => '/module/Reports/ConferenceEvaluationsFaults', 'order' => 1, 'process' => 999805],
             ['id' => 999805, 'old' => 999805, 'parent_old' => 999922, 'title' => 'Relatório de conferência de notas e faltas', 'description' => null, 'link' => '/module/Reports/ConferenceEvaluationsFaults', 'order' => 1, 'process' => 999805],
-            ['id' => 473, 'old' => 473, 'parent_old' => 999922, 'title' => 'Relatório de notas e faltas lançadas', 'description' => null, 'link' => '/module/Reports/ScoreAbsenceRelease', 'order' => 2, 'process' => 999231],
             ['id' => 999231, 'old' => 999231, 'parent_old' => 999922, 'title' => 'Relatório de notas e faltas lançadas', 'description' => null, 'link' => '/module/Reports/ScoreAbsenceRelease', 'order' => 2, 'process' => 999231],
             ['id' => 999713, 'old' => 999713, 'parent_old' => 999922, 'title' => 'Nota necessária para exame', 'description' => null, 'link' => '/module/Reports/ScoreRequiredForExam', 'order' => 3, 'process' => 999713],
-            ['id' => 474, 'old' => 474, 'parent_old' => 999923, 'title' => 'Relatório de alunos por turma', 'description' => null, 'link' => '/module/Reports/StudentsPerClass', 'order' => 1, 'process' => 999101],
             ['id' => 999101, 'old' => 999101, 'parent_old' => 999923, 'title' => 'Relatório de alunos por turma', 'description' => null, 'link' => '/module/Reports/StudentsPerClass', 'order' => 1, 'process' => 999101],
-            ['id' => 475, 'old' => 475, 'parent_old' => 999923, 'title' => 'Relatório de alunos por data de entrada e enturmação', 'description' => null, 'link' => '/module/Reports/StudentsEntranceAndAllocation', 'order' => 2, 'process' => 999220],
             ['id' => 999220, 'old' => 999220, 'parent_old' => 999923, 'title' => 'Relatório de alunos por data de entrada e enturmação', 'description' => null, 'link' => '/module/Reports/StudentsEntranceAndAllocation', 'order' => 2, 'process' => 999220],
-            ['id' => 476, 'old' => 476, 'parent_old' => 999923, 'title' => 'Movimento de alunos e enturmações', 'description' => null, 'link' => '/module/Reports/StudentsMovement', 'order' => 3, 'process' => 999221],
             ['id' => 999221, 'old' => 999221, 'parent_old' => 999923, 'title' => 'Movimento de alunos e enturmações', 'description' => null, 'link' => '/module/Reports/StudentsMovement', 'order' => 3, 'process' => 999221],
-            ['id' => 477, 'old' => 477, 'parent_old' => 999923, 'title' => 'Relatório de matrículas de alunos por escola', 'description' => null, 'link' => '/module/Reports/RegistrationSchool', 'order' => 4, 'process' => 999105],
             ['id' => 999105, 'old' => 999105, 'parent_old' => 999923, 'title' => 'Relatório de matrículas de alunos por escola', 'description' => null, 'link' => '/module/Reports/RegistrationSchool', 'order' => 4, 'process' => 999105],
-            ['id' => 478, 'old' => 478, 'parent_old' => 999923, 'title' => 'Relatório de alunos não enturmados por escola', 'description' => null, 'link' => '/module/Reports/NotEnrollment', 'order' => 5, 'process' => 999108],
             ['id' => 999108, 'old' => 999108, 'parent_old' => 999923, 'title' => 'Relatório de alunos não enturmados por escola', 'description' => null, 'link' => '/module/Reports/NotEnrollment', 'order' => 5, 'process' => 999108],
-            ['id' => 479, 'old' => 479, 'parent_old' => 999923, 'title' => 'Mapa quantitativo de matrículas enturmadas', 'description' => null, 'link' => '/module/Reports/EnrollmentQuantitativeMap', 'order' => 6, 'process' => 999218],
             ['id' => 999218, 'old' => 999218, 'parent_old' => 999923, 'title' => 'Mapa quantitativo de matrículas enturmadas', 'description' => null, 'link' => '/module/Reports/EnrollmentQuantitativeMap', 'order' => 6, 'process' => 999218],
-            ['id' => 480, 'old' => 480, 'parent_old' => 999303, 'title' => 'Gráfico de distorção idade/série', 'description' => null, 'link' => '/module/Reports/AgeDistortionInSerie', 'order' => 1, 'process' => 999804],
             ['id' => 999804, 'old' => 999804, 'parent_old' => 999303, 'title' => 'Gráfico de distorção idade/série', 'description' => null, 'link' => '/module/Reports/AgeDistortionInSerie', 'order' => 1, 'process' => 999804],
-            ['id' => 481, 'old' => 481, 'parent_old' => 999303, 'title' => 'Comparativo de média da turma', 'description' => null, 'link' => '/module/Reports/ClassAverageComparative', 'order' => 2, 'process' => 999808],
             ['id' => 999808, 'old' => 999808, 'parent_old' => 999303, 'title' => 'Comparativo de média da turma', 'description' => null, 'link' => '/module/Reports/ClassAverageComparative', 'order' => 2, 'process' => 999808],
-            ['id' => 482, 'old' => 482, 'parent_old' => 999303, 'title' => 'Relatório de alunos com o melhor desempenho', 'description' => null, 'link' => '/module/Reports/StudentsAverage', 'order' => 3, 'process' => 999219],
             ['id' => 999219, 'old' => 999219, 'parent_old' => 999303, 'title' => 'Relatório de alunos com o melhor desempenho', 'description' => null, 'link' => '/module/Reports/StudentsAverage', 'order' => 3, 'process' => 999219],
             ['id' => 999883, 'old' => 999883, 'parent_old' => 999303, 'title' => 'Quantitativo de alunos sem nota', 'description' => null, 'link' => '/module/Reports/PendingStudents', 'order' => 4, 'process' => 999883],
             ['id' => 999884, 'old' => 999884, 'parent_old' => 999303, 'title' => 'Média dos alunos', 'description' => null, 'link' => '/module/Reports/StudentsAverage', 'order' => 5, 'process' => 999884],
@@ -176,10 +167,9 @@ class RestoreAllReportsMenusAndPermissions extends Migration
         $hasParentOld = in_array('parent_old', $menuColumns);
         $hasProcess = in_array('process', $menuColumns);
 
-        // 2. Insere/Atualiza Categorias
+        // 3. Insere/Atualiza Categorias
         $resolvedParentIds = [];
 
-        // Identifica IDs reais dos pais base
         $schoolMenu = Menu::query()->where('old', 15)->orWhere('old', Process::MENU_SCHOOL)->first();
         $schoolId = $schoolMenu ? $schoolMenu->getKey() : 15;
 
@@ -229,11 +219,11 @@ class RestoreAllReportsMenusAndPermissions extends Migration
                 $resolvedParentIds[$cat['old']] = $model->getKey();
                 $resolvedParentIds[$cat['id']] = $model->getKey();
             } catch (\Throwable $e) {
-                // Prossegue caso algum menu específico já exista de forma conflitante
+                // Prossegue
             }
         }
 
-        // 3. Insere/Atualiza Itens de Relatórios e Documentos
+        // 4. Insere/Atualiza Itens Canônicos de Relatórios e Documentos
         foreach ($items as $it) {
             try {
                 $parentId = null;
@@ -272,7 +262,35 @@ class RestoreAllReportsMenusAndPermissions extends Migration
             }
         }
 
-        // 4. Garante permissões em menu_tipo_usuario para TODOS os menus cadastrados
+        // 5. Deduplicação inteligente de menus com mesmo link ou mesmo title sob o mesmo parent_id
+        try {
+            $allMenus = Menu::query()->whereNotNull('link')->get();
+            $seen = [];
+            foreach ($allMenus as $m) {
+                $key = $m->parent_id . '|' . $m->link;
+                if (isset($seen[$key])) {
+                    // Deleta o duplicado mais antigo ou com menor id
+                    $toDelete = ($m->getKey() < $seen[$key]->getKey()) ? $m : $seen[$key];
+                    $toKeep = ($m->getKey() < $seen[$key]->getKey()) ? $seen[$key] : $m;
+
+                    $deleteId = $toDelete->getKey();
+                    if (Schema::hasTable('menu_tipo_usuario')) {
+                        DB::table('menu_tipo_usuario')->where('menu_id', $deleteId)->delete();
+                    }
+                    if (Schema::hasTable('pmieducar.menu_tipo_usuario')) {
+                        DB::table('pmieducar.menu_tipo_usuario')->where('menu_id', $deleteId)->delete();
+                    }
+                    $toDelete->delete();
+                    $seen[$key] = $toKeep;
+                } else {
+                    $seen[$key] = $m;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Ignora
+        }
+
+        // 6. Garante permissões em menu_tipo_usuario para TODOS os menus válidos
         try {
             $permTable = null;
             if (Schema::hasTable('menu_tipo_usuario')) {
@@ -284,7 +302,6 @@ class RestoreAllReportsMenusAndPermissions extends Migration
             if ($permTable) {
                 $columns = Schema::getColumnListing($permTable);
 
-                // Busca tabela de tipos de usuário
                 $tipoUsuarioTable = null;
                 foreach (['tipo_usuario', 'pmieducar.tipo_usuario'] as $tut) {
                     if (Schema::hasTable($tut)) {
@@ -311,7 +328,6 @@ class RestoreAllReportsMenusAndPermissions extends Migration
                 $hasProcessCol = in_array('ref_processo_ap', $columns);
 
                 if ($userTypeFkCol && ($hasMenuId || $hasProcessCol) && !empty($tipos)) {
-                    // Pega todos os menus de relatórios e documentos
                     $allTargetMenus = Menu::query()->get();
 
                     foreach ($allTargetMenus as $targetMenu) {
@@ -350,7 +366,6 @@ class RestoreAllReportsMenusAndPermissions extends Migration
                                     }
                                     DB::table($permTable)->insert($row);
                                 } else {
-                                    // Assegura que visualiza = 1
                                     $updateData = [];
                                     if (in_array('visualiza', $columns)) {
                                         $updateData['visualiza'] = 1;
@@ -366,19 +381,18 @@ class RestoreAllReportsMenusAndPermissions extends Migration
                                     }
                                 }
                             } catch (\Throwable $e) {
-                                // Ignora duplicações eventuais
+                                // Ignora
                             }
                         }
                     }
                 }
             }
         } catch (\Throwable $e) {
-            // Ignora erro geral de permissões
+            // Ignora
         }
     }
 
     public function down()
     {
-        // Não remove para evitar quebra de navegação
     }
 }

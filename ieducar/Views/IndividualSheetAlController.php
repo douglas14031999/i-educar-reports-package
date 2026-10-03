@@ -48,11 +48,11 @@ class IndividualSheetAlController extends Portabilis_Controller_ReportCoreContro
     public function beforeValidation()
     {
         $this->report->addArg('ano', (int) $this->getRequest()->ano);
-        $this->report->addArg('instituicao', (int) $this->getRequest()->ref_cod_instituicao);
-        $this->report->addArg('escola', (int) $this->getRequest()->ref_cod_escola);
-        $this->report->addArg('curso', (int) $this->getRequest()->ref_cod_curso);
-        $this->report->addArg('serie', (int) $this->getRequest()->ref_cod_serie);
-        $this->report->addArg('turma', (int) $this->getRequest()->ref_cod_turma);
+        $this->report->addArg('instituicao', (int) ($this->getRequest()->ref_cod_instituicao ?: ($this->getRequest()->instituicao_id ?: $this->getRequest()->instituicao)));
+        $this->report->addArg('escola', (int) ($this->getRequest()->ref_cod_escola ?: ($this->getRequest()->escola_id ?: $this->getRequest()->escola)));
+        $this->report->addArg('curso', (int) ($this->getRequest()->ref_cod_curso ?: ($this->getRequest()->curso_id ?: $this->getRequest()->curso)));
+        $this->report->addArg('serie', (int) ($this->getRequest()->ref_cod_serie ?: ($this->getRequest()->serie_id ?: $this->getRequest()->serie)));
+        $this->report->addArg('turma', (int) ($this->getRequest()->ref_cod_turma ?: ($this->getRequest()->turma_id ?: $this->getRequest()->turma)));
         $matricula = (int) ($this->getRequest()->ref_cod_matricula ?: ($this->getRequest()->matricula_id ?: $this->getRequest()->matricula));
         $this->report->addArg('matricula', $matricula);
         $this->report->addArg('emitir_nome_diretor', (bool) $this->getRequest()->emitir_nome_diretor);

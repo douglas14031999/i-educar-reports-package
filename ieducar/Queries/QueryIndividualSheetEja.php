@@ -5,6 +5,9 @@ class QueryIndividualSheetEja extends QueryBridge
     protected function getDefaultData()
     {
         return [
+            'instituicao' => 0,
+            'escola' => 0,
+            'ano' => 0,
             'curso' => 0,
             'serie' => 0,
             'turma' => 0,
@@ -17,13 +20,14 @@ class QueryIndividualSheetEja extends QueryBridge
         return <<<'SQL'
 SELECT 
     instituicao.cod_instituicao,
-    public.fcn_upper(instituicao.nm_instituicao) AS nm_instituicao,
-    public.fcn_upper(instituicao.nm_responsavel) AS nm_responsavel,
+    upper(instituicao.nm_instituicao) AS nm_instituicao,
+    upper(instituicao.nm_responsavel) AS nm_responsavel,
     escola.cod_escola,
     COALESCE(
         (SELECT j.fantasia FROM cadastro.juridica j WHERE j.idpes = escola.ref_idpes LIMIT 1),
+        (SELECT p.nome FROM cadastro.pessoa p WHERE p.idpes = escola.ref_idpes LIMIT 1),
         pessoa_escola.nome,
-        relatorio.get_nome_escola(escola.cod_escola)
+        'Não informado'
     ) AS nm_escola,
     curso.nm_curso,
     serie.nm_serie,
@@ -31,7 +35,7 @@ SELECT
     COALESCE(turma_turno.nome, 'Noturno') AS periodo,
     aluno.cod_aluno,
     matricula.cod_matricula,
-    public.fcn_upper(pessoa.nome) AS nome_aluno,
+    upper(pessoa.nome) AS nome_aluno,
     to_char(fisica.data_nasc, 'DD/MM/YYYY') AS data_nasc,
     fisica.sexo,
     fisica.cpf,
@@ -39,12 +43,12 @@ SELECT
     componente_curricular.id AS cod_disciplina,
     componente_curricular.nome AS nm_disciplina,
     componente_curricular.ordenamento,
-    COALESCE(replace(trunc(nccm.media_arredondada::numeric, 1)::TEXT, '.', ','), '-') AS media_final,
+    COALESCE(replace(nccm.media_arredondada::text, '.', ','), '-') AS media_final,
     COALESCE(falta_disciplina.total_faltas, 0) AS total_faltas,
     to_char(CURRENT_DATE, 'DD/MM/YYYY') AS data_atual,
-    public.data_para_extenso(CURRENT_DATE) AS data_extenso,
-    COALESCE((SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_gestor = p.idpes LIMIT 1), 'Direção Escolar') AS gestor_escolar,
-    COALESCE((SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_secretario_escolar = p.idpes LIMIT 1), 'Secretaria Escolar') AS secretario_escolar
+    to_char(CURRENT_DATE, 'DD/MM/YYYY') AS data_extenso,
+    COALESCE((SELECT upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_gestor = p.idpes LIMIT 1), 'Direção Escolar') AS gestor_escolar,
+    COALESCE((SELECT upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_secretario_escolar = p.idpes LIMIT 1), 'Secretaria Escolar') AS secretario_escolar
 FROM pmieducar.instituicao
 INNER JOIN pmieducar.escola ON (escola.ref_cod_instituicao = instituicao.cod_instituicao)
 LEFT JOIN cadastro.pessoa pessoa_escola ON (pessoa_escola.idpes = escola.ref_idpes)
@@ -67,12 +71,12 @@ LEFT JOIN relatorio.view_componente_curricular componente_curricular ON (compone
 LEFT JOIN modules.nota_aluno ON (nota_aluno.matricula_id = matricula.cod_matricula)
 LEFT JOIN modules.nota_componente_curricular_media nccm ON (nccm.nota_aluno_id = nota_aluno.id AND nccm.componente_curricular_id = componente_curricular.id)
 LEFT JOIN (
-    SELECT f.matricula_id, f.componente_curricular_id, SUM(f.quantidade) AS total_faltas
+    SELECT fa.matricula_id, f.componente_curricular_id, SUM(f.quantidade) AS total_faltas
     FROM modules.falta_aluno fa
     INNER JOIN modules.falta_componente_curricular f ON (f.falta_aluno_id = fa.id)
-    GROUP BY f.matricula_id, f.componente_curricular_id
+    GROUP BY fa.matricula_id, f.componente_curricular_id
 ) falta_disciplina ON (falta_disciplina.matricula_id = matricula.cod_matricula AND falta_disciplina.componente_curricular_id = componente_curricular.id)
-WHERE instituicao.cod_instituicao = $P{instituicao}
+WHERE (CASE WHEN $P{instituicao} = 0 THEN TRUE ELSE instituicao.cod_instituicao = $P{instituicao} END)
   AND (CASE WHEN $P{escola} = 0 THEN TRUE ELSE escola.cod_escola = $P{escola} END)
   AND (CASE WHEN $P{curso} = 0 THEN TRUE ELSE curso.cod_curso = $P{curso} END)
   AND (CASE WHEN $P{serie} = 0 THEN TRUE ELSE serie.cod_serie = $P{serie} END)
@@ -84,7 +88,7 @@ WHERE instituicao.cod_instituicao = $P{instituicao}
       WHERE mt.ref_cod_matricula = matricula.cod_matricula
         AND mt.ref_cod_turma = turma.cod_turma
   )
-  ORDER BY pessoa.nome, componente_curricular.ordenamento, componente_curricular.nome
+ORDER BY pessoa.nome, componente_curricular.ordenamento, componente_curricular.nome
 SQL;
     }
 }

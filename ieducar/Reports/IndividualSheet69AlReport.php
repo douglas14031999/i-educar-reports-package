@@ -15,8 +15,7 @@ class IndividualSheet69AlReport extends Portabilis_Report_ReportCore
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
-    }
+            }
 
     public function getJsonData()
     {
