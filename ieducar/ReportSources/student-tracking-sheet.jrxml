@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="student-tracking-sheet" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="track-sheet-999715">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="matricula" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="data_emissao" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="cod_escola" class="java.lang.Integer"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="cod_aluno" class="java.lang.Integer"/>
+	<field name="cod_matricula" class="java.lang.Integer"/>
+	<field name="data_nasc" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="nm_pai" class="java.lang.String"/>
+	<field name="nm_mae" class="java.lang.String"/>
+	<field name="situacao_aluno" class="java.lang.String"/>
+	<field name="data_atual" class="java.lang.String"/>
+
+	<group name="aluno_group" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{cod_matricula}]]></groupExpression>
+		<groupHeader>
+			<band height="90">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-track"/>
+					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA DE ACOMPANHAMENTO INDIVIDUAL DO ALUNO"]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_escola"><subreportParameterExpression><![CDATA[$F{cod_escola}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="ano"><subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="data_emissao"><subreportParameterExpression><![CDATA[$P{data_emissao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="source"><subreportParameterExpression><![CDATA[$P{source}]]></subreportParameterExpression></subreportParameter>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header-portrait.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+
+	<detail>
+		<band height="680" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="60" backcolor="#F9F9F9" uuid="r-track-cad"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="10" width="370" height="13" uuid="t-al-t"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd-t"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="25" width="535" height="13" uuid="t-inf-t"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Nasc: " + $F{data_nasc} + "   Sexo: " + $F{sexo} + "   Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - " + $F{nm_curso} + " - " + $F{nm_serie} + " | Ano: " + $P{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="40" width="535" height="13" uuid="t-fil-t"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Filiação: " + $F{nm_mae} + " / " + $F{nm_pai} + "  |  Situação: " + $F{situacao_aluno}]]></textFieldExpression>
+			</textField>
+
+			<!-- 4 Quadros de Acompanhamento Bimestral / Semestral -->
+			<rectangle>
+				<reportElement x="0" y="75" width="555" height="130" uuid="b-1b"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="80" width="535" height="14" forecolor="#003366" uuid="st-1b"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<text><![CDATA[1º BIMESTRE - DESEMPENHO COGNITIVO, ATITUDINAL E INTERVENÇÕES REALIZADAS]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="215" width="555" height="130" uuid="b-2b"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="220" width="535" height="14" forecolor="#003366" uuid="st-2b"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<text><![CDATA[2º BIMESTRE - AVANÇOS, DIFICULDADES E ADAPTAÇÕES CURRICULARES]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="355" width="555" height="130" uuid="b-3b"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="360" width="535" height="14" forecolor="#003366" uuid="st-3b"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<text><![CDATA[3º BIMESTRE - PARTICIPAÇÃO NAS ATIVIDADES E RELAÇÕES INTERPESSOAIS]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="495" width="555" height="130" uuid="b-4b"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="500" width="535" height="14" forecolor="#003366" uuid="st-4b"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<text><![CDATA[4º BIMESTRE - SÍNTESE DO DESENVOLVIMENTO ANUAL E PARECER CONCLUSIVO]]></text>
+			</staticText>
+
+			<line>
+				<reportElement x="50" y="650" width="200" height="1" uuid="l-tr-p"/>
+			</line>
+			<staticText>
+				<reportElement x="50" y="654" width="200" height="15" uuid="st-tr-p"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Professor(a) Regente]]></text>
+			</staticText>
+
+			<line>
+				<reportElement x="305" y="650" width="200" height="1" uuid="l-tr-c"/>
+			</line>
+			<staticText>
+				<reportElement x="305" y="654" width="200" height="15" uuid="st-tr-c"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Coordenação Pedagógica]]></text>
+			</staticText>
+		</band>
+	</detail>
+
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="5" width="300" height="12" uuid="foot-tr"/>
+				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg-tr"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

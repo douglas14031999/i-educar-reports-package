@@ -52,13 +52,51 @@ class CommunityReportsCompileCommand extends Command
         $jasperFiles = $this->getJasperFiles();
 
         if ($jasperFiles === null) {
-            $this->info('Report Packet not install or linked');
+            $this->error('Report package not installed or linked. Run php artisan community:reports:link first.');
 
-            return;
+            return 1;
         }
 
         $jasperStarter = $this->getJasperStarter();
+        $jrxmlFiles = glob($jasperFiles . '/*.jrxml');
 
-        passthru('cd ' . $jasperFiles . '; for line in $(ls -a | sort | grep .jrxml | sed -e "s/\.jrxml//"); do $(' . $jasperStarter . ' cp $line.jrxml -o $line) && echo "  $line"; done');
+        if (empty($jrxmlFiles)) {
+            $this->warn('No .jrxml files found to compile in: ' . $jasperFiles);
+
+            return 0;
+        }
+
+        sort($jrxmlFiles);
+        $total = count($jrxmlFiles);
+        $this->info("Found {$total} report templates to compile...");
+
+        $successCount = 0;
+        $errorCount = 0;
+
+        foreach ($jrxmlFiles as $file) {
+            $baseName = basename($file, '.jrxml');
+            $outputDestination = $jasperFiles . DIRECTORY_SEPARATOR . $baseName;
+
+            $cmd = sprintf(
+                '%s cp %s -o %s',
+                escapeshellarg($jasperStarter),
+                escapeshellarg($file),
+                escapeshellarg($outputDestination)
+            );
+
+            passthru($cmd, $exitCode);
+
+            if ($exitCode === 0) {
+                $this->line("  ✓ {$baseName}");
+                $successCount++;
+            } else {
+                $this->error("  ✗ Error compiling: {$baseName}");
+                $errorCount++;
+            }
+        }
+
+        $this->info("Compilation finished: {$successCount} compiled successfully, {$errorCount} errors.");
+
+        return $errorCount === 0 ? 0 : 1;
     }
 }

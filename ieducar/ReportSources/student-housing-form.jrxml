@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="student-housing-form" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="housing-form-999709">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="matricula" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="data_emissao" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="cod_escola" class="java.lang.Integer"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="cod_aluno" class="java.lang.Integer"/>
+	<field name="cod_matricula" class="java.lang.Integer"/>
+	<field name="data_nasc" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="nis_pis_pasep" class="java.math.BigDecimal"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="nm_pai" class="java.lang.String"/>
+	<field name="nm_mae" class="java.lang.String"/>
+	<field name="logradouro" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="complemento" class="java.lang.String"/>
+	<field name="bairro" class="java.lang.String"/>
+	<field name="cidade" class="java.lang.String"/>
+	<field name="uf" class="java.lang.String"/>
+	<field name="cep" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="data_atual" class="java.lang.String"/>
+	<field name="data_extenso" class="java.lang.String"/>
+
+	<group name="aluno_group" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{cod_matricula}]]></groupExpression>
+		<groupHeader>
+			<band height="90">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-housing"/>
+					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA DE CONDIÇÕES DE MORADIA DO ESTUDANTE"]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_escola"><subreportParameterExpression><![CDATA[$F{cod_escola}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="ano"><subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="data_emissao"><subreportParameterExpression><![CDATA[$P{data_emissao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="source"><subreportParameterExpression><![CDATA[$P{source}]]></subreportParameterExpression></subreportParameter>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header-portrait.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+
+	<detail>
+		<band height="550" splitType="Stretch">
+			<!-- Dados Cadastrais -->
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="95" backcolor="#F9F9F9" uuid="r-cad"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="10" width="370" height="13" uuid="t-al"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="25" width="535" height="13" uuid="t-nsc"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Dt. Nasc: " + $F{data_nasc} + "    Sexo: " + $F{sexo} + "    NIS/PIS: " + ($F{nis_pis_pasep} != null ? $F{nis_pis_pasep} : "Não informado")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="40" width="535" height="13" uuid="t-cur"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - Ano: " + $P{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="55" width="535" height="13" uuid="t-fil"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Mãe: " + $F{nm_mae} + "  |  Pai: " + $F{nm_pai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="70" width="535" height="13" uuid="t-end"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Endereço: " + $F{logradouro} + ", nº " + $F{numero} + " " + $F{complemento} + " - Bairro: " + $F{bairro} + " - " + $F{cidade} + "/" + $F{uf} + " CEP: " + $F{cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="85" width="535" height="13" uuid="t-tel"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Telefone(s) de Contato: " + $F{telefone}]]></textFieldExpression>
+			</textField>
+
+			<!-- Questionário de Condições Habitacionais -->
+			<staticText>
+				<reportElement x="0" y="115" width="555" height="15" uuid="st-tit-hab"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<text><![CDATA[I. CARACTERÍSTICAS DA HABITAÇÃO E SANEAMENTO BÁSICO]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="132" width="555" height="145" uuid="r-hab"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="138" width="535" height="130" uuid="st-quest-hab"/>
+				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Tipo de Construção:    [  ] Alvenaria/Tijolo    [  ] Madeira aparelhada    [  ] Taipa/Pau-a-pique    [  ] Material aproveitado
+Condição do Imóvel:    [  ] Próprio quitado    [  ] Próprio financiado    [  ] Alugado    [  ] Cedido/Emprestado    [  ] Ocupação
+Abastecimento de Água: [  ] Rede geral canalizada    [  ] Poço artesiano/Cisterna    [  ] Carro-pipa    [  ] Nascente/Rio
+Energia Elétrica:      [  ] Rede pública com relógio    [  ] Rede pública comunitária    [  ] Gerador/Placa solar    [  ] Não possui
+Esgotamento Sanitário: [  ] Rede pública de esgoto    [  ] Fossa séptica    [  ] Fossa rudimentar/Céu aberto    [  ] Não possui
+Coleta de Lixo:        [  ] Coleta pública direta    [  ] Caçamba coletiva    [  ] Queimado/Enterrado no terreno
+Quantidade de Cômodos: _____ cômodos      Quantidade de Moradores no Domicílio: _____ pessoas (sendo _____ crianças)]]></text>
+			</staticText>
+
+			<!-- Aspectos Socioeconômicos -->
+			<staticText>
+				<reportElement x="0" y="290" width="555" height="15" uuid="st-tit-soc"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<text><![CDATA[II. ASPECTOS SOCIOECONÔMICOS E TRANSPORTE]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="307" width="555" height="120" uuid="r-soc"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="313" width="535" height="105" uuid="st-quest-soc"/>
+				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Família Beneficiária de Programas Sociais:  [  ] Sim (Bolsa Família/Auxílio Gás/BPC)    [  ] Não
+Renda Familiar Mensal Total Aproximada:     [  ] Até 1 salário mínimo    [  ] De 1 a 2 salários    [  ] Mais de 2 salários
+Meio de Transporte até a Escola:           [  ] A pé    [  ] Bicicleta    [  ] Ônibus escolar municipal    [  ] Transporte próprio
+Tempo de Deslocamento Residência - Escola:  [  ] Menos de 15 min    [  ] De 15 a 30 min    [  ] De 30 min a 1 hora    [  ] Mais de 1h
+Possui Acesso à Internet no Domicílio:     [  ] Sim (Banda larga/Wi-Fi)    [  ] Sim (Dados móveis celular)    [  ] Não possui]]></text>
+			</staticText>
+
+			<textField>
+				<reportElement x="0" y="445" width="555" height="14" uuid="t-loc-dt"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA[$F{cidade} + " - " + $F{uf} + ", " + $F{data_extenso} + "."]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="50" y="500" width="200" height="1" uuid="l-resp"/>
+			</line>
+			<textField>
+				<reportElement x="50" y="504" width="200" height="20" uuid="t-ass-resp"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Assinatura do(a) Responsável"]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="305" y="500" width="200" height="1" uuid="l-rec"/>
+			</line>
+			<textField>
+				<reportElement x="305" y="504" width="200" height="20" uuid="t-ass-rec"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Entrevistador / Secretaria Escolar"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dt"/>
+				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="student-medical-form" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="med-form-999710">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="matricula" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="data_emissao" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="cod_escola" class="java.lang.Integer"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="cod_aluno" class="java.lang.Integer"/>
+	<field name="cod_matricula" class="java.lang.Integer"/>
+	<field name="data_nasc" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="nm_pai" class="java.lang.String"/>
+	<field name="nm_mae" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="cidade" class="java.lang.String"/>
+	<field name="uf" class="java.lang.String"/>
+	<field name="data_atual" class="java.lang.String"/>
+	<field name="data_extenso" class="java.lang.String"/>
+
+	<group name="aluno_group" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{cod_matricula}]]></groupExpression>
+		<groupHeader>
+			<band height="90">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-med"/>
+					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA MÉDICA E DE SAÚDE DO ESTUDANTE"]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="cod_escola"><subreportParameterExpression><![CDATA[$F{cod_escola}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="ano"><subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="data_emissao"><subreportParameterExpression><![CDATA[$P{data_emissao}]]></subreportParameterExpression></subreportParameter>
+					<subreportParameter name="source"><subreportParameterExpression><![CDATA[$P{source}]]></subreportParameterExpression></subreportParameter>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header-portrait.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+
+	<detail>
+		<band height="550" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="80" backcolor="#F9F9F9" uuid="r-med-cad"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="10" width="370" height="13" uuid="t-al-m"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd-m"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="25" width="535" height="13" uuid="t-nsc-m"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Data Nasc: " + $F{data_nasc} + "    Sexo: " + $F{sexo} + "    CPF: " + ($F{cpf} != null ? $F{cpf} : "---")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="40" width="535" height="13" uuid="t-cur-m"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - " + $F{nm_curso} + " - " + $F{nm_serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="55" width="535" height="13" uuid="t-fil-m"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Responsáveis: " + $F{nm_mae} + " / " + $F{nm_pai} + "  |  Telefone(s): " + $F{telefone}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="100" width="555" height="15" uuid="st-tit-sau"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<text><![CDATA[I. HISTÓRICO DE SAÚDE E DADOS BIOMÉDRICOS]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="117" width="555" height="150" uuid="r-sau"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="123" width="535" height="138" uuid="st-q-sau"/>
+				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Tipo Sanguíneo e Fator Rh: [  ] A+   [  ] A-   [  ] B+   [  ] B-   [  ] AB+   [  ] AB-   [  ] O+   [  ] O-   [  ] Ignorado
+Número do Cartão Nacional de Saúde (SUS): ___________________________________________
+Possui Plano de Saúde Privado?            [  ] Não   [  ] Sim. Qual? ___________________________
+Possui Alergia Alimentar?                 [  ] Não   [  ] Sim: [  ] Leite/Lactose  [  ] Glúten  [  ] Ovo  [  ] Outro: _______
+Possui Alergia a Medicamentos?            [  ] Não   [  ] Sim. Quais? _____________________________________________
+Possui Alergia a Picada de Insetos?       [  ] Não   [  ] Sim. Especifique: _________________________________________
+Tem Diagnóstico de Doença Crônica?        [  ] Asma/Bronquite   [  ] Diabetes   [  ] Epilepsia/Convulsões   [  ] Cardiopatia
+Faz Uso Contínuo de Medicamento?          [  ] Não   [  ] Sim. Medicamento / Horários: _____________________________
+Necessita de Cuidados no Âmbito Escolar?   [  ] Não   [  ] Sim. Descreva: __________________________________________]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="0" y="285" width="555" height="15" uuid="st-tit-vac"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<text><![CDATA[II. VACINAÇÃO E CONTATOS EM CASO DE EMERGÊNCIA MÉDICA]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="0" y="302" width="555" height="135" uuid="r-vac"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="308" width="535" height="120" uuid="st-q-vac"/>
+				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Declaração de Vacinação Atualizada (DVA):  [  ] Apresentada no ato da matrícula    [  ] Pendente de entrega
+Em caso de febre, dor súbita ou acidente leve, a escola está autorizada a ministrar antitérmico com prévio aviso?
+[  ] SIM, medicamento habitual: ________________________________    [  ] NÃO autorizo
+
+Pessoa de Contato Emergencial 1: ______________________________ Telefone: (____) ________________
+Pessoa de Contato Emergencial 2: ______________________________ Telefone: (____) ________________
+Unidade de Pronto Atendimento (UPA/Posto) de preferência: _______________________________________]]></text>
+			</staticText>
+
+			<textField>
+				<reportElement x="0" y="455" width="555" height="14" uuid="t-loc-dt-m"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA[$F{cidade} + " - " + $F{uf} + ", " + $F{data_extenso} + "."]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="50" y="510" width="200" height="1" uuid="l-resp-m"/>
+			</line>
+			<textField>
+				<reportElement x="50" y="514" width="200" height="20" uuid="t-ass-resp-m"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Assinatura do(a) Responsável"]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="305" y="510" width="200" height="1" uuid="l-sec-m"/>
+			</line>
+			<textField>
+				<reportElement x="305" y="514" width="200" height="20" uuid="t-ass-sec-m"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Secretaria Escolar / Triagem"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dt-m"/>
+				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg-m"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

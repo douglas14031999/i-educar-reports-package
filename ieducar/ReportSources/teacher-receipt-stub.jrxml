@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="teacher-receipt-stub" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="stub-999714">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="nm_docente" class="java.lang.String"/>
+	<field name="nm_disciplina" class="java.lang.String"/>
+	<field name="ano" class="java.lang.Integer"/>
+	<field name="data_atual" class="java.lang.String"/>
+	<field name="data_extenso" class="java.lang.String"/>
+
+	<detail>
+		<band height="380" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="350" uuid="box-stub"/>
+				<graphicElement><pen lineWidth="0.75" lineColor="#333333"/></graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="30" backcolor="#333333" uuid="h-stub"/>
+				<graphicElement><pen lineWidth="0.0"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="8" width="535" height="14" forecolor="#FFFFFF" uuid="t-st-inst"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA[$F{nm_instituicao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="21" width="535" height="12" forecolor="#FFCC00" uuid="t-st-tit"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["PROTOCOLO E COMPROVANTE DE ENTREGA DO DIÁRIO DE CLASSE (CANHOTO DO PROFESSOR)"]]></textFieldExpression>
+			</textField>
+
+			<textField>
+				<reportElement x="15" y="45" width="525" height="13" uuid="t-st-esc"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Unidade Escolar: " + $F{nm_escola}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="60" width="525" height="13" uuid="t-st-doc"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Docente Responsável: " + $F{nm_docente} + "    Disciplina: " + $F{nm_disciplina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="75" width="525" height="13" uuid="t-st-tur"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - " + $F{nm_curso} + " - " + $F{nm_serie} + " | Ano Letivo: " + $F{ano}]]></textFieldExpression>
+			</textField>
+
+			<rectangle>
+				<reportElement x="15" y="95" width="525" height="110" backcolor="#F9F9F9" uuid="r-chk"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="25" y="100" width="505" height="100" uuid="st-chk-txt"/>
+				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Documentos e Etapas Entregues para Conferência Pedagógica:
+[  ] 1º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______
+[  ] 2º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______
+[  ] 3º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______
+[  ] 4º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______
+[  ] Exame Final: Ata de recuperação final e notas consolidadas     Data entrega: ___/___/______]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="15" y="215" width="525" height="30" uuid="st-st-decl"/>
+				<textElement textAlignment="Justified"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Declaramos para os devidos fins que o(a) docente acima nominado(a) entregou devidamente preenchidos e assinados os registros de notas, faltas e conteúdos programáticos da turma referenciada na data abaixo assinalada.]]></text>
+			</staticText>
+
+			<line>
+				<reportElement x="35" y="290" width="210" height="1" uuid="l-prof-sig"/>
+			</line>
+			<textField>
+				<reportElement x="35" y="294" width="210" height="24" uuid="t-prof-sig"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA[$F{nm_docente} + "\nAssinatura do(a) Professor(a)"]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="305" y="290" width="210" height="1" uuid="l-coord-sig"/>
+			</line>
+			<staticText>
+				<reportElement x="305" y="294" width="210" height="24" uuid="st-coord-sig"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Coordenação Pedagógica / Secretaria\nVisto e Conferência]]></text>
+			</staticText>
+
+			<textField>
+				<reportElement x="15" y="330" width="525" height="12" uuid="t-st-emiss"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
+			</textField>
+
+			<!-- Linha de corte pontilhada -->
+			<line>
+				<reportElement x="0" y="370" width="555" height="1" uuid="l-corte">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 != 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement><pen lineWidth="1.0" lineStyle="Dashed" lineColor="#999999"/></graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

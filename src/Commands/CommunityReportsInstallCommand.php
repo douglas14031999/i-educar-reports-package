@@ -32,8 +32,10 @@ class CommunityReportsInstallCommand extends Command
 
         $this->call('community:reports:link');
 
-        passthru('chmod +x vendor/cossou/jasperphp/src/JasperStarter/bin/jasperstarter');
-        passthru('chmod 777 ieducar/modules/Reports/ReportSources');
+        if (PHP_OS_FAMILY !== 'Windows') {
+            passthru('chmod +x vendor/cossou/jasperphp/src/JasperStarter/bin/jasperstarter');
+            passthru('chmod 777 ieducar/modules/Reports/ReportSources');
+        }
 
         if ($compile) {
             $this->call('community:reports:compile');

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="class-record-back-cover" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="back-cover-999712">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="data_emissao" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_responsavel" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="cod_escola" class="java.lang.Integer"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="ano" class="java.lang.Integer"/>
+	<field name="total_matriculados" class="java.lang.Integer"/>
+	<field name="total_aprovados" class="java.lang.Integer"/>
+	<field name="total_reprovados" class="java.lang.Integer"/>
+	<field name="total_transferidos" class="java.lang.Integer"/>
+	<field name="total_abandonos" class="java.lang.Integer"/>
+	<field name="cidade_instituicao" class="java.lang.String"/>
+	<field name="data_extenso" class="java.lang.String"/>
+	<field name="gestor_escolar" class="java.lang.String"/>
+	<field name="secretario_escolar" class="java.lang.String"/>
+
+	<detail>
+		<band height="790" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="790" uuid="box-border"/>
+				<graphicElement><pen lineWidth="1.5" lineColor="#003366"/></graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="10" width="535" height="45" backcolor="#003366" uuid="box-hdr"/>
+				<graphicElement><pen lineWidth="0.0"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="15" y="14" width="525" height="18" forecolor="#FFFFFF" uuid="t-hdr1"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="12" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA[$F{nm_instituicao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="32" width="525" height="15" forecolor="#FFCC00" uuid="t-hdr2"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["DIÁRIO DE CLASSE - TERMO DE ENCERRAMENTO E CONTRACAPA"]]></textFieldExpression>
+			</textField>
+
+			<textField>
+				<reportElement x="20" y="70" width="515" height="14" uuid="t-esc"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="10" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA[$F{nm_escola}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="90" width="515" height="14" uuid="t-tur"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - Ano Letivo: " + $F{ano}]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="30" y="115" width="495" height="1" forecolor="#CCCCCC" uuid="l-sep1"/>
+			</line>
+
+			<staticText>
+				<reportElement x="30" y="130" width="495" height="18" uuid="st-t-enc"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="11" isBold="true"/></textElement>
+				<text><![CDATA[TERMO DE ENCERRAMENTO]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="30" y="155" width="495" height="120" uuid="st-txt-enc"/>
+				<textElement textAlignment="Justified" lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="9"/></textElement>
+				<text><![CDATA[Aos dias do encerramento do ano letivo regular, encerram-se os registros pedagógicos, de frequência e de avaliação da presente turma no Diário de Classe oficial, contendo o registro fiel de todas as atividades curriculares ministradas, cumprimento dos 200 dias de efetivo trabalho escolar e da carga horária mínima legal exigida pela Lei de Diretrizes e Bases da Educação Nacional (Lei Federal nº 9.394/1996) e pelas normas regimentais desta rede municipal de ensino.]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="30" y="285" width="495" height="16" uuid="st-t-mov"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<text><![CDATA[QUADRO DEMONSTRATIVO DE RENDIMENTO E MOVIMENTAÇÃO FINAL]]></text>
+			</staticText>
+
+			<rectangle>
+				<reportElement x="30" y="305" width="495" height="110" backcolor="#FAFAFA" uuid="r-mov"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="45" y="315" width="465" height="14" uuid="t-tot-m"/>
+				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["Total Geral de Alunos Atendidos no Ano: " + $F{total_matriculados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="333" width="465" height="14" uuid="t-tot-ap"/>
+				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["• Total de Alunos Promovidos / Aprovados: " + $F{total_aprovados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="351" width="465" height="14" uuid="t-tot-rp"/>
+				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["• Total de Alunos Retidos / Reprovados: " + $F{total_reprovados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="369" width="465" height="14" uuid="t-tot-tr"/>
+				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["• Total de Alunos Transferidos no Período: " + $F{total_transferidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="387" width="465" height="14" uuid="t-tot-ab"/>
+				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA["• Total de Alunos em Abandono / Deixaram de Frequentar: " + $F{total_abandonos}]]></textFieldExpression>
+			</textField>
+
+			<textField>
+				<reportElement x="30" y="440" width="495" height="15" uuid="t-loc-enc"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textFieldExpression><![CDATA[($F{cidade_instituicao} != null ? $F{cidade_instituicao} : "Local") + ", " + $F{data_extenso} + "."]]></textFieldExpression>
+			</textField>
+
+			<!-- 3 Assinaturas: Professor, Secretário, Diretor -->
+			<line>
+				<reportElement x="50" y="550" width="200" height="1" uuid="l-p-ass"/>
+			</line>
+			<staticText>
+				<reportElement x="50" y="554" width="200" height="24" uuid="st-p-ass"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<text><![CDATA[Assinatura do(a) Professor(a) / Regente]]></text>
+			</staticText>
+
+			<line>
+				<reportElement x="305" y="550" width="200" height="1" uuid="l-s-ass"/>
+			</line>
+			<textField>
+				<reportElement x="305" y="554" width="200" height="24" uuid="t-s-ass"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA[($F{secretario_escolar} != null ? $F{secretario_escolar} + "\n" : "") + "Secretaria Escolar"]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="177" y="650" width="200" height="1" uuid="l-d-ass"/>
+			</line>
+			<textField>
+				<reportElement x="177" y="654" width="200" height="24" uuid="t-d-ass"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA[($F{gestor_escolar} != null ? $F{gestor_escolar} + "\n" : "") + "Direção / Gestão Escolar"]]></textFieldExpression>
+			</textField>
+
+			<textField>
+				<reportElement x="30" y="750" width="495" height="15" forecolor="#666666" uuid="t-inf"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<textFieldExpression><![CDATA["Documento oficial arquivado na Unidade Escolar conforme legislação vigente."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

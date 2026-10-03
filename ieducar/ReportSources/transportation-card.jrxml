@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="transportation-card" 
+              pageWidth="595" pageHeight="842" columnWidth="555" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              uuid="transp-card-999711">
+	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
+	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="curso" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="serie" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="turma" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="matricula" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
+	<parameter name="logo" class="java.lang.String"><defaultValueExpression><![CDATA[""]]></defaultValueExpression></parameter>
+	<parameter name="source" class="java.lang.String"/>
+
+	<queryString language="json"><![CDATA[main]]></queryString>
+
+	<field name="nm_instituicao" class="java.lang.String"/>
+	<field name="nm_responsavel" class="java.lang.String"/>
+	<field name="nm_escola" class="java.lang.String"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="cod_aluno" class="java.lang.Integer"/>
+	<field name="cod_matricula" class="java.lang.Integer"/>
+	<field name="data_nasc" class="java.lang.String"/>
+	<field name="nm_curso" class="java.lang.String"/>
+	<field name="nm_serie" class="java.lang.String"/>
+	<field name="nm_turma" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="nm_rota" class="java.lang.String"/>
+	<field name="nm_ponto" class="java.lang.String"/>
+	<field name="ano_validade" class="java.lang.Integer"/>
+
+	<detail>
+		<band height="185" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="0" y="5" width="555" height="170" backcolor="#FFFFFF" uuid="card-box"/>
+				<graphicElement><pen lineWidth="1.0" lineColor="#003366"/></graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="5" width="555" height="35" backcolor="#003366" uuid="card-head"/>
+				<graphicElement><pen lineWidth="0.0"/></graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="7" width="535" height="14" forecolor="#FFFFFF" uuid="c-inst"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA[$F{nm_instituicao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="22" width="535" height="14" forecolor="#FFCC00" uuid="c-tit"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["CARTEIRA DE TRANSPORTE ESCOLAR - ANO " + $F{ano_validade}]]></textFieldExpression>
+			</textField>
+
+			<!-- Foto 3x4 box -->
+			<rectangle>
+				<reportElement x="15" y="48" width="75" height="95" backcolor="#F5F5F5" uuid="r-foto"/>
+				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="85" width="75" height="20" forecolor="#999999" uuid="st-foto"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<text><![CDATA[FOTO 3x4]]></text>
+			</staticText>
+
+			<!-- Dados do Estudante e Rota -->
+			<textField>
+				<reportElement x="100" y="48" width="445" height="14" uuid="c-al"/>
+				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="64" width="445" height="13" uuid="c-cods"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + "  |  Matrícula: " + $F{cod_matricula} + "  |  Nascimento: " + $F{data_nasc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="78" width="445" height="13" uuid="c-esc"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Escola: " + $F{nm_escola}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="92" width="445" height="13" uuid="c-tur"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="106" width="445" height="13" forecolor="#003366" uuid="c-rot"/>
+				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Itinerário / Rota: " + $F{nm_rota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="120" width="445" height="13" uuid="c-pnt"/>
+				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textFieldExpression><![CDATA["Ponto de Embarque/Desembarque: " + $F{nm_ponto}]]></textFieldExpression>
+			</textField>
+
+			<line>
+				<reportElement x="100" y="145" width="220" height="1" uuid="l-c-ass"/>
+			</line>
+			<staticText>
+				<reportElement x="100" y="148" width="220" height="12" uuid="st-c-sec"/>
+				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
+				<text><![CDATA[Secretaria Municipal de Educação / Transporte]]></text>
+			</staticText>
+
+			<textField>
+				<reportElement x="350" y="145" width="195" height="15" forecolor="#CC0000" uuid="c-val"/>
+				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
+				<textFieldExpression><![CDATA["Válido até 31/12/" + $F{ano_validade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

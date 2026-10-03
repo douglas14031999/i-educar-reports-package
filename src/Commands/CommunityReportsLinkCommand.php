@@ -27,14 +27,29 @@ class CommunityReportsLinkCommand extends Command
      */
     public function handle()
     {
-        $source = __DIR__ . '/../../ieducar';
+        $source = realpath(__DIR__ . '/../../ieducar') ?: (__DIR__ . '/../../ieducar');
         $target = base_path('ieducar/modules/Reports');
 
-        if (is_link($target)) {
-            unlink($target);
+        if (!is_dir(dirname($target))) {
+            mkdir(dirname($target), 0755, true);
         }
 
-        symlink($source, $target);
+        if (is_link($target) || file_exists($target)) {
+            if (PHP_OS_FAMILY === 'Windows' && is_dir($target) && !is_link($target)) {
+                @rmdir($target);
+            } else {
+                @unlink($target);
+            }
+        }
+
+        if (PHP_OS_FAMILY === 'Windows') {
+            exec(sprintf('mklink /J "%s" "%s"', str_replace('/', '\\', $target), str_replace('/', '\\', $source)), $output, $returnVar);
+            if ($returnVar !== 0) {
+                @symlink($source, $target);
+            }
+        } else {
+            symlink($source, $target);
+        }
 
         $this->info("Symbol link created in: {$target}");
     }
