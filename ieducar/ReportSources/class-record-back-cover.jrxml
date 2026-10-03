@@ -87,7 +87,9 @@
 
 			<staticText>
 				<reportElement x="30" y="155" width="495" height="120" uuid="209741b7-f9f8-4a52-bbb0-3c07582b078e"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textElement textAlignment="Justified"><font fontName="DejaVu Sans" size="9"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Aos dias do encerramento do ano letivo regular, encerram-se os registros pedagógicos, de frequência e de avaliação da presente turma no Diário de Classe oficial, contendo o registro fiel de todas as atividades curriculares ministradas, cumprimento dos 200 dias de efetivo trabalho escolar e da carga horária mínima legal exigida pela Lei de Diretrizes e Bases da Educação Nacional (Lei Federal nº 9.394/1996) e pelas normas regimentais desta rede municipal de ensino.]]></text>
 			</staticText>
 

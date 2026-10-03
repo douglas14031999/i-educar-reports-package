@@ -110,7 +110,9 @@
 
 			<staticText>
 				<reportElement x="20" y="210" width="515" height="120" uuid="25fd4795-e835-4ac4-9ffb-56a5bcdfdc72"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="9"/></textElement>
+				<textElement textAlignment="Justified"><font fontName="DejaVu Sans" size="9"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Este espelho de conferência destina-se exclusivamente à verificação interna prévia pela Secretaria Escolar antes da emissão definitiva e encadernação do Histórico Escolar oficial.
 
 Itens a conferir:

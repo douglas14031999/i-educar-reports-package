@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="9dcd524e-fbf2-4e50-a3a2-b91632c27bb1"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pelo presente termo, comunicamos que o(a) estudante abaixo qualificado(a) apresentou ausências consecutivas ou intercaladas às atividades letivas. O responsável legal fica formalmente ciente de que a frequência escolar mínima exigida por lei é de 75% no Ensino Fundamental e 60% na Educação Infantil, sob pena de notificação aos órgãos de proteção à criança e ao adolescente (Conselho Tutelar / Ministério Público)."]]></textFieldExpression>
 			</textField>

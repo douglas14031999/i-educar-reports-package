@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="2ebeb237-85f5-4dc7-836c-e1928e556717"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Certificamos com alegria e mérito que a criança abaixo qualificada concluiu com pleno êxito as experiências e aprendizagens da Educação Infantil nesta Unidade Escolar, estando apta a ingressar nos Anos Iniciais do Ensino Fundamental."]]></textFieldExpression>
 			</textField>

@@ -110,7 +110,9 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="123" width="535" height="138" uuid="bf1dff44-6d42-4e9e-86d2-3e2485463b3e"/>
-				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textElement><font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Tipo Sanguíneo e Fator Rh: [  ] A+   [  ] A-   [  ] B+   [  ] B-   [  ] AB+   [  ] AB-   [  ] O+   [  ] O-   [  ] Ignorado
 Número do Cartão Nacional de Saúde (SUS): ___________________________________________
 Possui Plano de Saúde Privado?            [  ] Não   [  ] Sim. Qual? ___________________________
@@ -134,7 +136,9 @@ Necessita de Cuidados no Âmbito Escolar?   [  ] Não   [  ] Sim. Descreva: ____
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="308" width="535" height="120" uuid="421830a8-0809-466b-926c-f9c9713ad4c2"/>
-				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textElement><font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Declaração de Vacinação Atualizada (DVA):  [  ] Apresentada no ato da matrícula    [  ] Pendente de entrega
 Em caso de febre, dor súbita ou acidente leve, a escola está autorizada a ministrar antitérmico com prévio aviso?
 [  ] SIM, medicamento habitual: ________________________________    [  ] NÃO autorizo

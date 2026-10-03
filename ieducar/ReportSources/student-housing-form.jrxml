@@ -128,7 +128,9 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="138" width="535" height="130" uuid="fb77b5d2-21ee-40b5-8f65-75920014071c"/>
-				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textElement><font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Tipo de Construção:    [  ] Alvenaria/Tijolo    [  ] Madeira aparelhada    [  ] Taipa/Pau-a-pique    [  ] Material aproveitado
 Condição do Imóvel:    [  ] Próprio quitado    [  ] Próprio financiado    [  ] Alugado    [  ] Cedido/Emprestado    [  ] Ocupação
 Abastecimento de Água: [  ] Rede geral canalizada    [  ] Poço artesiano/Cisterna    [  ] Carro-pipa    [  ] Nascente/Rio
@@ -151,7 +153,9 @@ Quantidade de Cômodos: _____ cômodos      Quantidade de Moradores no Domicíli
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="313" width="535" height="105" uuid="9d1518e8-bbb8-43ef-bd65-f7c279ff12ea"/>
-				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textElement><font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Família Beneficiária de Programas Sociais:  [  ] Sim (Bolsa Família/Auxílio Gás/BPC)    [  ] Não
 Renda Familiar Mensal Total Aproximada:     [  ] Até 1 salário mínimo    [  ] De 1 a 2 salários    [  ] Mais de 2 salários
 Meio de Transporte até a Escola:           [  ] A pé    [  ] Bicicleta    [  ] Ônibus escolar municipal    [  ] Transporte próprio

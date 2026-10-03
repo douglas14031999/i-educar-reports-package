@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="001f1730-ca94-4d3d-9c6e-0941d567a5fe"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Por meio deste instrumento, o(a) responsável legal compromete-se perante esta Unidade Escolar a zelar pela assiduidade, pontualidade de entrada e saída, cuidados diários de saúde e higiene, participação nas reuniões de acompanhamento pedagógico e comunicação imediata de qualquer intercorrência de saúde ou necessidade especial da criança."]]></textFieldExpression>
 			</textField>

@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="0d6525e7-a9b2-437c-be16-1a48d69f018d"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Declaro para os devidos fins de direito que, na qualidade de responsável legal pelo(a) estudante abaixo qualificado(a), estou ciente e manifesto expressa anuência quanto aos atos escolares, projetos pedagógicos, atividades extracurriculares e normas do regimento escolar desta instituição de ensino."]]></textFieldExpression>
 			</textField>

@@ -77,7 +77,9 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="25" y="100" width="505" height="100" uuid="3ca49692-f23d-4ece-ac27-50b79b2a05e0"/>
-				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
+				<textElement><font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<text><![CDATA[Documentos e Etapas Entregues para Conferência Pedagógica:
 [  ] 1º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______
 [  ] 2º Bimestre: Diário de frequência e notas lançado e assinado    Data entrega: ___/___/______

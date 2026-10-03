@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="5e8e62d0-8271-471e-a77e-96c3699723d8"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Venho por meio deste declarar, formal e irrevogavelmente, a desistência da vaga solicitada / concedida ao(à) estudante abaixo nominado(a) para o presente ano letivo nesta instituição de ensino, estando ciente de que a referida vaga será disponibilizada para o próximo candidato na lista de espera."]]></textFieldExpression>
 			</textField>

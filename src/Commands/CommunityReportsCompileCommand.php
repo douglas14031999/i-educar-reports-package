@@ -78,19 +78,27 @@ class CommunityReportsCompileCommand extends Command
             $outputDestination = $jasperFiles . DIRECTORY_SEPARATOR . $baseName;
 
             $cmd = sprintf(
-                '%s cp %s -o %s',
+                '%s cp %s -o %s 2>&1',
                 escapeshellarg($jasperStarter),
                 escapeshellarg($file),
                 escapeshellarg($outputDestination)
             );
 
-            passthru($cmd, $exitCode);
+            exec($cmd, $output, $exitCode);
+
+            // Filtra avisos de depreciação do JasperReports
+            $errors = array_filter($output, function ($line) {
+                return !preg_match('/WARN\s+JRTextElementFactory|is deprecated/i', $line);
+            });
 
             if ($exitCode === 0) {
                 $this->line("  ✓ {$baseName}");
                 $successCount++;
             } else {
                 $this->error("  ✗ Error compiling: {$baseName}");
+                if (!empty($errors)) {
+                    $this->line('    ' . implode(PHP_EOL . '    ', $errors));
+                }
                 $errorCount++;
             }
         }

@@ -103,8 +103,10 @@
 
 			<textField isStretchWithOverflow="true">
 				<reportElement x="10" y="140" width="535" height="140" uuid="05f80749-3caa-40f3-9225-b08786aad06f"/>
-				<textElement textAlignment="Justified" lineSpacing="1_1_2">
+				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
+				
+					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD - Lei nº 13.709/2018) e com o Estatuto da Criança e do Adolescente (ECA - Lei nº 8.069/1990), o(a) responsável legal autoriza a utilização a título gratuito da imagem e voz do(a) estudante para fins exclusivamente educacionais, pedagógicos, institucionais e culturais em murais, materiais impressos e mídias oficiais da rede municipal de ensino."]]></textFieldExpression>
 			</textField>
