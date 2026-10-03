@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Disable transactions to avoid PostgreSQL 25P02 transaction aborted errors.
+     *
+     * @var bool
+     */
+    public $withinTransaction = false;
+
     public function up()
     {
         $activeProcesses = [
@@ -14,100 +21,199 @@ return new class extends Migration
             999709, 999710, 999711, 999712, 999713, 999714, 999715, 999716, 999717
         ];
 
-        // 1. Identifica os IDs e processos dos menus antigos que devem ser removidos
-        $oldMenus = Menu::query()
-            ->where(function ($query) use ($activeProcesses) {
-                $query->where('link', 'LIKE', '/module/Reports/%')
-                      ->whereNotIn('process', $activeProcesses);
-            })
-            ->orWhere(function ($query) {
-                $query->where('process', '>=', 999000)
-                      ->where('process', '<', 999700);
-            })
-            ->get();
+        $activeLinks = [
+            '/module/Reports/MinorConsentDeclaration',
+            '/module/Reports/AbsenceTerm',
+            '/module/Reports/EarlyChildhoodCommitmentTerm',
+            '/module/Reports/VacancyWaiverTerm',
+            '/module/Reports/StudentImageUseAuthorization',
+            '/module/Reports/EarlyChildhoodCertificate',
+            '/module/Reports/IndividualSheetAl',
+            '/module/Reports/IndividualSheet69Al',
+            '/module/Reports/StudentHousingForm',
+            '/module/Reports/StudentMedicalForm',
+            '/module/Reports/TransportationCard',
+            '/module/Reports/ClassRecordBackCover',
+            '/module/Reports/ScoreRequiredForExam',
+            '/module/Reports/TeacherReceiptStub',
+            '/module/Reports/StudentTrackingSheet',
+            '/module/Reports/IndividualSheetEja',
+            '/module/Reports/SchoolHistoryConference',
+        ];
 
-        $oldMenuIds = $oldMenus->pluck('id')->filter()->all();
-        $oldProcesses = $oldMenus->pluck('process')->filter()->all();
+        $baseOldCategories = [
+            21126, 21127, 999301, 999922, 999300, 999923, 999303,
+            999400, 999450, 999925, 999861, 999460, 999500,
+            999913, 999916, 999914
+        ];
 
-        // 2. Remove as referências em tabelas de permissões (menu_tipo_usuario) para não violar Foreign Key
+        // 1. Identifica menus legados de relatórios para exclusão
+        // Menus de relatório possuem link apontando para /Reports/ ou /module/Reports/
+        $oldMenusQuery = Menu::query()
+            ->where(function ($q) {
+                $q->where('link', 'LIKE', '%/Reports/%')
+                  ->orWhere('link', 'LIKE', '%/module/Reports/%');
+            })
+            ->whereNotIn('link', $activeLinks);
+
+        if (Schema::hasColumn('menus', 'process')) {
+            $oldMenusQuery->whereNotIn('process', $activeProcesses);
+        }
+
+        if (Schema::hasColumn('menus', 'old')) {
+            $oldMenusQuery->whereNotIn('old', $baseOldCategories);
+            $oldMenusQuery->whereNotIn('old', $activeProcesses);
+        }
+
+        $oldMenus = $oldMenusQuery->get();
+
+        // Também seleciona processos legados 999000..999699 que possuem link preenchido (não são categorias)
+        if (Schema::hasColumn('menus', 'process')) {
+            $oldProcessMenus = Menu::query()
+                ->where('process', '>=', 999000)
+                ->where('process', '<', 999700)
+                ->whereNotIn('process', $activeProcesses)
+                ->where(function ($q) {
+                    $q->whereNotNull('link')->where('link', '!=', '');
+                });
+
+            if (Schema::hasColumn('menus', 'old')) {
+                $oldProcessMenus->whereNotIn('old', $baseOldCategories);
+            }
+
+            $oldMenus = $oldMenus->merge($oldProcessMenus->get())->unique('id');
+        }
+
+        $oldMenuIds = $oldMenus->pluck('id')->filter()->map(function ($id) {
+            return (int) $id;
+        })->all();
+
         if (!empty($oldMenuIds)) {
-            foreach (['menu_tipo_usuario', 'pmieducar.menu_tipo_usuario'] as $table) {
-                try {
-                    DB::table($table)->whereIn('menu_id', $oldMenuIds)->delete();
-                } catch (\Throwable $e) {
+            // 2. Remove Foreign Keys que apontam para menus.id antes de excluir
+            // Consulta dinâmica no catálogo do PostgreSQL para descobrir todas as FKs apontando para menus.id
+            try {
+                $foreignKeys = DB::select("
+                    SELECT tc.table_schema, tc.table_name, kcu.column_name
+                    FROM information_schema.table_constraints AS tc 
+                    JOIN information_schema.key_column_usage AS kcu
+                      ON tc.constraint_name = kcu.constraint_name
+                      AND tc.table_schema = kcu.table_schema
+                    JOIN information_schema.constraint_column_usage AS ccu
+                      ON ccu.constraint_name = tc.constraint_name
+                      AND ccu.table_schema = tc.table_schema
+                    WHERE tc.constraint_type = 'FOREIGN KEY' 
+                      AND ccu.table_name = 'menus' 
+                      AND ccu.column_name = 'id'
+                ");
+
+                foreach ($foreignKeys as $fk) {
+                    $table = $fk->table_name;
+                    $column = $fk->column_name;
+                    $schema = $fk->table_schema;
+                    $targetTable = ($schema && $schema !== 'public') ? "{$schema}.{$table}" : $table;
+
+                    if ($table === 'menus' && $column === 'parent_id') {
+                        // Se algum menu tiver como pai um menu que será excluído, desvincula o parent_id
+                        DB::table('menus')->whereIn('parent_id', $oldMenuIds)->update(['parent_id' => null]);
+                    } else {
+                        DB::table($targetTable)->whereIn($column, $oldMenuIds)->delete();
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Fallback via Schema::hasTable
+                foreach (['menu_tipo_usuario', 'pmieducar.menu_tipo_usuario'] as $permTable) {
+                    if (Schema::hasTable($permTable) && Schema::hasColumn($permTable, 'menu_id')) {
+                        DB::table($permTable)->whereIn('menu_id', $oldMenuIds)->delete();
+                    }
                 }
             }
+
+            // 3. Remove os menus antigos da tabela menus
+            DB::table('menus')->whereIn('id', $oldMenuIds)->delete();
         }
 
-        if (!empty($oldProcesses)) {
-            foreach (['menu_tipo_usuario', 'pmieducar.menu_tipo_usuario'] as $table) {
-                try {
-                    DB::table($table)->whereIn('ref_processo_ap', $oldProcesses)->delete();
-                } catch (\Throwable $e) {
-                }
-            }
-        }
-
-        // 3. Remove os registros de menus antigos da tabela menus
-        if (!empty($oldMenuIds)) {
-            Menu::query()->whereIn('id', $oldMenuIds)->delete();
-        }
-
-        // 4. Concede permissão para os 17 relatórios ativos a todos os tipos de usuário
+        // 4. Concede permissão para os 17 relatórios ativos
         try {
-            $tiposUsuarios = [];
-            foreach (['pmieducar.tipo_usuario', 'tipo_usuario'] as $userTypeTable) {
-                try {
-                    $tiposUsuarios = DB::table($userTypeTable)->pluck('cod_tipo_usuario')->all();
-                    if (!empty($tiposUsuarios)) {
+            $permTable = null;
+            if (Schema::hasTable('menu_tipo_usuario')) {
+                $permTable = 'menu_tipo_usuario';
+            } elseif (Schema::hasTable('pmieducar.menu_tipo_usuario')) {
+                $permTable = 'pmieducar.menu_tipo_usuario';
+            }
+
+            if ($permTable) {
+                $columns = Schema::getColumnListing($permTable);
+
+                // Busca tabela de tipos de usuário
+                $tipoUsuarioTable = null;
+                foreach (['tipo_usuario', 'pmieducar.tipo_usuario'] as $tut) {
+                    if (Schema::hasTable($tut)) {
+                        $tipoUsuarioTable = $tut;
                         break;
                     }
-                } catch (\Throwable $e) {
                 }
-            }
 
-            $activeMenus = Menu::query()->whereIn('process', $activeProcesses)->get();
+                $tipos = [];
+                if ($tipoUsuarioTable) {
+                    $tutCols = Schema::getColumnListing($tipoUsuarioTable);
+                    $userTypeCol = in_array('cod_tipo_usuario', $tutCols) ? 'cod_tipo_usuario' : (in_array('id', $tutCols) ? 'id' : null);
+                    if ($userTypeCol) {
+                        $tipos = DB::table($tipoUsuarioTable)->pluck($userTypeCol)->all();
+                    }
+                }
 
-            foreach ($activeMenus as $activeMenu) {
-                $processId = $activeMenu->process;
-                $menuId = $activeMenu->getKey();
+                $userTypeFkCol = in_array('ref_cod_tipo_usuario', $columns) ? 'ref_cod_tipo_usuario' : (in_array('tipo_usuario_id', $columns) ? 'tipo_usuario_id' : null);
 
-                foreach ($tiposUsuarios as $tipoId) {
-                    foreach (['pmieducar.menu_tipo_usuario', 'menu_tipo_usuario'] as $table) {
-                        try {
-                            $query = DB::table($table)
-                                ->where('ref_cod_tipo_usuario', $tipoId);
+                if (empty($tipos) && $userTypeFkCol) {
+                    $tipos = DB::table($permTable)->distinct()->pluck($userTypeFkCol)->filter()->all();
+                }
 
-                            // Verifica por menu_id ou ref_processo_ap
-                            $exists = (clone $query)->where(function ($q) use ($menuId, $processId) {
-                                $q->where('menu_id', $menuId)
-                                  ->orWhere('ref_processo_ap', $processId);
-                            })->exists();
+                $hasMenuId = in_array('menu_id', $columns);
+                $hasProcess = in_array('ref_processo_ap', $columns);
 
-                            if (!$exists) {
+                if ($userTypeFkCol && ($hasMenuId || $hasProcess) && !empty($tipos)) {
+                    $activeMenus = Menu::query()->whereIn('process', $activeProcesses)->get();
+
+                    foreach ($activeMenus as $activeMenu) {
+                        $menuId = (int) $activeMenu->getKey();
+                        $proc = (int) $activeMenu->process;
+
+                        foreach ($tipos as $tipoId) {
+                            $query = DB::table($permTable)->where($userTypeFkCol, $tipoId);
+                            if ($hasMenuId) {
+                                $query->where('menu_id', $menuId);
+                            } elseif ($hasProcess) {
+                                $query->where('ref_processo_ap', $proc);
+                            }
+
+                            if (!$query->exists()) {
                                 $data = [
-                                    'ref_cod_tipo_usuario' => $tipoId,
-                                    'ref_processo_ap' => $processId,
-                                    'visualiza' => 1,
-                                    'cadastra' => 1,
-                                    'exclui' => 1,
+                                    $userTypeFkCol => $tipoId,
                                 ];
-
-                                // Se a coluna menu_id existir na tabela, adiciona
-                                try {
+                                if ($hasMenuId) {
                                     $data['menu_id'] = $menuId;
-                                } catch (\Throwable $t) {
+                                }
+                                if ($hasProcess) {
+                                    $data['ref_processo_ap'] = $proc;
+                                }
+                                if (in_array('visualiza', $columns)) {
+                                    $data['visualiza'] = 1;
+                                }
+                                if (in_array('cadastra', $columns)) {
+                                    $data['cadastra'] = 1;
+                                }
+                                if (in_array('exclui', $columns)) {
+                                    $data['exclui'] = 1;
                                 }
 
-                                DB::table($table)->insert($data);
+                                DB::table($permTable)->insert($data);
                             }
-                            break; // Se inseriu com sucesso, não precisa tentar na tabela alternativa
-                        } catch (\Throwable $e) {
                         }
                     }
                 }
             }
         } catch (\Throwable $e) {
+            // Permissões já existentes ou tratadas
         }
     }
 
