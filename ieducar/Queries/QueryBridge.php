@@ -34,7 +34,7 @@ class QueryBridge
             if (is_bool($v)) {
                 $value = $v ? 'true' : 'false';
             } elseif (!is_numeric($v) || in_array($k, $this->forceString)) {
-                $value = sprintf('"%s"', (string) $v);
+                $value = sprintf("'%s'", addslashes((string) $v));
             } else {
                 $value = $v;
             }
