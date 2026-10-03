@@ -86,7 +86,7 @@ trait ReportCardTrait
                                       AND serie.ativo = 1)
         INNER JOIN pmieducar.turma ON (turma.ref_ref_cod_escola = escola.cod_escola
                                       AND turma.ativo = 1)
-        INNER JOIN relatorio.view_componente_curricular ON (view_componente_curricular.cod_turma = turma.cod_turma AND view_componente_curricular.cod_serie = serie.cod_serie)
+        LEFT JOIN relatorio.view_componente_curricular ON (view_componente_curricular.cod_turma = turma.cod_turma AND view_componente_curricular.cod_serie = serie.cod_serie)
         INNER JOIN modules.area_conhecimento ON (area_conhecimento.id = view_componente_curricular.area_conhecimento_id)
         INNER JOIN pmieducar.matricula_turma ON (matricula_turma.ref_cod_turma = turma.cod_turma)
         INNER JOIN pmieducar.matricula ON (matricula.cod_matricula = matricula_turma.ref_cod_matricula

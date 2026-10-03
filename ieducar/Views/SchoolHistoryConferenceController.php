@@ -25,7 +25,8 @@ class SchoolHistoryConferenceController extends Portabilis_Controller_ReportCore
 
     public function form()
     {
-        $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola']);
+        $this->inputsHelper()->dynamic(['ano', 'instituicao']);
+        $this->inputsHelper()->dynamic('escola', ['required' => true]);
         $this->inputsHelper()->simpleSearchMatricula(null, ['label' => 'Matrícula/Aluno', 'required' => true]);
         $this->loadResourceAssets($this->getDispatcher());
     }

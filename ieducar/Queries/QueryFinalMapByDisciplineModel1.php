@@ -37,7 +37,7 @@ class QueryFinalMapByDisciplineModel1 extends QueryBridge
                        (
                             SELECT SUM(componente_curricular_ano_escolar.carga_horaria::int)
                             FROM modules.componente_curricular_ano_escolar
-                            INNER JOIN relatorio.view_componente_curricular ON (true
+                            LEFT JOIN relatorio.view_componente_curricular ON (true
                                 AND componente_curricular_ano_escolar.componente_curricular_id = view_componente_curricular.id
                                 AND view_componente_curricular.cod_turma = turma.cod_turma
                                 AND view_componente_curricular.cod_serie = serie.cod_serie
@@ -169,7 +169,7 @@ class QueryFinalMapByDisciplineModel1 extends QueryBridge
                 INNER JOIN pmieducar.turma ON (turma.ref_ref_cod_escola = escola.cod_escola
                                                AND turma.ativo = 1)
                 INNER JOIN pmieducar.turma_turno ON (turma_turno.id = turma.turma_turno_id)
-                INNER JOIN relatorio.view_componente_curricular vcc ON (vcc.cod_turma = turma.cod_turma
+                LEFT JOIN relatorio.view_componente_curricular vcc ON (vcc.cod_turma = turma.cod_turma
                   AND vcc.cod_serie = serie.cod_serie)
                 INNER JOIN modules.componente_curricular_ano_escolar ccae ON (ccae.componente_curricular_id = vcc.id
                                                                               AND ccae.ano_escolar_id = serie.cod_serie

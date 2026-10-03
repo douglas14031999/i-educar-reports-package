@@ -27,7 +27,7 @@ class QuerySchoolHistoryRegistrationTransferred extends QueryBridge
             INNER JOIN pmieducar.curso ON (curso.cod_curso = matricula.ref_cod_curso)
             INNER JOIN pmieducar.serie ON (serie.cod_serie = matricula.ref_ref_cod_serie)
             LEFT JOIN pmieducar.turma_turno ON (turma_turno.id = turma.turma_turno_id)
-            INNER JOIN relatorio.view_componente_curricular ON (true
+            LEFT JOIN relatorio.view_componente_curricular ON (true
                 AND view_componente_curricular.cod_turma = turma.cod_turma
                 AND view_componente_curricular.cod_serie = serie.cod_serie)
             LEFT JOIN modules.nota_aluno ON (nota_aluno.matricula_id = matricula.cod_matricula)

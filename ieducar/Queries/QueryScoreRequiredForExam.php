@@ -52,7 +52,7 @@ INNER JOIN pmieducar.turma ON (turma.cod_turma = matricula_turma.ref_cod_turma A
 LEFT JOIN pmieducar.turma_turno ON (turma_turno.id = turma.turma_turno_id)
 LEFT JOIN pmieducar.curso ON (curso.cod_curso = matricula.ref_cod_curso)
 LEFT JOIN pmieducar.serie ON (serie.cod_serie = matricula.ref_ref_cod_serie)
-INNER JOIN relatorio.view_componente_curricular componente_curricular ON (componente_curricular.cod_turma = turma.cod_turma)
+LEFT JOIN relatorio.view_componente_curricular componente_curricular ON (componente_curricular.cod_turma = turma.cod_turma)
 LEFT JOIN modules.nota_aluno ON (nota_aluno.matricula_id = matricula.cod_matricula)
 LEFT JOIN modules.nota_componente_curricular_media nccm ON (nccm.nota_aluno_id = nota_aluno.id AND nccm.componente_curricular_id = componente_curricular.id)
 INNER JOIN relatorio.view_situacao ON (
@@ -72,7 +72,7 @@ WHERE instituicao.cod_instituicao = $P{instituicao}
       WHERE mt.ref_cod_matricula = matricula.cod_matricula
         AND mt.ref_cod_turma = turma.cod_turma
   )
-  AND NOT verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
+  AND NOT public.verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
 ORDER BY componente_curricular.ordenamento, componente_curricular.nome, pessoa.nome
 SQL;
     }

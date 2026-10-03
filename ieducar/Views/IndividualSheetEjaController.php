@@ -25,8 +25,14 @@ class IndividualSheetEjaController extends Portabilis_Controller_ReportCoreContr
 
     public function form()
     {
-        $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola', 'curso', 'serie', 'turma']);
+        $this->inputsHelper()->dynamic(['ano', 'instituicao']);
+        $this->inputsHelper()->dynamic('escola', ['required' => true]);
+        $this->inputsHelper()->dynamic('curso', ['required' => false]);
+        $this->inputsHelper()->dynamic('serie', ['required' => false]);
+        $this->inputsHelper()->dynamic('turma', ['required' => false]);
         $this->inputsHelper()->simpleSearchMatricula(null, ['label' => 'Matrícula/Aluno', 'required' => false]);
+        $this->inputsHelper()->checkbox('emitir_nome_diretor', ['label' => 'Emitir assinatura do gestor escolar']);
+        $this->inputsHelper()->checkbox('emitir_secretario_escolar', ['label' => 'Emitir assinatura do secretário escolar']);
         $this->loadResourceAssets($this->getDispatcher());
     }
 

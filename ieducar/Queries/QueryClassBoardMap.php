@@ -132,7 +132,7 @@ class QueryClassBoardMap extends QueryBridge
                                                        AND view_situacao.cod_situacao = $P{situacao})
                 INNER JOIN pmieducar.aluno ON (aluno.cod_aluno = matricula.ref_cod_aluno)
                 INNER JOIN cadastro.pessoa ON (pessoa.idpes = aluno.ref_idpes)
-                INNER JOIN relatorio.view_componente_curricular ON (view_componente_curricular.cod_turma = turma.cod_turma
+                LEFT JOIN relatorio.view_componente_curricular ON (view_componente_curricular.cod_turma = turma.cod_turma
                   AND view_componente_curricular.cod_serie = serie.cod_serie)
                 INNER JOIN pmieducar.escola_serie_disciplina ON (escola_serie_disciplina.ref_cod_disciplina = view_componente_curricular.id
                                                                   AND escola_serie_disciplina.ref_ref_cod_serie = serie.cod_serie

@@ -55,7 +55,7 @@ INNER JOIN pmieducar.matricula ON (matricula.cod_matricula = matricula_turma.ref
 INNER JOIN relatorio.view_situacao ON (view_situacao.cod_matricula = matricula.cod_matricula
                                        AND view_situacao.cod_turma = matricula_turma.ref_cod_turma
                                        AND matricula_turma.sequencial = view_situacao.sequencial)
-INNER JOIN relatorio.view_componente_curricular componente_curricular ON componente_curricular.cod_turma = turma.cod_turma
+LEFT JOIN relatorio.view_componente_curricular componente_curricular ON componente_curricular.cod_turma = turma.cod_turma
 LEFT JOIN modules.nota_aluno ON nota_aluno.matricula_id = matricula.cod_matricula
 LEFT JOIN modules.nota_componente_curricular_media nccm ON nccm.nota_aluno_id = nota_aluno.id AND nccm.componente_curricular_id = componente_curricular.id
 INNER JOIN pmieducar.aluno ON (matricula.ref_cod_aluno = aluno.cod_aluno)
@@ -83,7 +83,7 @@ WHERE escola_ano_letivo.ativo = 1
                                       FROM pmieducar.matricula_turma mt
                                      WHERE mt.ref_cod_matricula = matricula.cod_matricula
                                        AND mt.ref_cod_turma = turma.cod_turma)
-  AND NOT verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
+  AND NOT public.verifica_existe_matricula_posterior_mesma_turma(view_situacao.cod_matricula, view_situacao.cod_turma)
 GROUP BY matricula.cod_matricula,
          sequencial_fechamento,
          nm_aluno,

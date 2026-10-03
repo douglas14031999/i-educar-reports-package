@@ -25,7 +25,11 @@ class ScoreRequiredForExamController extends Portabilis_Controller_ReportCoreCon
 
     public function form()
     {
-        $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola', 'curso', 'serie', 'turma']);
+        $this->inputsHelper()->dynamic(['ano', 'instituicao']);
+        $this->inputsHelper()->dynamic('escola', ['required' => true]);
+        $this->inputsHelper()->dynamic('curso', ['required' => false]);
+        $this->inputsHelper()->dynamic('serie', ['required' => false]);
+        $this->inputsHelper()->dynamic('turma', ['required' => true]);
         $this->loadResourceAssets($this->getDispatcher());
     }
 
