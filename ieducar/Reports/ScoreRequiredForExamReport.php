@@ -11,12 +11,10 @@ class ScoreRequiredForExamReport extends Portabilis_Report_ReportCore
         return 'score-required-for-exam';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
-        $this->addRequiredArg('turma');
     }
 
     public function getJsonData()

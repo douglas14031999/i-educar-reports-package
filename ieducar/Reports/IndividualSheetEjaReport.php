@@ -11,11 +11,11 @@ class IndividualSheetEjaReport extends Portabilis_Report_ReportCore
         return 'individual-sheet-eja';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-            }
+    }
 
     public function getJsonData()
     {

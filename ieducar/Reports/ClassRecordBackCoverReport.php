@@ -11,12 +11,10 @@ class ClassRecordBackCoverReport extends Portabilis_Report_ReportCore
         return 'class-record-back-cover';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
-        $this->addRequiredArg('turma');
     }
 
     public function getJsonData()

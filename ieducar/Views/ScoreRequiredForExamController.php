@@ -31,7 +31,7 @@ class ScoreRequiredForExamController extends Portabilis_Controller_ReportCoreCon
      */
     public function form()
     {
-        $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola', 'curso', 'serie', 'turma']);
+        $this->inputsHelper()->dynamic(['ano', 'instituicao', 'escola']);
         $this->inputsHelper()->dynamic('curso', ['required' => false]);
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => true]);
@@ -43,15 +43,18 @@ class ScoreRequiredForExamController extends Portabilis_Controller_ReportCoreCon
     /**
      * @inheritdoc
      */
-    public function beforeValidation()
+        public function beforeValidation()
     {
         $this->report->addArg('ano', (int) $this->getRequest()->ano);
-        $this->report->addArg('instituicao', (int) $this->getRequest()->ref_cod_instituicao);
-        $this->report->addArg('escola', (int) $this->getRequest()->ref_cod_escola);
-        $this->report->addArg('curso', (int) $this->getRequest()->ref_cod_curso);
-        $this->report->addArg('serie', (int) $this->getRequest()->ref_cod_serie);
-        $this->report->addArg('turma', (int) $this->getRequest()->ref_cod_turma);
-
+        $this->report->addArg('instituicao', (int) ($this->getRequest()->ref_cod_instituicao ?: ($this->getRequest()->instituicao_id ?: $this->getRequest()->instituicao)));
+        $this->report->addArg('escola', (int) ($this->getRequest()->ref_cod_escola ?: ($this->getRequest()->escola_id ?: $this->getRequest()->escola)));
+        $this->report->addArg('curso', (int) ($this->getRequest()->ref_cod_curso ?: ($this->getRequest()->curso_id ?: $this->getRequest()->curso)));
+        $this->report->addArg('serie', (int) ($this->getRequest()->ref_cod_serie ?: ($this->getRequest()->serie_id ?: $this->getRequest()->serie)));
+        $this->report->addArg('turma', (int) ($this->getRequest()->ref_cod_turma ?: ($this->getRequest()->turma_id ?: $this->getRequest()->turma)));
+        $matricula = (int) ($this->getRequest()->ref_cod_matricula ?: ($this->getRequest()->matricula_id ?: $this->getRequest()->matricula));
+        $this->report->addArg('matricula', $matricula);
+        $this->report->addArg('emitir_nome_diretor', (bool) $this->getRequest()->emitir_nome_diretor);
+        $this->report->addArg('emitir_secretario_escolar', (bool) $this->getRequest()->emitir_secretario_escolar);
     }
 
     /**

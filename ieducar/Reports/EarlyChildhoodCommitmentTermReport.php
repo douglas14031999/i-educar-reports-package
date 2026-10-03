@@ -11,11 +11,10 @@ class EarlyChildhoodCommitmentTermReport extends Portabilis_Report_ReportCore
         return 'early-childhood-commitment-term';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
     }
 
     public function getJsonData()

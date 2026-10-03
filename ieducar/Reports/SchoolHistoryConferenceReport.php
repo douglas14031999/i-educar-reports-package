@@ -11,12 +11,10 @@ class SchoolHistoryConferenceReport extends Portabilis_Report_ReportCore
         return 'school-history-conference';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
-        $this->addRequiredArg('matricula');
     }
 
     public function getJsonData()

@@ -11,11 +11,10 @@ class StudentHousingFormReport extends Portabilis_Report_ReportCore
         return 'student-housing-form';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
     }
 
     public function getJsonData()

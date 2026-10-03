@@ -11,11 +11,10 @@ class AbsenceTermReport extends Portabilis_Report_ReportCore
         return 'absence-term';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
     }
 
     public function getJsonData()

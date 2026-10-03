@@ -45,7 +45,7 @@ class IndividualSheetAlController extends Portabilis_Controller_ReportCoreContro
     /**
      * @inheritdoc
      */
-    public function beforeValidation()
+        public function beforeValidation()
     {
         $this->report->addArg('ano', (int) $this->getRequest()->ano);
         $this->report->addArg('instituicao', (int) ($this->getRequest()->ref_cod_instituicao ?: ($this->getRequest()->instituicao_id ?: $this->getRequest()->instituicao)));

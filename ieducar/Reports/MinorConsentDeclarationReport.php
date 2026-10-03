@@ -11,11 +11,10 @@ class MinorConsentDeclarationReport extends Portabilis_Report_ReportCore
         return 'minor-consent-declaration';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-        $this->addRequiredArg('escola');
     }
 
     public function getJsonData()

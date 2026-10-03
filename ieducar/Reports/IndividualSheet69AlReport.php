@@ -11,11 +11,11 @@ class IndividualSheet69AlReport extends Portabilis_Report_ReportCore
         return 'individual-sheet-6-9-al';
     }
 
-    public function requiredArgs()
+        public function requiredArgs()
     {
         $this->addRequiredArg('ano');
         $this->addRequiredArg('instituicao');
-            }
+    }
 
     public function getJsonData()
     {
