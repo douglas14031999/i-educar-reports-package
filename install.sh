@@ -5,6 +5,7 @@
 # ==============================================================================
 
 set -e
+export COMPOSER_ALLOW_SUPERUSER=1
 
 # Cores para saída no terminal
 RED='\033[0;31m'
@@ -205,7 +206,7 @@ run_installation_commands() {
 verify_installation() {
     print_step "6/6" "Verificação final dos relatórios..."
     
-    TOTAL_TEMPLATES=$(find "$PACKAGE_DIR/Reports" -name "*.jrxml" 2>/dev/null | wc -l || echo "0")
+    TOTAL_TEMPLATES=$(find "$PACKAGE_DIR/ieducar/ReportSources" -name "*.jrxml" 2>/dev/null | wc -l || echo "0")
     TOTAL_MIGRATIONS=$(find "$PACKAGE_DIR/database/migrations" -name "*.php" 2>/dev/null | wc -l || echo "0")
 
     echo -e "${GREEN}"

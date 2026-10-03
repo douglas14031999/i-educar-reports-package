@@ -3,7 +3,7 @@
 use App\Menu;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndividualSheet69AlReportMenu extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -21,4 +21,4 @@ class AddIndividualSheet69AlReportMenu extends Migration
     {
         Menu::query()->where('old', 999708)->delete();
     }
-}
+};

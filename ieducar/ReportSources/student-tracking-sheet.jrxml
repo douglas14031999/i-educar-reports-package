@@ -5,7 +5,7 @@
               name="student-tracking-sheet" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="track-sheet-999715">
+              uuid="6d141b97-8dfa-4633-9ddb-012ca5c62d0d">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -42,7 +42,7 @@
 		<groupHeader>
 			<band height="90">
 				<subreport>
-					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-track"/>
+					<reportElement x="0" y="0" width="555" height="80" uuid="be0c5804-b556-4c33-a8d8-44360ce2786b"/>
 					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA DE ACOMPANHAMENTO INDIVIDUAL DO ALUNO"]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
@@ -59,85 +59,85 @@
 	<detail>
 		<band height="680" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="5" width="555" height="60" backcolor="#F9F9F9" uuid="r-track-cad"/>
+				<reportElement x="0" y="5" width="555" height="60" backcolor="#F9F9F9" uuid="f22d9d7b-cdf5-4f75-932f-3ab655838c73"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="10" width="370" height="13" uuid="t-al-t"/>
+				<reportElement x="10" y="10" width="370" height="13" uuid="bd697235-bdd6-4922-8170-7bb7d9ac1c3f"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd-t"/>
+				<reportElement x="385" y="10" width="160" height="13" uuid="bbce8727-7b5d-4457-9fe3-64bb1714a192"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="25" width="535" height="13" uuid="t-inf-t"/>
+				<reportElement x="10" y="25" width="535" height="13" uuid="dbd08ebb-074e-416b-a723-f74a3219d662"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Nasc: " + $F{data_nasc} + "   Sexo: " + $F{sexo} + "   Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - " + $F{nm_curso} + " - " + $F{nm_serie} + " | Ano: " + $P{ano}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="40" width="535" height="13" uuid="t-fil-t"/>
+				<reportElement x="10" y="40" width="535" height="13" uuid="9febe5a8-53cc-47e0-9a9d-50259ffdb0f3"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Filiação: " + $F{nm_mae} + " / " + $F{nm_pai} + "  |  Situação: " + $F{situacao_aluno}]]></textFieldExpression>
 			</textField>
 
 			<!-- 4 Quadros de Acompanhamento Bimestral / Semestral -->
 			<rectangle>
-				<reportElement x="0" y="75" width="555" height="130" uuid="b-1b"/>
+				<reportElement x="0" y="75" width="555" height="130" uuid="62645217-8d1f-456f-b6ab-119b880f5a65"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="80" width="535" height="14" forecolor="#003366" uuid="st-1b"/>
+				<reportElement x="10" y="80" width="535" height="14" forecolor="#003366" uuid="dd37dd3d-93fe-448f-9bb1-8091b2f32646"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<text><![CDATA[1º BIMESTRE - DESEMPENHO COGNITIVO, ATITUDINAL E INTERVENÇÕES REALIZADAS]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="215" width="555" height="130" uuid="b-2b"/>
+				<reportElement x="0" y="215" width="555" height="130" uuid="4270b883-ebfc-4b06-8f00-d47ab4631c28"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="220" width="535" height="14" forecolor="#003366" uuid="st-2b"/>
+				<reportElement x="10" y="220" width="535" height="14" forecolor="#003366" uuid="ed7ea020-e072-4167-a7da-ff7158604d72"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<text><![CDATA[2º BIMESTRE - AVANÇOS, DIFICULDADES E ADAPTAÇÕES CURRICULARES]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="355" width="555" height="130" uuid="b-3b"/>
+				<reportElement x="0" y="355" width="555" height="130" uuid="ed115d9c-bcc3-4279-9cd3-7332c5e7846e"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="360" width="535" height="14" forecolor="#003366" uuid="st-3b"/>
+				<reportElement x="10" y="360" width="535" height="14" forecolor="#003366" uuid="5e4b3585-6622-49f8-9c16-2ca3183fa2a4"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<text><![CDATA[3º BIMESTRE - PARTICIPAÇÃO NAS ATIVIDADES E RELAÇÕES INTERPESSOAIS]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="495" width="555" height="130" uuid="b-4b"/>
+				<reportElement x="0" y="495" width="555" height="130" uuid="a8ac08e1-5416-4174-9b4d-3895387450df"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="500" width="535" height="14" forecolor="#003366" uuid="st-4b"/>
+				<reportElement x="10" y="500" width="535" height="14" forecolor="#003366" uuid="48f803db-b52b-440a-9509-64e5777eb11a"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<text><![CDATA[4º BIMESTRE - SÍNTESE DO DESENVOLVIMENTO ANUAL E PARECER CONCLUSIVO]]></text>
 			</staticText>
 
 			<line>
-				<reportElement x="50" y="650" width="200" height="1" uuid="l-tr-p"/>
+				<reportElement x="50" y="650" width="200" height="1" uuid="af356918-10eb-4e7b-b5e9-3d07b85dd4d4"/>
 			</line>
 			<staticText>
-				<reportElement x="50" y="654" width="200" height="15" uuid="st-tr-p"/>
+				<reportElement x="50" y="654" width="200" height="15" uuid="ddf01713-0720-4074-b2e5-879f31dde6a5"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Professor(a) Regente]]></text>
 			</staticText>
 
 			<line>
-				<reportElement x="305" y="650" width="200" height="1" uuid="l-tr-c"/>
+				<reportElement x="305" y="650" width="200" height="1" uuid="df9f2b52-5651-43c3-8d40-c186f8f1abb5"/>
 			</line>
 			<staticText>
-				<reportElement x="305" y="654" width="200" height="15" uuid="st-tr-c"/>
+				<reportElement x="305" y="654" width="200" height="15" uuid="20d3592d-7f75-4433-8dc7-96c423a29ed1"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Coordenação Pedagógica]]></text>
 			</staticText>
@@ -147,12 +147,12 @@
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="5" width="300" height="12" uuid="foot-tr"/>
+				<reportElement x="0" y="5" width="300" height="12" uuid="5e47f3f9-f13c-4a9d-9eb7-08290521d0ee"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg-tr"/>
+				<reportElement x="455" y="5" width="100" height="12" uuid="d7743cfb-7996-4955-b48d-3b9b67be3ec5"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

@@ -5,7 +5,7 @@
               name="score-required-for-exam" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="score-exam-999713">
+              uuid="1bd9f04a-7025-4274-8dd4-73d230c4abb1">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -41,7 +41,7 @@
 		<groupHeader>
 			<band height="135">
 				<subreport>
-					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-score-exam"/>
+					<reportElement x="0" y="0" width="555" height="80" uuid="2a157e2d-92c9-496c-8f08-39dc1f098059"/>
 					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["RELAÇÃO DE NOTA NECESSÁRIA PARA EXAME / RECUPERAÇÃO"]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
@@ -53,45 +53,45 @@
 				</subreport>
 
 				<line>
-					<reportElement x="0" y="85" width="555" height="1" forecolor="#CCCCCC" uuid="sep-01"/>
+					<reportElement x="0" y="85" width="555" height="1" forecolor="#CCCCCC" uuid="f7f0f294-f88c-44f0-8a4d-e37b68baf9d4"/>
 				</line>
 				<textField>
-					<reportElement x="0" y="90" width="300" height="13" uuid="t-cur"/>
+					<reportElement x="0" y="90" width="300" height="13" uuid="bd0662a1-94db-4496-af27-bea18bc4e28e"/>
 					<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ")"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="310" y="90" width="245" height="13" forecolor="#990000" uuid="t-disc"/>
+					<reportElement x="310" y="90" width="245" height="13" forecolor="#990000" uuid="66645377-5b08-4727-b663-ab137e863544"/>
 					<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<textFieldExpression><![CDATA["Disciplina: " + $F{nm_disciplina}]]></textFieldExpression>
 				</textField>
 
 				<rectangle>
-					<reportElement x="0" y="112" width="555" height="20" backcolor="#EDEDED" uuid="bg-th"/>
+					<reportElement x="0" y="112" width="555" height="20" backcolor="#EDEDED" uuid="a0d071c0-879a-4fcb-a0c9-9d6b01fe5b15"/>
 					<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
 				</rectangle>
 				<staticText>
-					<reportElement x="6" y="116" width="45" height="12" uuid="th-c"/>
+					<reportElement x="6" y="116" width="45" height="12" uuid="973f37a9-3bed-4e46-8489-2850802487a0"/>
 					<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<text><![CDATA[Cód.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="55" y="116" width="255" height="12" uuid="th-a"/>
+					<reportElement x="55" y="116" width="255" height="12" uuid="a797e74c-6e09-4e8a-ac29-52b09a7920ac"/>
 					<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<text><![CDATA[Nome do Estudante]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="315" y="116" width="60" height="12" uuid="th-m"/>
+					<reportElement x="315" y="116" width="60" height="12" uuid="6da50312-4d1f-47ff-90d8-31077a112870"/>
 					<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<text><![CDATA[M. Anual]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="116" width="95" height="12" forecolor="#990000" uuid="th-n"/>
+					<reportElement x="380" y="116" width="95" height="12" forecolor="#990000" uuid="327cfe0c-bd93-4ec1-ac4a-d3cf68ac84a4"/>
 					<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<text><![CDATA[Nota p/ Exame]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="480" y="116" width="70" height="12" uuid="th-s"/>
+					<reportElement x="480" y="116" width="70" height="12" uuid="b6146af2-062e-4f3e-80d1-33cf452e117c"/>
 					<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 					<text><![CDATA[Situação]]></text>
 				</staticText>
@@ -102,33 +102,33 @@
 	<detail>
 		<band height="15" splitType="Stretch">
 			<rectangle>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="15" backcolor="#F9F9F9" uuid="zeb-sc">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="15" backcolor="#F9F9F9" uuid="300722f1-50b4-4845-8881-4be7a4fde4e9">
 					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement><pen lineWidth="0.0"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="6" y="2" width="45" height="12" uuid="d-c"/>
+				<reportElement x="6" y="2" width="45" height="12" uuid="6fa7af1d-03cc-48d5-b375-64192977bb5e"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA[$F{cod_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="55" y="2" width="255" height="12" uuid="d-a"/>
+				<reportElement x="55" y="2" width="255" height="12" uuid="2cfe040b-da6f-483a-8006-5e628ee0c0b5"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="315" y="2" width="60" height="12" uuid="d-m"/>
+				<reportElement x="315" y="2" width="60" height="12" uuid="a82e97a3-213f-4016-90f6-2af10219e945"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA[$F{media_anual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="2" width="95" height="12" forecolor="#990000" uuid="d-n"/>
+				<reportElement x="380" y="2" width="95" height="12" forecolor="#990000" uuid="9e235a9f-14ac-4722-947f-8cc0e9249f6f"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA[$F{nota_necessaria_exame}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="2" width="70" height="12" uuid="d-s"/>
+				<reportElement x="480" y="2" width="70" height="12" uuid="2f5bbff9-a4e4-442e-97c9-3fa389c71344"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA[$F{situacao_aluno}]]></textFieldExpression>
 			</textField>
@@ -138,12 +138,12 @@
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dts"/>
+				<reportElement x="0" y="5" width="300" height="12" uuid="db935a1a-672a-4b68-8af9-c251a3134415"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pgs"/>
+				<reportElement x="455" y="5" width="100" height="12" uuid="6c549b13-2852-4303-91ac-ca2b009b2450"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

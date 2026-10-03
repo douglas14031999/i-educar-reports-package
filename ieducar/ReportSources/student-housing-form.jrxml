@@ -5,7 +5,7 @@
               name="student-housing-form" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="housing-form-999709">
+              uuid="17a6e820-fcf8-4304-9fad-ce811e45998a">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -52,7 +52,7 @@
 		<groupHeader>
 			<band height="90">
 				<subreport>
-					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-housing"/>
+					<reportElement x="0" y="0" width="555" height="80" uuid="4c3513bc-663c-45f0-8ea9-593ebd29a633"/>
 					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA DE CONDIÇÕES DE MORADIA DO ESTUDANTE"]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
@@ -70,58 +70,58 @@
 		<band height="550" splitType="Stretch">
 			<!-- Dados Cadastrais -->
 			<rectangle>
-				<reportElement x="0" y="5" width="555" height="95" backcolor="#F9F9F9" uuid="r-cad"/>
+				<reportElement x="0" y="5" width="555" height="95" backcolor="#F9F9F9" uuid="7cbae9c0-895b-48f9-ad79-2da0bb74dbc8"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="10" width="370" height="13" uuid="t-al"/>
+				<reportElement x="10" y="10" width="370" height="13" uuid="26c23930-a364-46e0-9e38-6e74b17b2545"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd"/>
+				<reportElement x="385" y="10" width="160" height="13" uuid="3a202cd3-7024-47fe-947c-5084e46f8825"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="25" width="535" height="13" uuid="t-nsc"/>
+				<reportElement x="10" y="25" width="535" height="13" uuid="4518c009-fc4e-40f9-82d4-6bec6637cb3c"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Dt. Nasc: " + $F{data_nasc} + "    Sexo: " + $F{sexo} + "    NIS/PIS: " + ($F{nis_pis_pasep} != null ? $F{nis_pis_pasep} : "Não informado")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="40" width="535" height="13" uuid="t-cur"/>
+				<reportElement x="10" y="40" width="535" height="13" uuid="cecbf191-b9d4-4ff7-8d82-50bba2b3a363"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - Ano: " + $P{ano}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="55" width="535" height="13" uuid="t-fil"/>
+				<reportElement x="10" y="55" width="535" height="13" uuid="82950116-66f0-4e40-8ad9-a6ca32133b31"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Mãe: " + $F{nm_mae} + "  |  Pai: " + $F{nm_pai}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="70" width="535" height="13" uuid="t-end"/>
+				<reportElement x="10" y="70" width="535" height="13" uuid="64b02290-e4bc-4fe0-a5b4-f03f9b3c69e1"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Endereço: " + $F{logradouro} + ", nº " + $F{numero} + " " + $F{complemento} + " - Bairro: " + $F{bairro} + " - " + $F{cidade} + "/" + $F{uf} + " CEP: " + $F{cep}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="85" width="535" height="13" uuid="t-tel"/>
+				<reportElement x="10" y="85" width="535" height="13" uuid="19866b30-0bb6-4148-bad3-3edf4757c02b"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Telefone(s) de Contato: " + $F{telefone}]]></textFieldExpression>
 			</textField>
 
 			<!-- Questionário de Condições Habitacionais -->
 			<staticText>
-				<reportElement x="0" y="115" width="555" height="15" uuid="st-tit-hab"/>
+				<reportElement x="0" y="115" width="555" height="15" uuid="20050dcf-5db9-4584-b689-871b302d785d"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<text><![CDATA[I. CARACTERÍSTICAS DA HABITAÇÃO E SANEAMENTO BÁSICO]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="132" width="555" height="145" uuid="r-hab"/>
+				<reportElement x="0" y="132" width="555" height="145" uuid="7b897ccf-6a56-4ac0-bc4b-8f34bd9560ad"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="138" width="535" height="130" uuid="st-quest-hab"/>
+				<reportElement x="10" y="138" width="535" height="130" uuid="fb77b5d2-21ee-40b5-8f65-75920014071c"/>
 				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Tipo de Construção:    [  ] Alvenaria/Tijolo    [  ] Madeira aparelhada    [  ] Taipa/Pau-a-pique    [  ] Material aproveitado
 Condição do Imóvel:    [  ] Próprio quitado    [  ] Próprio financiado    [  ] Alugado    [  ] Cedido/Emprestado    [  ] Ocupação
@@ -134,17 +134,17 @@ Quantidade de Cômodos: _____ cômodos      Quantidade de Moradores no Domicíli
 
 			<!-- Aspectos Socioeconômicos -->
 			<staticText>
-				<reportElement x="0" y="290" width="555" height="15" uuid="st-tit-soc"/>
+				<reportElement x="0" y="290" width="555" height="15" uuid="49352d9b-86aa-475f-9ca2-eb3d1a020b07"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<text><![CDATA[II. ASPECTOS SOCIOECONÔMICOS E TRANSPORTE]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="307" width="555" height="120" uuid="r-soc"/>
+				<reportElement x="0" y="307" width="555" height="120" uuid="60d31868-db1a-41a6-baca-1b0bcf97c3d1"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="313" width="535" height="105" uuid="st-quest-soc"/>
+				<reportElement x="10" y="313" width="535" height="105" uuid="9d1518e8-bbb8-43ef-bd65-f7c279ff12ea"/>
 				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Família Beneficiária de Programas Sociais:  [  ] Sim (Bolsa Família/Auxílio Gás/BPC)    [  ] Não
 Renda Familiar Mensal Total Aproximada:     [  ] Até 1 salário mínimo    [  ] De 1 a 2 salários    [  ] Mais de 2 salários
@@ -154,25 +154,25 @@ Possui Acesso à Internet no Domicílio:     [  ] Sim (Banda larga/Wi-Fi)    [  
 			</staticText>
 
 			<textField>
-				<reportElement x="0" y="445" width="555" height="14" uuid="t-loc-dt"/>
+				<reportElement x="0" y="445" width="555" height="14" uuid="f8dc1462-2b08-4914-b6ab-d147b2e0da63"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[$F{cidade} + " - " + $F{uf} + ", " + $F{data_extenso} + "."]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="50" y="500" width="200" height="1" uuid="l-resp"/>
+				<reportElement x="50" y="500" width="200" height="1" uuid="a2f8d4a7-e0c2-4ff4-af91-5cbc1886133f"/>
 			</line>
 			<textField>
-				<reportElement x="50" y="504" width="200" height="20" uuid="t-ass-resp"/>
+				<reportElement x="50" y="504" width="200" height="20" uuid="e700b248-3e0d-4805-a96c-14f86421cb83"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Assinatura do(a) Responsável"]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="305" y="500" width="200" height="1" uuid="l-rec"/>
+				<reportElement x="305" y="500" width="200" height="1" uuid="068b04a2-d6a2-4f9b-a20a-451109dab3ef"/>
 			</line>
 			<textField>
-				<reportElement x="305" y="504" width="200" height="20" uuid="t-ass-rec"/>
+				<reportElement x="305" y="504" width="200" height="20" uuid="f0883fcf-08f1-4431-af13-da9d0db21961"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Entrevistador / Secretaria Escolar"]]></textFieldExpression>
 			</textField>
@@ -182,12 +182,12 @@ Possui Acesso à Internet no Domicílio:     [  ] Sim (Banda larga/Wi-Fi)    [  
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dt"/>
+				<reportElement x="0" y="5" width="300" height="12" uuid="7b6ede43-cd45-41d6-94f4-27453cc516ac"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg"/>
+				<reportElement x="455" y="5" width="100" height="12" uuid="b3db7779-3670-46a6-9ba7-7c5fdb80f4db"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

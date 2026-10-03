@@ -5,7 +5,7 @@
               name="absence-term" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="term-999702">
+              uuid="77c77fdd-541c-459c-86e2-36cc85639e6d">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -49,7 +49,7 @@
 		<groupHeader>
 			<band height="90">
 				<subreport>
-					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-999702"/>
+					<reportElement x="0" y="0" width="555" height="80" uuid="4a4a1f00-b4f6-4a28-8497-6be88d716bf2"/>
 					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["TERMO DE AUSÊNCIA ESCOLAR"]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
@@ -66,37 +66,37 @@
 	<detail>
 		<band height="460" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="10" width="555" height="110" backcolor="#FAFAFA" uuid="rect-dados-999702"/>
+				<reportElement x="0" y="10" width="555" height="110" backcolor="#FAFAFA" uuid="7dfc225b-179b-40e5-b51c-7eddda314b12"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="16" width="535" height="14" uuid="t-aluno-999702"/>
+				<reportElement x="10" y="16" width="535" height="14" uuid="2b91e858-75ac-4dec-b1fc-1adbf88e9e39"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno} + "  (Código: " + $F{cod_aluno} + " - Matrícula: " + $F{cod_matricula} + ")"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="34" width="535" height="14" uuid="t-nasc-999702"/>
+				<reportElement x="10" y="34" width="535" height="14" uuid="b0b204d5-c2ba-46e9-bf50-b4d45042a536"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Data de Nascimento: " + ($F{data_nasc} != null ? $F{data_nasc} : "--/--/----") + "      Ano Letivo: " + $P{ano}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="52" width="535" height="14" uuid="t-curso-999702"/>
+				<reportElement x="10" y="52" width="535" height="14" uuid="9caecd38-09ac-42ec-8c23-aac504f1722b"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Curso / Etapa: " + ($F{nm_curso} != null ? $F{nm_curso} : "---") + " - " + ($F{nm_serie} != null ? $F{nm_serie} : "---") + "      Turma: " + ($F{nm_turma} != null ? $F{nm_turma} : "---") + " (" + $F{periodo} + ")"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="70" width="535" height="14" uuid="t-filiacao-999702"/>
+				<reportElement x="10" y="70" width="535" height="14" uuid="b32c8c43-1238-4829-895f-6b4268893325"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Filiação: " + $F{nm_mae} + " / " + $F{nm_pai}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="88" width="535" height="14" uuid="t-resp-999702"/>
+				<reportElement x="10" y="88" width="535" height="14" uuid="2a62e932-e722-4fd6-95bb-5cdc559b5f24"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Responsável Legal: " + $F{nm_responsavel_aluno} + "      CPF: " + $F{cpf_responsavel}]]></textFieldExpression>
 			</textField>
 
 			<textField isStretchWithOverflow="true">
-				<reportElement x="10" y="140" width="535" height="140" uuid="t-texto-999702"/>
+				<reportElement x="10" y="140" width="535" height="140" uuid="9dcd524e-fbf2-4e50-a3a2-b91632c27bb1"/>
 				<textElement textAlignment="Justified" lineSpacing="1_1_2">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -104,26 +104,26 @@
 			</textField>
 
 			<textField>
-				<reportElement x="0" y="300" width="555" height="16" uuid="t-data-999702"/>
+				<reportElement x="0" y="300" width="555" height="16" uuid="e0269143-5d4e-45a1-ac8f-d1d3a6d78320"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA[($F{cidade_instituicao} != null ? $F{cidade_instituicao} : "Local") + ", " + $F{data_extenso} + "."]]></textFieldExpression>
 			</textField>
 
 			<!-- Assinaturas -->
 			<line>
-				<reportElement x="20" y="380" width="230" height="1" uuid="line-ass-resp-999702"/>
+				<reportElement x="20" y="380" width="230" height="1" uuid="d99cf710-229a-4eb2-9f85-967eef3483a1"/>
 			</line>
 			<textField>
-				<reportElement x="20" y="385" width="230" height="24" uuid="t-ass-resp-999702"/>
+				<reportElement x="20" y="385" width="230" height="24" uuid="cc944898-a091-45d3-a080-da58cd4ad8f2"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[$F{nm_responsavel_aluno} + "\nAssinatura do(a) Responsável"]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="305" y="380" width="230" height="1" uuid="line-ass-diret-999702"/>
+				<reportElement x="305" y="380" width="230" height="1" uuid="a180bb88-d240-416e-8c07-9156874725a5"/>
 			</line>
 			<textField>
-				<reportElement x="305" y="385" width="230" height="24" uuid="t-ass-diret-999702"/>
+				<reportElement x="305" y="385" width="230" height="24" uuid="c8980596-930b-45b4-87cc-54a5317c7505"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[($F{gestor_escolar} != null && $P{emitir_nome_diretor} ? $F{gestor_escolar} + "\n" : "") + "Gestão Escolar"]]></textFieldExpression>
 			</textField>
@@ -133,12 +133,12 @@
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dt-999702"/>
+				<reportElement x="0" y="5" width="300" height="12" uuid="c11b519e-1513-41dc-a672-80b6a853e624"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg-999702"/>
+				<reportElement x="455" y="5" width="100" height="12" uuid="2ffe8314-7a1d-4f0a-b366-ef340e152ce1"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

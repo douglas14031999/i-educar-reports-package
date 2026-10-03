@@ -5,7 +5,7 @@
               name="transportation-card" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="transp-card-999711">
+              uuid="a365fea2-520b-484a-a993-3870d7253534">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -36,78 +36,78 @@
 	<detail>
 		<band height="185" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="0" y="5" width="555" height="170" backcolor="#FFFFFF" uuid="card-box"/>
+				<reportElement x="0" y="5" width="555" height="170" backcolor="#FFFFFF" uuid="3b15d896-a256-4263-9525-8e9b7efded5d"/>
 				<graphicElement><pen lineWidth="1.0" lineColor="#003366"/></graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="5" width="555" height="35" backcolor="#003366" uuid="card-head"/>
+				<reportElement x="0" y="5" width="555" height="35" backcolor="#003366" uuid="293ec150-58ed-4a57-88a5-fdff59006e5b"/>
 				<graphicElement><pen lineWidth="0.0"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="7" width="535" height="14" forecolor="#FFFFFF" uuid="c-inst"/>
+				<reportElement x="10" y="7" width="535" height="14" forecolor="#FFFFFF" uuid="982c0edd-3610-493a-8cb2-0dccd4bd8382"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA[$F{nm_instituicao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="22" width="535" height="14" forecolor="#FFCC00" uuid="c-tit"/>
+				<reportElement x="10" y="22" width="535" height="14" forecolor="#FFCC00" uuid="72e7588d-82af-4e6d-b5bf-518b5e9b4e25"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["CARTEIRA DE TRANSPORTE ESCOLAR - ANO " + $F{ano_validade}]]></textFieldExpression>
 			</textField>
 
 			<!-- Foto 3x4 box -->
 			<rectangle>
-				<reportElement x="15" y="48" width="75" height="95" backcolor="#F5F5F5" uuid="r-foto"/>
+				<reportElement x="15" y="48" width="75" height="95" backcolor="#F5F5F5" uuid="cf7b3da9-9929-4885-ba65-40a5f9bd8776"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="15" y="85" width="75" height="20" forecolor="#999999" uuid="st-foto"/>
+				<reportElement x="15" y="85" width="75" height="20" forecolor="#999999" uuid="cf5fc243-0d19-4e48-9034-e4c5c037c1a9"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<text><![CDATA[FOTO 3x4]]></text>
 			</staticText>
 
 			<!-- Dados do Estudante e Rota -->
 			<textField>
-				<reportElement x="100" y="48" width="445" height="14" uuid="c-al"/>
+				<reportElement x="100" y="48" width="445" height="14" uuid="6e1a2e09-a475-47cc-bc90-9112728f6c1e"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="64" width="445" height="13" uuid="c-cods"/>
+				<reportElement x="100" y="64" width="445" height="13" uuid="81e12355-805a-4f81-bcf2-90b93009affa"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + "  |  Matrícula: " + $F{cod_matricula} + "  |  Nascimento: " + $F{data_nasc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="78" width="445" height="13" uuid="c-esc"/>
+				<reportElement x="100" y="78" width="445" height="13" uuid="339d423a-ee89-4035-ba1b-d0a9dc60d449"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Escola: " + $F{nm_escola}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="92" width="445" height="13" uuid="c-tur"/>
+				<reportElement x="100" y="92" width="445" height="13" uuid="1dfa2e10-1112-4f22-a9fc-74a61d62da0f"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ")"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="106" width="445" height="13" forecolor="#003366" uuid="c-rot"/>
+				<reportElement x="100" y="106" width="445" height="13" forecolor="#003366" uuid="8cad76be-857a-413c-a4bc-3b0e96803761"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Itinerário / Rota: " + $F{nm_rota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="120" width="445" height="13" uuid="c-pnt"/>
+				<reportElement x="100" y="120" width="445" height="13" uuid="0ec5770d-3718-49a3-b0cf-c71ca0ea9c33"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Ponto de Embarque/Desembarque: " + $F{nm_ponto}]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="100" y="145" width="220" height="1" uuid="l-c-ass"/>
+				<reportElement x="100" y="145" width="220" height="1" uuid="c55856c8-d90b-4a95-9296-9a6241e43c4c"/>
 			</line>
 			<staticText>
-				<reportElement x="100" y="148" width="220" height="12" uuid="st-c-sec"/>
+				<reportElement x="100" y="148" width="220" height="12" uuid="c12bb32a-d596-4977-9176-a2bf1331f2fe"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<text><![CDATA[Secretaria Municipal de Educação / Transporte]]></text>
 			</staticText>
 
 			<textField>
-				<reportElement x="350" y="145" width="195" height="15" forecolor="#CC0000" uuid="c-val"/>
+				<reportElement x="350" y="145" width="195" height="15" forecolor="#CC0000" uuid="b36e37e9-fc82-4d1a-85c7-facb448f27a5"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Válido até 31/12/" + $F{ano_validade}]]></textFieldExpression>
 			</textField>

@@ -3,7 +3,7 @@
 use App\Menu;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStudentMedicalFormReportMenu extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -21,4 +21,4 @@ class AddStudentMedicalFormReportMenu extends Migration
     {
         Menu::query()->where('old', 999710)->delete();
     }
-}
+};

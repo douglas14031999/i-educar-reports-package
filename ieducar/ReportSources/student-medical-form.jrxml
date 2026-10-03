@@ -5,7 +5,7 @@
               name="student-medical-form" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="med-form-999710">
+              uuid="c7fcac23-fa60-442d-a374-735d9f866f62">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -46,7 +46,7 @@
 		<groupHeader>
 			<band height="90">
 				<subreport>
-					<reportElement x="0" y="0" width="555" height="80" uuid="sub-header-med"/>
+					<reportElement x="0" y="0" width="555" height="80" uuid="3c9fca40-30bc-4bad-8f3b-21dd5f92b5d0"/>
 					<subreportParameter name="logo"><subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="titulo"><subreportParameterExpression><![CDATA["FICHA MÉDICA E DE SAÚDE DO ESTUDANTE"]]></subreportParameterExpression></subreportParameter>
 					<subreportParameter name="cod_instituicao"><subreportParameterExpression><![CDATA[$P{instituicao}]]></subreportParameterExpression></subreportParameter>
@@ -63,47 +63,47 @@
 	<detail>
 		<band height="550" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="5" width="555" height="80" backcolor="#F9F9F9" uuid="r-med-cad"/>
+				<reportElement x="0" y="5" width="555" height="80" backcolor="#F9F9F9" uuid="089b3e77-b3e0-44b6-8c48-6efb91722283"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#CCCCCC"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="10" width="370" height="13" uuid="t-al-m"/>
+				<reportElement x="10" y="10" width="370" height="13" uuid="1ec8462b-e1c2-43c7-9d39-afcb04411aac"/>
 				<textElement><font fontName="DejaVu Sans" size="8" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["Estudante: " + $F{nome_aluno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="385" y="10" width="160" height="13" uuid="t-cd-m"/>
+				<reportElement x="385" y="10" width="160" height="13" uuid="c08f356e-15c4-45ec-9cbe-c23febe486c6"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Cód: " + $F{cod_aluno} + " | Mat: " + $F{cod_matricula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="25" width="535" height="13" uuid="t-nsc-m"/>
+				<reportElement x="10" y="25" width="535" height="13" uuid="67a57726-6af7-4a87-a152-f8ccf926f551"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Data Nasc: " + $F{data_nasc} + "    Sexo: " + $F{sexo} + "    CPF: " + ($F{cpf} != null ? $F{cpf} : "---")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="40" width="535" height="13" uuid="t-cur-m"/>
+				<reportElement x="10" y="40" width="535" height="13" uuid="736cb187-82b7-4da3-a990-67794917ffa9"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - " + $F{nm_curso} + " - " + $F{nm_serie}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="55" width="535" height="13" uuid="t-fil-m"/>
+				<reportElement x="10" y="55" width="535" height="13" uuid="ab31730a-0487-42b9-8d88-8beff13e2048"/>
 				<textElement><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Responsáveis: " + $F{nm_mae} + " / " + $F{nm_pai} + "  |  Telefone(s): " + $F{telefone}]]></textFieldExpression>
 			</textField>
 
 			<staticText>
-				<reportElement x="0" y="100" width="555" height="15" uuid="st-tit-sau"/>
+				<reportElement x="0" y="100" width="555" height="15" uuid="a426b1e2-84cf-4ee6-b96d-815f13a13737"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<text><![CDATA[I. HISTÓRICO DE SAÚDE E DADOS BIOMÉDRICOS]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="117" width="555" height="150" uuid="r-sau"/>
+				<reportElement x="0" y="117" width="555" height="150" uuid="00462493-5ef4-494a-bfb4-f1a5a7efca45"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="123" width="535" height="138" uuid="st-q-sau"/>
+				<reportElement x="10" y="123" width="535" height="138" uuid="bf1dff44-6d42-4e9e-86d2-3e2485463b3e"/>
 				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Tipo Sanguíneo e Fator Rh: [  ] A+   [  ] A-   [  ] B+   [  ] B-   [  ] AB+   [  ] AB-   [  ] O+   [  ] O-   [  ] Ignorado
 Número do Cartão Nacional de Saúde (SUS): ___________________________________________
@@ -117,17 +117,17 @@ Necessita de Cuidados no Âmbito Escolar?   [  ] Não   [  ] Sim. Descreva: ____
 			</staticText>
 
 			<staticText>
-				<reportElement x="0" y="285" width="555" height="15" uuid="st-tit-vac"/>
+				<reportElement x="0" y="285" width="555" height="15" uuid="2890d40a-8727-4029-a95e-2f973db4c3bc"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<text><![CDATA[II. VACINAÇÃO E CONTATOS EM CASO DE EMERGÊNCIA MÉDICA]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="0" y="302" width="555" height="135" uuid="r-vac"/>
+				<reportElement x="0" y="302" width="555" height="135" uuid="e9ee92bd-3ffc-4247-b0e9-4493121cdd8f"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="308" width="535" height="120" uuid="st-q-vac"/>
+				<reportElement x="10" y="308" width="535" height="120" uuid="421830a8-0809-466b-926c-f9c9713ad4c2"/>
 				<textElement lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Declaração de Vacinação Atualizada (DVA):  [  ] Apresentada no ato da matrícula    [  ] Pendente de entrega
 Em caso de febre, dor súbita ou acidente leve, a escola está autorizada a ministrar antitérmico com prévio aviso?
@@ -139,25 +139,25 @@ Unidade de Pronto Atendimento (UPA/Posto) de preferência: _____________________
 			</staticText>
 
 			<textField>
-				<reportElement x="0" y="455" width="555" height="14" uuid="t-loc-dt-m"/>
+				<reportElement x="0" y="455" width="555" height="14" uuid="0f9c585b-0130-4a07-ac6a-4603e3fd184e"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[$F{cidade} + " - " + $F{uf} + ", " + $F{data_extenso} + "."]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="50" y="510" width="200" height="1" uuid="l-resp-m"/>
+				<reportElement x="50" y="510" width="200" height="1" uuid="49ba281a-9564-4aa7-b42f-cae8a55f11e1"/>
 			</line>
 			<textField>
-				<reportElement x="50" y="514" width="200" height="20" uuid="t-ass-resp-m"/>
+				<reportElement x="50" y="514" width="200" height="20" uuid="37c747e3-44e3-4a48-909c-743fd6a24eeb"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Assinatura do(a) Responsável"]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="305" y="510" width="200" height="1" uuid="l-sec-m"/>
+				<reportElement x="305" y="510" width="200" height="1" uuid="643a2dc5-4fa3-4e24-9a56-2f5ac5715b6c"/>
 			</line>
 			<textField>
-				<reportElement x="305" y="514" width="200" height="20" uuid="t-ass-sec-m"/>
+				<reportElement x="305" y="514" width="200" height="20" uuid="f8b43de4-79e6-4179-8982-57bf75f30d39"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA["Secretaria Escolar / Triagem"]]></textFieldExpression>
 			</textField>
@@ -167,12 +167,12 @@ Unidade de Pronto Atendimento (UPA/Posto) de preferência: _____________________
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="5" width="300" height="12" uuid="foot-dt-m"/>
+				<reportElement x="0" y="5" width="300" height="12" uuid="1c1b4cef-070e-45ae-86f3-ff4470a8d217"/>
 				<textElement><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Emitido via i-Educar em " + $F{data_atual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="5" width="100" height="12" uuid="foot-pg-m"/>
+				<reportElement x="455" y="5" width="100" height="12" uuid="16d55cbb-4300-49b8-90c5-28445761a1c1"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

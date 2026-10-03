@@ -5,7 +5,7 @@
               name="class-record-back-cover" 
               pageWidth="595" pageHeight="842" columnWidth="555" 
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-              uuid="back-cover-999712">
+              uuid="f1f266db-b261-4290-9b51-b79c57b4edc1">
 	<parameter name="ano" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
 	<parameter name="instituicao" class="java.lang.Integer"><defaultValueExpression><![CDATA[1]]></defaultValueExpression></parameter>
 	<parameter name="escola" class="java.lang.Integer"><defaultValueExpression><![CDATA[0]]></defaultValueExpression></parameter>
@@ -41,123 +41,123 @@
 	<detail>
 		<band height="790" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="790" uuid="box-border"/>
+				<reportElement x="0" y="0" width="555" height="790" uuid="b759284b-b333-4da9-b964-fe836ba092cd"/>
 				<graphicElement><pen lineWidth="1.5" lineColor="#003366"/></graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="10" y="10" width="535" height="45" backcolor="#003366" uuid="box-hdr"/>
+				<reportElement x="10" y="10" width="535" height="45" backcolor="#003366" uuid="de74840f-c7ed-43bb-85de-9bde8f901a3a"/>
 				<graphicElement><pen lineWidth="0.0"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="15" y="14" width="525" height="18" forecolor="#FFFFFF" uuid="t-hdr1"/>
+				<reportElement x="15" y="14" width="525" height="18" forecolor="#FFFFFF" uuid="6d6427d7-44ea-4af3-ae19-0015f93a9533"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="12" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA[$F{nm_instituicao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="15" y="32" width="525" height="15" forecolor="#FFCC00" uuid="t-hdr2"/>
+				<reportElement x="15" y="32" width="525" height="15" forecolor="#FFCC00" uuid="b0c88d17-894f-42fb-976d-1f2f68d7963f"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA["DIÁRIO DE CLASSE - TERMO DE ENCERRAMENTO E CONTRACAPA"]]></textFieldExpression>
 			</textField>
 
 			<textField>
-				<reportElement x="20" y="70" width="515" height="14" uuid="t-esc"/>
+				<reportElement x="20" y="70" width="515" height="14" uuid="78752cf4-4d49-49f4-8e0d-93566e867268"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="10" isBold="true"/></textElement>
 				<textFieldExpression><![CDATA[$F{nm_escola}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="20" y="90" width="515" height="14" uuid="t-tur"/>
+				<reportElement x="20" y="90" width="515" height="14" uuid="f065b7fd-f87f-4c35-9e5c-43353550e5d6"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["Curso: " + $F{nm_curso} + " - " + $F{nm_serie} + " | Turma: " + $F{nm_turma} + " (" + $F{periodo} + ") - Ano Letivo: " + $F{ano}]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="30" y="115" width="495" height="1" forecolor="#CCCCCC" uuid="l-sep1"/>
+				<reportElement x="30" y="115" width="495" height="1" forecolor="#CCCCCC" uuid="5e93ea2a-683f-4f1b-92cb-dd7ace7715bf"/>
 			</line>
 
 			<staticText>
-				<reportElement x="30" y="130" width="495" height="18" uuid="st-t-enc"/>
+				<reportElement x="30" y="130" width="495" height="18" uuid="2025bbd8-72af-4bfc-ba05-0df2a59cdda1"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="11" isBold="true"/></textElement>
 				<text><![CDATA[TERMO DE ENCERRAMENTO]]></text>
 			</staticText>
 
 			<staticText>
-				<reportElement x="30" y="155" width="495" height="120" uuid="st-txt-enc"/>
+				<reportElement x="30" y="155" width="495" height="120" uuid="209741b7-f9f8-4a52-bbb0-3c07582b078e"/>
 				<textElement textAlignment="Justified" lineSpacing="1_1_2"><font fontName="DejaVu Sans" size="9"/></textElement>
 				<text><![CDATA[Aos dias do encerramento do ano letivo regular, encerram-se os registros pedagógicos, de frequência e de avaliação da presente turma no Diário de Classe oficial, contendo o registro fiel de todas as atividades curriculares ministradas, cumprimento dos 200 dias de efetivo trabalho escolar e da carga horária mínima legal exigida pela Lei de Diretrizes e Bases da Educação Nacional (Lei Federal nº 9.394/1996) e pelas normas regimentais desta rede municipal de ensino.]]></text>
 			</staticText>
 
 			<staticText>
-				<reportElement x="30" y="285" width="495" height="16" uuid="st-t-mov"/>
+				<reportElement x="30" y="285" width="495" height="16" uuid="3dee213a-5196-4054-ae44-a50f8209e8e6"/>
 				<textElement><font fontName="DejaVu Sans" size="9" isBold="true"/></textElement>
 				<text><![CDATA[QUADRO DEMONSTRATIVO DE RENDIMENTO E MOVIMENTAÇÃO FINAL]]></text>
 			</staticText>
 
 			<rectangle>
-				<reportElement x="30" y="305" width="495" height="110" backcolor="#FAFAFA" uuid="r-mov"/>
+				<reportElement x="30" y="305" width="495" height="110" backcolor="#FAFAFA" uuid="0a77790a-d06f-4c1f-93b4-5e6e9760f2eb"/>
 				<graphicElement><pen lineWidth="0.5" lineColor="#999999"/></graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="45" y="315" width="465" height="14" uuid="t-tot-m"/>
+				<reportElement x="45" y="315" width="465" height="14" uuid="c31549fe-ba98-4053-bb1a-291ec9aaead9"/>
 				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["Total Geral de Alunos Atendidos no Ano: " + $F{total_matriculados}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="333" width="465" height="14" uuid="t-tot-ap"/>
+				<reportElement x="45" y="333" width="465" height="14" uuid="3f449bce-bc72-49d0-af38-1aab26c38c4a"/>
 				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["• Total de Alunos Promovidos / Aprovados: " + $F{total_aprovados}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="351" width="465" height="14" uuid="t-tot-rp"/>
+				<reportElement x="45" y="351" width="465" height="14" uuid="ad30fb29-7be6-49f7-9073-f73aa4719211"/>
 				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["• Total de Alunos Retidos / Reprovados: " + $F{total_reprovados}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="369" width="465" height="14" uuid="t-tot-tr"/>
+				<reportElement x="45" y="369" width="465" height="14" uuid="927fa357-ed16-4e81-b729-dc04d3e70a22"/>
 				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["• Total de Alunos Transferidos no Período: " + $F{total_transferidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="387" width="465" height="14" uuid="t-tot-ab"/>
+				<reportElement x="45" y="387" width="465" height="14" uuid="2209f8fd-1dcb-4df5-97f8-9ada4611f01b"/>
 				<textElement><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA["• Total de Alunos em Abandono / Deixaram de Frequentar: " + $F{total_abandonos}]]></textFieldExpression>
 			</textField>
 
 			<textField>
-				<reportElement x="30" y="440" width="495" height="15" uuid="t-loc-enc"/>
+				<reportElement x="30" y="440" width="495" height="15" uuid="d5e9fed8-6c1f-4f9d-a7d3-bb6bf8f78da9"/>
 				<textElement textAlignment="Right"><font fontName="DejaVu Sans" size="9"/></textElement>
 				<textFieldExpression><![CDATA[($F{cidade_instituicao} != null ? $F{cidade_instituicao} : "Local") + ", " + $F{data_extenso} + "."]]></textFieldExpression>
 			</textField>
 
 			<!-- 3 Assinaturas: Professor, Secretário, Diretor -->
 			<line>
-				<reportElement x="50" y="550" width="200" height="1" uuid="l-p-ass"/>
+				<reportElement x="50" y="550" width="200" height="1" uuid="306c0a3e-bb7d-455c-a174-80fd470bf01c"/>
 			</line>
 			<staticText>
-				<reportElement x="50" y="554" width="200" height="24" uuid="st-p-ass"/>
+				<reportElement x="50" y="554" width="200" height="24" uuid="b9174caa-79da-4961-805a-54f18b1ad93f"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<text><![CDATA[Assinatura do(a) Professor(a) / Regente]]></text>
 			</staticText>
 
 			<line>
-				<reportElement x="305" y="550" width="200" height="1" uuid="l-s-ass"/>
+				<reportElement x="305" y="550" width="200" height="1" uuid="6aa893b3-1a7a-427b-bc67-dde7e0bc4124"/>
 			</line>
 			<textField>
-				<reportElement x="305" y="554" width="200" height="24" uuid="t-s-ass"/>
+				<reportElement x="305" y="554" width="200" height="24" uuid="bbaf5b56-e617-4c38-bc67-f9ea4c49cb2d"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[($F{secretario_escolar} != null ? $F{secretario_escolar} + "\n" : "") + "Secretaria Escolar"]]></textFieldExpression>
 			</textField>
 
 			<line>
-				<reportElement x="177" y="650" width="200" height="1" uuid="l-d-ass"/>
+				<reportElement x="177" y="650" width="200" height="1" uuid="4417ce02-9086-4abf-95b8-49489e6f049e"/>
 			</line>
 			<textField>
-				<reportElement x="177" y="654" width="200" height="24" uuid="t-d-ass"/>
+				<reportElement x="177" y="654" width="200" height="24" uuid="12c30e13-4bb7-4c58-8b19-880c2b6900b1"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="8"/></textElement>
 				<textFieldExpression><![CDATA[($F{gestor_escolar} != null ? $F{gestor_escolar} + "\n" : "") + "Direção / Gestão Escolar"]]></textFieldExpression>
 			</textField>
 
 			<textField>
-				<reportElement x="30" y="750" width="495" height="15" forecolor="#666666" uuid="t-inf"/>
+				<reportElement x="30" y="750" width="495" height="15" forecolor="#666666" uuid="2de2f5f5-9e2c-4e37-af7d-9e6b1d99909d"/>
 				<textElement textAlignment="Center"><font fontName="DejaVu Sans" size="7"/></textElement>
 				<textFieldExpression><![CDATA["Documento oficial arquivado na Unidade Escolar conforme legislação vigente."]]></textFieldExpression>
 			</textField>

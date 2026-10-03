@@ -3,7 +3,7 @@
 use App\Menu;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEarlyChildhoodCommitmentTermReportMenu extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -21,4 +21,4 @@ class AddEarlyChildhoodCommitmentTermReportMenu extends Migration
     {
         Menu::query()->where('old', 999703)->delete();
     }
-}
+};
