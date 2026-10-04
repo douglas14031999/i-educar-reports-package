@@ -5,7 +5,7 @@ class RegistrationSchoolController extends Portabilis_Controller_ReportCoreContr
     /**
      * @var int
      */
-    protected $_processoAp = 999859;
+    protected $_processoAp = 999105;
 
     protected $_titulo = 'Relatório de matrículas de alunos por escola';
 

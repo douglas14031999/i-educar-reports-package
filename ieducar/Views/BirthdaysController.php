@@ -5,7 +5,7 @@ class BirthdaysController extends Portabilis_Controller_ReportCoreController
     /**
      * @var int
      */
-    protected $_processoAp = 9998911;
+    protected $_processoAp = 999807;
 
     /**
      * @inheritdoc

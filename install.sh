@@ -222,6 +222,20 @@ run_installation_commands() {
             fi
         fi
 
+        # Compatibilidade de Menus e Navegação de Relatórios (clsBase)
+        if [ -f "$IEDUCAR_DIR/ieducar/intranet/include/clsBase.inc.php" ]; then
+            php -r "
+            \$f = '$IEDUCAR_DIR/ieducar/intranet/include/clsBase.inc.php';
+            \$c = file_get_contents(\$f);
+            if (strpos(\$c, '\$topmenu = null;') === false) {
+                \$pattern = '/\\\$topmenu\s*=\s*Menu::query\(\)\s*->where\(\'process\',\s*\\\$this->processoAp\)\s*->first\(\);/';
+                \$replacement = \"\\\$topmenu = null;\n        \\\$currentPath = '/' . ltrim(request()->path(), '/');\n\n        if (!empty(\\\$currentPath) && \\\$currentPath !== '/') {\n            \\\$topmenu = Menu::query()->where('link', \\\$currentPath)->first();\n        }\n\n        if (!\\\$topmenu && !empty(\\\$this->processoAp)) {\n            \\\$topmenu = Menu::query()\n                ->where('process', \\\$this->processoAp)\n                ->first();\n        }\n\n        if (!\\\$topmenu && !empty(\\\$currentPath) && \\\$currentPath !== '/') {\n            \\\$topmenu = Menu::query()->where('link', 'like', \\\"{\\\$currentPath}%\\\")->first();\n        }\";
+                \$c = preg_replace(\$pattern, \$replacement, \$c);
+                file_put_contents(\$f, \$c);
+            }
+            " 2>/dev/null || true
+        fi
+
         systemctl reload php8.4-fpm 2>/dev/null || systemctl reload php8.3-fpm 2>/dev/null || systemctl reload php-fpm 2>/dev/null || true
     fi
 
