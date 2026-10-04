@@ -195,8 +195,34 @@ run_installation_commands() {
         
         php artisan community:reports:install
         php artisan vendor:publish --tag=reports-assets --ansi --force
+        php artisan view:clear || true
         php artisan cache:clear || true
         php artisan config:clear || true
+
+        # Otimização Busca Rápida (com suporte a busca sem acentuação)
+        if [ -f "$IEDUCAR_DIR/app/Menu.php" ]; then
+            php -r "
+            \$file = '$IEDUCAR_DIR/app/Menu.php';
+            \$c = file_get_contents(\$file);
+            \$old = 'public static function findByUser(User \$user, \$search)';
+            if (strpos(\$c, \$old) !== false && strpos(\$c, 'unaccent') === false) {
+                \$pattern = '/public static function findByUser\(User \\\$user, \\\$search\)\s*\{[\s\S]*?return \\\$query->whereNotNull\(\'link\'\)[\s\S]*?->get\(\);\s*\}/';
+                \$replacement = \"public static function findByUser(User \\\$user, \\\$search)\n    {\n        \\\$query = \\\$user->isAdmin() ? static::query() : \\\$user->menu();\n\n        return \\\$query->whereNotNull('link')\n            ->where(function (\\\$query) use (\\\$search) {\n                \\\$term = \\\"%{\\\$search}%\\\";\n                \\\$query->orWhereRaw('unaccent(title) ilike unaccent(?)', [\\\$term])\n                      ->orWhereRaw('unaccent(description) ilike unaccent(?)', [\\\$term]);\n            })\n            ->orderBy('title')\n            ->limit(15)\n            ->get();\n    }\";
+                \$c = preg_replace(\$pattern, \$replacement, \$c);
+                file_put_contents(\$file, \$c);
+            }
+            " 2>/dev/null || true
+        fi
+
+        # Otimização Notificações (eliminação do falso alerta vermelho)
+        if [ -f "$PACKAGE_DIR/fix_all.sh" ] && [ -d "$IEDUCAR_DIR/ieducar/intranet/scripts" ]; then
+            # Sincroniza correções de notificações e busca rápida se aplicável
+            if [ -d "$IEDUCAR_DIR/public/intranet/scripts" ] && [ -f "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" ]; then
+                cp "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" "$IEDUCAR_DIR/public/intranet/scripts/notifications.js" 2>/dev/null || true
+            fi
+        fi
+
+        systemctl reload php8.4-fpm 2>/dev/null || systemctl reload php8.3-fpm 2>/dev/null || systemctl reload php-fpm 2>/dev/null || true
     fi
 
     print_success "Comandos de instalação, compilação e migrações concluídos com sucesso!"
