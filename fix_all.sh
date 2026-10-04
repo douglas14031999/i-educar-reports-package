@@ -277,9 +277,9 @@ $j(document).ready(function() {
 });
 EOF
 
-# Sincronizar em public/intranet/scripts
-if [ -d "$IEDUCAR_DIR/public/intranet/scripts" ]; then
-    cp "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" "$IEDUCAR_DIR/public/intranet/scripts/notifications.js"
+# Sincronizar em public/intranet/scripts (se não for o mesmo arquivo ou link simbólico)
+if [ -d "$IEDUCAR_DIR/public/intranet/scripts" ] && [ ! "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" -ef "$IEDUCAR_DIR/public/intranet/scripts/notifications.js" ]; then
+    cp "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" "$IEDUCAR_DIR/public/intranet/scripts/notifications.js" 2>/dev/null || true
 fi
 echo -e "${GREEN}✔ Sistema de Notificações corrigido e sincronizado.${NC}"
 
