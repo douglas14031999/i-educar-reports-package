@@ -72,9 +72,23 @@ echo -e "${GREEN}✔ Permissões concedidas.${NC}"
 # 4. Executar migrações e compilar relatórios
 echo -e "${BLUE}${BOLD}[4/7]${NC} Executando migrações do banco e compilando templates..."
 php artisan migrate --force
+
+# Limpeza garantida de menus fictícios e órfãos (/relatorios/ e menu 564)
+php -r "
+try {
+    require_once '$IEDUCAR_DIR/vendor/autoload.php';
+    \$app = require_once '$IEDUCAR_DIR/bootstrap/app.php';
+    \$kernel = \$app->make(Illuminate\Contracts\Console\Kernel::class);
+    \$kernel->bootstrap();
+    \Illuminate\Support\Facades\DB::statement(\"DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id IN (SELECT id FROM public.menus WHERE link LIKE '/relatorios%');\");
+    \Illuminate\Support\Facades\DB::statement(\"DELETE FROM public.menus WHERE link LIKE '/relatorios%' OR parent_id = 404 OR id = 564;\");
+    \Illuminate\Support\Facades\DB::statement(\"DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id = 564;\");
+} catch (\Throwable \$e) {}
+" 2>/dev/null || true
+
 php artisan community:reports:install
 php artisan vendor:publish --tag=reports-assets --ansi --force 2>/dev/null || true
-echo -e "${GREEN}✔ Migrações e templates compilados com sucesso.${NC}"
+echo -e "${GREEN}✔ Migrações, limpeza de menus 404 e templates compilados com sucesso.${NC}"
 
 # 5. Correção da Busca Rápida (Menu.php e vue.blade.php)
 echo -e "${BLUE}${BOLD}[5/7]${NC} Aplicando correções na Busca Rápida..."
