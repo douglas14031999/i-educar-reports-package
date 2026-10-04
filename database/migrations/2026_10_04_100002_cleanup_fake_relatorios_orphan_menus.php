@@ -35,10 +35,8 @@ return new class extends Migration
             ");
 
             // 4. Remove também o menu quebrado 564 (Turmas cadastral completo -> 404) caso ainda reste
-            DB::statement("
-                DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id = 564;
-                DELETE FROM public.menus WHERE id = 564;
-            ");
+            DB::statement("DELETE FROM pmieducar.menu_tipo_usuario WHERE menu_id = 564;");
+            DB::statement("DELETE FROM public.menus WHERE id = 564;");
         } catch (\Throwable $e) {
             error_log('Migration cleanup_fake_relatorios_orphan_menus error: ' . $e->getMessage());
         }
