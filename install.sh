@@ -18,7 +18,7 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 REPO_URL="https://github.com/douglas14031999/i-educar-reports-package.git"
-BRANCH="main"
+BRANCH="${BRANCH:-2.11}"
 PACKAGE_DIR="packages/portabilis/i-educar-reports-package"
 
 print_banner() {
