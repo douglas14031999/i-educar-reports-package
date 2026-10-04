@@ -140,6 +140,20 @@ return new class extends Migration
                     'order' => 1,
                 ]);
             }
+
+            // 7. Corrige Relatório geral de escolas e remove menu fantasma Turmas (cadastral completo)
+            Menu::query()->where('title', 'like', '%geral de escolas%')->orWhere('link', '/module/Reports/GeneralSchools')->update([
+                'link' => '/module/Reports/Schools',
+                'process' => 999605,
+            ]);
+
+            $turmasMenus = Menu::query()->where('title', 'like', '%Turmas (cadastral completo)%')->orWhere('old', 464)->get();
+            foreach ($turmasMenus as $tm) {
+                if (Schema::hasTable('menu_tipo_usuario')) {
+                    DB::table('menu_tipo_usuario')->where('menu_id', $tm->getKey())->delete();
+                }
+                $tm->delete();
+            }
         } catch (\Throwable $e) {
             // Não aborta
         }
