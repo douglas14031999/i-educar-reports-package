@@ -41,7 +41,7 @@ LEFT JOIN pmieducar.serie ON (serie.cod_serie = turma.ref_ref_cod_serie)
 LEFT JOIN relatorio.view_componente_curricular componente_curricular ON (componente_curricular.cod_turma = turma.cod_turma)
 LEFT JOIN pmieducar.servidor_alocacao ON (servidor_alocacao.ref_cod_escola = escola.cod_escola AND servidor_alocacao.ano = turma.ano)
 LEFT JOIN pmieducar.servidor ON (servidor.cod_servidor = servidor_alocacao.ref_cod_servidor)
-LEFT JOIN cadastro.pessoa pessoa_servidor ON (pessoa_servidor.idpes = servidor.ref_idpes)
+LEFT JOIN cadastro.pessoa pessoa_servidor ON (pessoa_servidor.idpes = servidor.cod_servidor)
 WHERE instituicao.cod_instituicao = $P{instituicao}
   AND escola.cod_escola = $P{escola}
   AND escola_ano_letivo.ano = $P{ano}

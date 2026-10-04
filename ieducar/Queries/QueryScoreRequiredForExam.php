@@ -46,7 +46,7 @@ SELECT * FROM (
             INNER JOIN modules.nota_aluno na ON na.id = nccm.nota_aluno_id
             WHERE na.matricula_id = matricula.cod_matricula
               AND nccm.componente_curricular_id = componente_curricular.id
-            ORDER BY nccm.id DESC LIMIT 1
+            ORDER BY nccm.etapa DESC LIMIT 1
         ), '-') AS media,
         '5,0' AS nota_necessaria_exame,
         to_char(CURRENT_DATE, 'DD/MM/YYYY') AS data_atual,

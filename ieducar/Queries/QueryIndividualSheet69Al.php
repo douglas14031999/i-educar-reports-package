@@ -90,7 +90,7 @@ SELECT * FROM (
             INNER JOIN modules.nota_aluno na ON na.id = nccm.nota_aluno_id
             WHERE na.matricula_id = matricula.cod_matricula
               AND nccm.componente_curricular_id = componente_curricular.id
-            ORDER BY nccm.id DESC LIMIT 1
+            ORDER BY nccm.etapa DESC LIMIT 1
         ), '-') AS media_anual,
         COALESCE((
             SELECT replace(COALESCE(nota.nota_arredondada, nota.nota::text), '.', ',')
@@ -107,7 +107,7 @@ SELECT * FROM (
             INNER JOIN modules.nota_aluno na ON na.id = nccm.nota_aluno_id
             WHERE na.matricula_id = matricula.cod_matricula
               AND nccm.componente_curricular_id = componente_curricular.id
-            ORDER BY nccm.id DESC LIMIT 1
+            ORDER BY nccm.etapa DESC LIMIT 1
         ), '-') AS media_final,
         COALESCE((
             SELECT SUM(f.quantidade)

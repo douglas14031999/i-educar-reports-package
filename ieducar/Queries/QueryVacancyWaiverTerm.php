@@ -36,7 +36,7 @@ SELECT
     COALESCE(pai.nome, 'Não informado') AS nm_pai,
     COALESCE(mae.nome, 'Não informado') AS nm_mae,
     COALESCE(responsavel.nome, COALESCE(mae.nome, COALESCE(pai.nome, 'Não informado'))) AS nm_responsavel_aluno,
-    COALESCE(fisica_resp.cpf, 'Não informado') AS cpf_responsavel,
+    COALESCE(fisica_resp.cpf::text, 'Não informado') AS cpf_responsavel,
     to_char(CURRENT_DATE, 'DD/MM/YYYY') AS data_atual,
     public.data_para_extenso(CURRENT_DATE) AS data_extenso,
     (SELECT fcn_upper(p.nome) FROM cadastro.pessoa p WHERE escola.ref_idpes_gestor = p.idpes LIMIT 1) AS gestor_escolar,
