@@ -100,6 +100,8 @@ backup_file() {
 
 backup_file "app/views/layouts/devise.html.erb"
 backup_file "app/views/layouts/_not_logged_header.html.erb"
+backup_file "app/views/layouts/registration.html.erb"
+backup_file "app/views/registrations/new.html.erb"
 backup_file "app/views/devise/sessions/new.html.erb"
 backup_file "app/views/devise/passwords/new.html.erb"
 backup_file "app/views/devise/unlocks/new.html.erb"
@@ -616,10 +618,10 @@ cat << 'EOF' > "$TARGET_DIR/app/views/layouts/_not_logged_header.html.erb"
     <div class="signup">
       <% if controller_name == 'registrations' %>
         <span>Já possui uma conta?</span>
-        <%= link_to "Acessar", new_session_path(resource_name) %>
+        <%= link_to "Acessar", new_user_session_path %>
       <% else %>
         <span>Não possui uma conta?</span>
-        <%= link_to "Criar conta", new_registration_path(resource_name) %>
+        <%= link_to "Criar conta", new_registration_path %>
       <% end %>
     </div>
   </div>
@@ -844,7 +846,12 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/unlocks/new.html.erb"
 EOF
 
 # --- F) Tela Cadastro (Registrations/New) ---
-cat << 'EOF' > "$TARGET_DIR/app/views/devise/registrations/new.html.erb"
+cat << 'EOF' > "$TARGET_DIR/app/views/layouts/registration.html.erb"
+<%= render template: 'layouts/devise' %>
+EOF
+
+mkdir -p "$TARGET_DIR/app/views/registrations"
+cat << 'EOF' > "$TARGET_DIR/app/views/registrations/new.html.erb"
 <main>
   <div class="hero hero-reg">
     <svg class="scene" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -866,18 +873,39 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/registrations/new.html.erb"
       <div class="flash-alert" role="alert"><%= flash[:alert] %></div>
     <% elsif flash[:notice] %>
       <div class="flash-notice" role="status"><%= flash[:notice] %></div>
+    <% elsif flash[:error] %>
+      <div class="flash-alert" role="alert"><%= flash[:error] %></div>
     <% end %>
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "sheet", id: "f" }) do |f| %>
-      <h2>Dados cadastrais</h2>
-      <p class="note">Depois de criar sua conta você poderá acessar o sistema com seus dados de acesso.</p>
+    <%= simple_form_for @signup, as: :signup, url: registrations_path, html: { class: "sheet", id: "f" } do |f| %>
+      <h2>Dados pessoais</h2>
+      <p class="note">Depois de criar sua conta você poderá acessar usando seu e-mail ou CPF.</p>
 
-      <%= f.error_notification %>
+      <% if @signup.errors.any? %>
+        <div class="flash-alert" role="alert">
+          <%= @signup.errors.full_messages.to_sentence %>
+        </div>
+      <% end %>
 
       <div class="grid">
-        <div class="field" style="grid-column: 1 / -1;">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <%= f.input_field :first_name, id: "nome", placeholder: "Nome", required: true, autocomplete: "given-name" %>
+        </div>
+
+        <div class="field">
+          <label for="sobrenome">Sobrenome</label>
+          <%= f.input_field :last_name, id: "sobrenome", placeholder: "Sobrenome", required: true, autocomplete: "family-name" %>
+        </div>
+
+        <div class="field">
           <label for="email">E-mail</label>
-          <%= f.input_field :email, id: "email", required: true, autofocus: true, autocomplete: "email" %>
+          <%= f.input_field :email, id: "email", placeholder: "E-mail", required: true, autocomplete: "email" %>
+        </div>
+
+        <div class="field">
+          <label for="cpf">CPF</label>
+          <%= f.input_field :document, id: "cpf", placeholder: "000.000.000-00", required: true, maxlength: 14, autocomplete: "off", inputmode: "numeric" %>
         </div>
 
         <div class="field pw">
@@ -893,9 +921,20 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/registrations/new.html.erb"
         </div>
       </div>
 
+      <div class="type" style="margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line);">
+        <h2 style="font-size: 1.3rem; margin-bottom: 14px;">Tipo de conta</h2>
+        <label class="opt" style="display: flex; gap: 14px; align-items: flex-start; padding: 16px; border: 1.5px solid var(--field); border-radius: 6px; cursor: pointer; font-weight: 400; margin: 0;">
+          <%= f.input_field :employee_role, as: :boolean, boolean_style: :inline, style: "flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--primary);" %>
+          <span>
+            <b style="display: block; font-weight: 700;">Acesso servidores</b>
+            <span style="color: var(--muted); font-size: 0.95rem;">Selecione esta opção se você é um servidor da rede de ensino e deseja cadastrar-se para acessar recursos como diário eletrônico e outras ferramentas administrativas exclusivas para servidores.</span>
+          </span>
+        </label>
+      </div>
+
       <div class="actions">
-        <%= link_to "Voltar para o login", new_session_path(resource_name), class: "btn back" %>
-        <%= f.button :submit, "Confirmar e criar conta", class: "btn submit" %>
+        <%= link_to 'Voltar', root_path, class: "btn back" %>
+        <%= f.button :submit, "Confirmar e acessar o sistema", class: "btn submit", data: { disable_with: "Enviando..." } %>
       </div>
     <% end %>
   </div>
@@ -913,9 +952,25 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/registrations/new.html.erb"
         }
       });
     });
+
+    var cpf = document.getElementById('cpf');
+    if (cpf) {
+      cpf.addEventListener('input', function(e) {
+        var v = e.target.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.slice(0, 11);
+        v = v.replace(/(\d{3})(\d)/, '$1.$2');
+        v = v.replace(/(\d{3})(\d)/, '$1.$2');
+        v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        e.target.value = v;
+      });
+    }
   })();
 </script>
 EOF
+
+# Mantém também devise/registrations/new.html.erb para compatibilidade se invocado
+mkdir -p "$TARGET_DIR/app/views/devise/registrations"
+cp "$TARGET_DIR/app/views/registrations/new.html.erb" "$TARGET_DIR/app/views/devise/registrations/new.html.erb" 2>/dev/null || true
 
 # --- G) Links Compartilhados (_links.erb) ---
 cat << 'EOF' > "$TARGET_DIR/app/views/devise/shared/_links.erb"
