@@ -942,7 +942,9 @@ mkdir -p "$TARGET_DIR/tmp"
 touch "$TARGET_DIR/tmp/restart.txt" 2>/dev/null || true
 
 if command -v systemctl >/dev/null 2>&1; then
-  if systemctl is-active --quiet i-diario 2>/dev/null; then
+  if systemctl is-active --quiet idiario-web 2>/dev/null; then
+    systemctl restart idiario-web && echo -e "  systemctl restart idiario-web: OK"
+  elif systemctl is-active --quiet i-diario 2>/dev/null; then
     systemctl restart i-diario && echo -e "  systemctl restart i-diario: OK"
   elif systemctl is-active --quiet puma 2>/dev/null; then
     systemctl restart puma && echo -e "  systemctl restart puma: OK"
