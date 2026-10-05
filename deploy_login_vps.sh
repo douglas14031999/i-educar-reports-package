@@ -22,6 +22,12 @@ POSSIBLE_PATHS=(
   "$1"
   "$ID_PATH"
   "$(pwd)"
+  "$(pwd)/i-diario"
+  "$(pwd)/i-diario-1.6"
+  "$HOME/i-diario"
+  "$HOME/i-diario-1.6"
+  "/root/i-diario"
+  "/root/i-diario-1.6"
   "/var/www/i-diario"
   "/var/www/i-diario-1.6"
   "/var/www/html/i-diario"
@@ -37,6 +43,19 @@ for p in "${POSSIBLE_PATHS[@]}"; do
     break
   fi
 done
+
+# Se ainda não encontrou, faz uma busca rápida nos diretórios mais comuns
+if [ -z "$TARGET_DIR" ]; then
+  for base_search in /root /home /var/www "$(pwd)"; do
+    if [ -d "$base_search" ]; then
+      match=$(find "$base_search" -maxdepth 2 -type d -name "i-diario*" 2>/dev/null | head -n 1)
+      if [ -n "$match" ] && [ -d "$match/app/views/layouts" ] && [ -d "$match/app/views/devise" ]; then
+        TARGET_DIR="$match"
+        break
+      fi
+    fi
+  done
+fi
 
 if [ -z "$TARGET_DIR" ]; then
   echo -e "${RED}[AVISO] Não foi possível detectar automaticamente a pasta do i-Diário nos locais padrão.${NC}"
