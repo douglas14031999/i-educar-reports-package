@@ -36,20 +36,24 @@ Desenvolvido para aplicar correções cirúrgicas de usabilidade sem tocar na es
 
 ### 2. `fix_all.sh` (Manutenção Global e Estabilização)
 Executa a suíte completa de alinhamento e reparos do ecossistema:
-1. **Sincronização de Código**: Atualiza o repositório git do pacote na branch `2.11`.
-2. **Permissões de Execução**: Concede permissão ao binário do `jasperstarter` e aos diretórios de relatórios gerados.
-3. **Banco de Dados e Migrations**: Executa `php artisan migrate --force`.
-4. **Remoção de Menus Fantasma / Erro 404**: Remove registros órfãos que apontavam para `/relatorios/...` inexistentes.
-5. **Compilação de Relatórios**: Compila todos os arquivos `.jrxml` gerando 136 binários `.jasper`.
-6. **Busca Rápida e Notificações**: Aplica todas as melhorias do script rápido.
-7. **Limpeza e Recarregamento de Serviços**: Reseta todos os caches e reinicia workers.
+1. **Detecção de Dependências do SO**: Verifica e instala automaticamente o Java JRE (`default-jre-headless`) e Google Chrome/Chromium caso não estejam presentes.
+2. **Sincronização de Código**: Atualiza o repositório git do pacote na branch `2.11`.
+3. **Permissões de Execução**: Concede permissão ao binário do `jasperstarter` e aos diretórios de relatórios gerados.
+4. **Composer Autoload**: Executa `composer plug-and-play` ou `composer dump-autoload -o`.
+5. **Banco de Dados e Migrations**: Habilita a extensão `unaccent` no PostgreSQL e executa `php artisan migrate --force`.
+6. **Remoção de Menus Fantasma / Erro 404**: Remove registros órfãos que apontavam para `/relatorios/...` inexistentes e o antigo menu 564.
+7. **Compilação de Relatórios**: Compila todos os arquivos `.jrxml` gerando 136 binários `.jasper`.
+8. **Busca Rápida e Notificações**: Aplica todas as otimizações de busca sem acento e notificações em tempo real.
+9. **Limpeza e Recarregamento de Serviços**: Reseta todos os caches e reinicia workers PHP-FPM e Nginx.
 
-### 3. `install.sh` (Instalador Inicial)
-Script de bootstrap para novos ambientes:
-- Detecta a raiz do i-Educar (`/var/www/ieducar` ou contêiner Docker).
-- Substitui a versão antiga da Portábilis pela versão estendida da comunidade.
-- Executa `composer plug-and-play` (ou `dump-autoload`).
-- Registra links simbólicos e publica assets (`reports-assets`).
+### 3. `install.sh` (Instalador Inicial e Bootstrap para Novas VPS)
+Script completo de bootstrap para novos ambientes e novas VPS:
+- **Detecção de Ambiente**: Detecta a raiz do i-Educar (`/var/www/ieducar` ou contêiner Docker).
+- **Auto-instalação de Dependências**: Instala automaticamente o Java JRE e Google Chrome Headless no sistema operacional caso ausentes.
+- **Instalação do Repositório**: Substitui a versão antiga da Portábilis pela versão estendida da comunidade.
+- **Banco de Dados**: Habilita `unaccent` no PostgreSQL e roda todas as migrações (incluindo o menu de Diplomas).
+- **Autoload & Assets**: Executa `composer plug-and-play` (ou `dump-autoload`), registra links simbólicos (`community:reports:link`), compila os 136 relatórios e publica assets (`reports-assets`).
+- **Otimizações Prontas**: Já deixa a Busca Rápida e as Notificações configuradas e 100% funcionais no primeiro boot.
 
 ---
 
@@ -150,10 +154,11 @@ php artisan vendor:publish --tag=reports-assets --ansi --force
 
 ## ⚙️ Dependências do Sistema
 
-- **PHP**: 7.4 / 8.2+ com funções `exec` e `passthru` habilitadas.
-- **Java**: [OpenJDK](https://openjdk.java.net/) 8 ou superior (JRE/JDK headless).
-- **JasperStarter**: Intermediador de compilação e compilação de JSON em PDFs.
-- **PostgreSQL**: Com extensão `unaccent` instalada (`CREATE EXTENSION IF NOT EXISTS unaccent;`).
+- **PHP**: 7.4 / 8.2 / 8.4+ com extensões padrão e funções `exec` e `passthru` habilitadas.
+- **Java**: [OpenJDK](https://openjdk.java.net/) 8 ou superior (JRE headless: `default-jre-headless`) - *instalado automaticamente pelos scripts caso ausente*.
+- **Google Chrome / Chromium**: Necessário para renderização headless de Diplomas em PDF vetorial A4 (`google-chrome-stable` ou `chromium-browser`) - *instalado automaticamente pelos scripts caso ausente*.
+- **JasperStarter**: Intermediador de compilação dos arquivos JRXML em PDFs (incluído no pacote).
+- **PostgreSQL**: Com extensão `unaccent` instalada (`CREATE EXTENSION IF NOT EXISTS unaccent;`) - *habilitada automaticamente pelos scripts*.
 
 ---
 

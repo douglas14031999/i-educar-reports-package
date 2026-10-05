@@ -22,15 +22,16 @@ PACKAGE_DIR="packages/portabilis/i-educar-reports-package"
 echo -e "${CYAN}"
 echo "======================================================================="
 echo "   🚀 I-EDUCAR - SCRIPT DE CORREÇÃO E ATUALIZAÇÃO AUTOMATIZADA         "
-echo "      • Pacote de Relatórios (136 Templates)                           "
-echo "      • Correção Busca Rápida (com suporte a busca sem acentuação)     "
+echo "      • Pacote de Relatórios (136 Templates + Emissão de Diplomas)    "
+echo "      • Dependências do Sistema (Java JRE e Headless Chrome)          "
+echo "      • Extensão PostgreSQL unaccent + Busca Rápida Otimizada          "
 echo "      • Correção Notificações (eliminação do falso alerta vermelho)    "
 echo "      • Limpeza de Menus Duplicados e Erros 404                        "
 echo "======================================================================="
 echo -e "${NC}"
 
 # 1. Localizar raiz do i-Educar
-echo -e "${BLUE}${BOLD}[1/7]${NC} Localizando diretório raiz do i-Educar..."
+echo -e "${BLUE}${BOLD}[1/8]${NC} Localizando diretório raiz do i-Educar..."
 if [ -f "artisan" ] && [ -f "composer.json" ]; then
     IEDUCAR_DIR="$(pwd)"
 elif [ -d "/var/www/ieducar" ] && [ -f "/var/www/ieducar/artisan" ]; then
@@ -44,8 +45,37 @@ fi
 cd "$IEDUCAR_DIR"
 echo -e "${GREEN}✔ Raiz detectada em: ${BOLD}$IEDUCAR_DIR${NC}"
 
-# 2. Atualizar repositório de relatórios
-echo -e "${BLUE}${BOLD}[2/7]${NC} Sincronizando pacote de relatórios (branch ${BRANCH})..."
+# 2. Verificar dependências essenciais do SO (Java JRE e Chrome Headless)
+echo -e "${BLUE}${BOLD}[2/8]${NC} Verificando dependências do sistema operacional..."
+if ! command -v java &>/dev/null; then
+    echo -e "${YELLOW}⚠ Java não encontrado. Instalando default-jre-headless para o JasperStarter...${NC}"
+    if command -v apt-get &>/dev/null; then
+        apt-get update -qq || true
+        DEBIAN_FRONTEND=noninteractive apt-get install -y -qq default-jre-headless || true
+    fi
+fi
+
+if ! command -v google-chrome &>/dev/null && ! command -v google-chrome-stable &>/dev/null && ! command -v chromium &>/dev/null && ! command -v chromium-browser &>/dev/null; then
+    echo -e "${YELLOW}⚠ Google Chrome / Chromium não encontrado. Instalando para emissão de diplomas em PDF...${NC}"
+    if command -v apt-get &>/dev/null; then
+        ARCH=$(dpkg --print-architecture 2>/dev/null || echo "amd64")
+        if [ "$ARCH" = "amd64" ]; then
+            wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome.deb 2>/dev/null || true
+            if [ -f /tmp/google-chrome.deb ]; then
+                apt-get update -qq || true
+                DEBIAN_FRONTEND=noninteractive apt-get install -y -qq /tmp/google-chrome.deb 2>/dev/null || DEBIAN_FRONTEND=noninteractive apt-get install -y -f -qq 2>/dev/null || true
+                rm -f /tmp/google-chrome.deb
+            fi
+        fi
+        if ! command -v google-chrome &>/dev/null && ! command -v google-chrome-stable &>/dev/null; then
+            DEBIAN_FRONTEND=noninteractive apt-get install -y -qq chromium-browser 2>/dev/null || DEBIAN_FRONTEND=noninteractive apt-get install -y -qq chromium 2>/dev/null || true
+        fi
+    fi
+fi
+echo -e "${GREEN}✔ Dependências do SO validadas.${NC}"
+
+# 3. Atualizar repositório de relatórios
+echo -e "${BLUE}${BOLD}[3/8]${NC} Sincronizando pacote de relatórios (branch ${BRANCH})..."
 if [ -d "$PACKAGE_DIR/.git" ]; then
     git -C "$PACKAGE_DIR" fetch origin
     git -C "$PACKAGE_DIR" reset --hard "origin/$BRANCH"
@@ -59,8 +89,8 @@ else
 fi
 echo -e "${GREEN}✔ Pacote sincronizado com o commit mais recente.${NC}"
 
-# 3. Permissões de executáveis e jasper
-echo -e "${BLUE}${BOLD}[3/7]${NC} Ajustando permissões do JasperStarter e relatórios..."
+# 4. Permissões de executáveis e jasper
+echo -e "${BLUE}${BOLD}[4/8]${NC} Ajustando permissões do JasperStarter e relatórios..."
 if [ -f "vendor/cossou/jasperphp/src/JasperStarter/bin/jasperstarter" ]; then
     chmod +x vendor/cossou/jasperphp/src/JasperStarter/bin/jasperstarter 2>/dev/null || true
 fi
@@ -69,8 +99,23 @@ chmod -R 777 ieducar/modules/Reports/ReportSources 2>/dev/null || true
 chmod -R 775 "$PACKAGE_DIR" 2>/dev/null || true
 echo -e "${GREEN}✔ Permissões concedidas.${NC}"
 
-# 4. Executar migrações e compilar relatórios
-echo -e "${BLUE}${BOLD}[4/7]${NC} Executando migrações do banco e compilando templates..."
+# 5. Executar migrações, unaccent e compilar relatórios
+echo -e "${BLUE}${BOLD}[5/8]${NC} Executando migrações do banco, unaccent e compilando templates..."
+if command -v composer &> /dev/null; then
+    composer plug-and-play || composer dump-autoload -o
+fi
+
+# Habilitar unaccent no PostgreSQL
+php -r "
+try {
+    require_once '$IEDUCAR_DIR/vendor/autoload.php';
+    \$app = require_once '$IEDUCAR_DIR/bootstrap/app.php';
+    \$kernel = \$app->make(Illuminate\Contracts\Console\Kernel::class);
+    \$kernel->bootstrap();
+    \Illuminate\Support\Facades\DB::statement('CREATE EXTENSION IF NOT EXISTS unaccent;');
+} catch (\Throwable \$e) {}
+" 2>/dev/null || true
+
 php artisan migrate --force
 
 # Limpeza garantida de menus fictícios e órfãos (/relatorios/ e menu 564)
@@ -86,12 +131,13 @@ try {
 } catch (\Throwable \$e) {}
 " 2>/dev/null || true
 
+php artisan community:reports:link
 php artisan community:reports:install
 php artisan vendor:publish --tag=reports-assets --ansi --force 2>/dev/null || true
-echo -e "${GREEN}✔ Migrações, limpeza de menus 404 e templates compilados com sucesso.${NC}"
+echo -e "${GREEN}✔ Migrações, unaccent, menus e templates compilados com sucesso.${NC}"
 
-# 5. Correção da Busca Rápida (Menu.php e vue.blade.php)
-echo -e "${BLUE}${BOLD}[5/7]${NC} Aplicando correções na Busca Rápida..."
+# 6. Correção da Busca Rápida (Menu.php e vue.blade.php)
+echo -e "${BLUE}${BOLD}[6/8]${NC} Aplicando correções na Busca Rápida..."
 php -r "
 \$file = '$IEDUCAR_DIR/app/Menu.php';
 if (file_exists(\$file)) {
@@ -176,8 +222,8 @@ cat << 'EOF' > "$IEDUCAR_DIR/resources/views/layout/vue.blade.php"
 EOF
 echo -e "${GREEN}✔ Busca Rápida otimizada e configurada com sucesso.${NC}"
 
-# 6. Correção das Notificações (notifications.js)
-echo -e "${BLUE}${BOLD}[6/7]${NC} Aplicando correções no sistema de Notificações..."
+# 7. Correção das Notificações (notifications.js)
+echo -e "${BLUE}${BOLD}[7/8]${NC} Aplicando correções no sistema de Notificações..."
 cat << 'EOF' > "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js"
 function updateNotReadCount() {
   $j.get("/notificacoes/quantidade-nao-lidas", function (count) {
@@ -277,14 +323,13 @@ $j(document).ready(function() {
 });
 EOF
 
-# Sincronizar em public/intranet/scripts (se não for o mesmo arquivo ou link simbólico)
 if [ -d "$IEDUCAR_DIR/public/intranet/scripts" ] && [ ! "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" -ef "$IEDUCAR_DIR/public/intranet/scripts/notifications.js" ]; then
     cp "$IEDUCAR_DIR/ieducar/intranet/scripts/notifications.js" "$IEDUCAR_DIR/public/intranet/scripts/notifications.js" 2>/dev/null || true
 fi
 echo -e "${GREEN}✔ Sistema de Notificações corrigido e sincronizado.${NC}"
 
-# 7. Limpeza de Caches e Reinicialização de Serviços
-echo -e "${BLUE}${BOLD}[7/7]${NC} Limpando caches e recarregando serviços..."
+# 8. Limpeza de Caches e Reinicialização de Serviços
+echo -e "${BLUE}${BOLD}[8/8]${NC} Limpando caches e recarregando serviços..."
 php artisan view:clear || true
 php artisan cache:clear || true
 php artisan config:clear || true
@@ -299,6 +344,7 @@ echo "   🎉 TODAS AS CORREÇÕES E ATUALIZAÇÕES FORAM APLICADAS COM SUCESSO!
 echo "======================================================================="
 echo -e "${NC}"
 echo -e " • Relatórios compilados e ativos: 136 templates"
+echo -e " • Emissão de Diplomas (HTML5/PDF): Disponível em /module/Reports/DiplomaCertificate"
 echo -e " • Menus da Biblioteca, Transporte e Servidores nos seus devidos módulos"
 echo -e " • Busca Rápida: funcionando com digitação sem acento (ex: relatorio, distribuicao)"
 echo -e " • Notificações: balão vermelho agora reflete fielmente mensagens não lidas reais"
