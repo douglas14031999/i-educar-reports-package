@@ -265,8 +265,10 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
 
         // Se o usuário solicitou visualização HTML
         if (($this->args['formato_saida'] ?? 'pdf') === 'html') {
-            header('Content-Type: text/html; charset=utf-8');
-            header('Content-Disposition: inline; filename="diplomas.html"');
+            if (!headers_sent()) {
+                header('Content-Type: text/html; charset=utf-8');
+                header('Content-Disposition: inline; filename="diplomas.html"');
+            }
             return $fullHtml;
         }
 
