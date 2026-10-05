@@ -109,14 +109,24 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
         $templatePath = $this->getTemplateFilePath($modeloId);
         $htmlTemplate = file_get_contents($templatePath);
 
-        // Separa o cabeçalho HTML, a seção .sheet e o fechamento
-        if (!preg_match('/^(.*?<body[^>]*>)(.*?)(<\/body>.*)$/is', $htmlTemplate, $matches)) {
-            throw new Exception('A estrutura do modelo HTML de diploma é inválida.');
+        // Separa o cabeçalho HTML, a seção .sheet e o fechamento sem risco de PCRE backtrack limit
+        $bodyOpenPos = stripos($htmlTemplate, '<body');
+        if ($bodyOpenPos === false) {
+            throw new Exception('Tag <body> não encontrada no modelo HTML de diploma.');
+        }
+        $bodyTagEndPos = strpos($htmlTemplate, '>', $bodyOpenPos);
+        if ($bodyTagEndPos === false) {
+            throw new Exception('Fechamento da tag <body> não encontrado.');
         }
 
-        $headPart = $matches[1];
-        $bodyTemplate = $matches[2];
-        $tailPart = $matches[3];
+        $bodyClosePos = strripos($htmlTemplate, '</body>');
+        if ($bodyClosePos === false) {
+            throw new Exception('Tag </body> não encontrada no modelo HTML de diploma.');
+        }
+
+        $headPart = substr($htmlTemplate, 0, $bodyTagEndPos + 1);
+        $bodyTemplate = substr($htmlTemplate, $bodyTagEndPos + 1, $bodyClosePos - ($bodyTagEndPos + 1));
+        $tailPart = substr($htmlTemplate, $bodyClosePos);
 
         // Garante que a quebra de página por aluno no CSS seja estrita em A4 paisagem
         $headPart = str_replace(
@@ -127,14 +137,22 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
             $headPart
         );
 
-        // Extrai o bloco <section class="sheet ...">...</section>
-        if (!preg_match('/<section class="sheet[^"]*">(.*?)<\/section>/is', $bodyTemplate, $secMatch)) {
-            $singleSheet = $bodyTemplate;
-            $sheetClass = 'sheet m' . $modeloId;
+        // Extrai o bloco <section class="sheet ...">...</section> de forma limpa e direta
+        $secOpenPos = stripos($bodyTemplate, '<section');
+        $secClosePos = strripos($bodyTemplate, '</section>');
+
+        if ($secOpenPos !== false && $secClosePos !== false) {
+            $secTagEndPos = strpos($bodyTemplate, '>', $secOpenPos);
+            $secTag = substr($bodyTemplate, $secOpenPos, $secTagEndPos - $secOpenPos + 1);
+            if (preg_match('/class=["\']([^"\']*)["\']/i', $secTag, $classMatch)) {
+                $sheetClass = $classMatch[1];
+            } else {
+                $sheetClass = 'sheet m' . $modeloId;
+            }
+            $singleSheet = substr($bodyTemplate, $secTagEndPos + 1, $secClosePos - ($secTagEndPos + 1));
         } else {
-            preg_match('/<section class="([^"]*)">/i', $bodyTemplate, $classMatch);
-            $sheetClass = $classMatch[1] ?? ('sheet m' . $modeloId);
-            $singleSheet = $secMatch[1];
+            $sheetClass = 'sheet m' . $modeloId;
+            $singleSheet = $bodyTemplate;
         }
 
         $dataEmissaoExtenso = $this->formatDataEmissao($this->args['data_emissao'] ?? date('d/m/Y'));
