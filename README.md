@@ -11,7 +11,7 @@ O repositório disponibiliza scripts bash automatizados prontos para execução 
 
 | Script | Finalidade Principal | Tempo Médio | Comando Direto via Curl |
 | :--- | :--- | :---: | :--- |
-| **`fix_search_and_notifications.sh`** | **Busca sem acento (`unaccent`) + Notificações corrigidas** (sem recompilar relatórios nem rodar migrations) | **~3 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_search_and_notifications.sh \| bash` |
+| **`fix_search_and_notifications.sh`** | **Busca sem acento (`unaccent`) + Notificações corrigidas + PMD (tela branca resolvida)** | **~5 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_search_and_notifications.sh \| bash` |
 | **`fix_all.sh`** | **Correção Geral Completa**: busca, notificações, 136 relatórios compilados, limpeza de menus 404, realocação de módulos e permissões | **~45 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_all.sh \| bash` |
 | **`install.sh`** | **Instalador Completo do Pacote**: substitui pacote padrão, roda composer, compila templates e publica assets | **~60 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/install.sh \| bash` |
 
@@ -30,6 +30,9 @@ Desenvolvido para aplicar correções cirúrgicas de usabilidade sem tocar na es
   - Atualiza `ieducar/intranet/scripts/notifications.js` e sincroniza com `public/intranet/scripts/notifications.js`.
   - O balão vermelho passa a considerar estritamente notificações não lidas reais (`read_at IS NULL`).
   - Corrige os eventos de "Marcar todas como lidas" e o clique em itens individuais.
+- **Módulo Pré-Matrícula Digital (PMD - Resolução da Tela Branca)**:
+  - Corrige a interceptação do Nginx para arquivos `.js` dinâmicos (`try_files $uri /index.php?$query_string;`), permitindo que a rota `/config/prematricula.js` responda normalmente.
+  - Gera o arquivo estático de redundância `public/config/prematricula.js` com o payload `window.config = {...}`, eliminando o erro fatal de JavaScript (`Cannot read properties of undefined (reading 'map')`) e restaurando a interface completa do PMD.
 - **Caches e Serviços**:
   - Limpa views, cache de aplicação e configurações (`view:clear`, `cache:clear`, `config:clear`).
   - Recarrega suavemente os serviços `php-fpm` e `nginx`.

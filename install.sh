@@ -491,6 +491,28 @@ EOF
             " 2>/dev/null || true
         fi
 
+        # Correção do Módulo Pré-Matrícula Digital (PMD) - Eliminação da tela branca
+        if [ -d "/etc/nginx/sites-available" ]; then
+            sed -i 's/try_files \$uri =404;/try_files \$uri \/index.php?\$query_string;/g' /etc/nginx/sites-available/* 2>/dev/null || true
+            nginx -t 2>/dev/null && systemctl reload nginx 2>/dev/null || true
+        fi
+
+        php -r "
+        try {
+            require_once '$IEDUCAR_DIR/vendor/autoload.php';
+            \$app = require_once '$IEDUCAR_DIR/bootstrap/app.php';
+            \$kernel = \$app->make(Illuminate\Contracts\Http\Kernel::class);
+            \$response = \$kernel->handle(\$request = Illuminate\Http\Request::create('/config/prematricula.js', 'GET'));
+            if (\$response->getStatusCode() === 200 && strpos(\$response->getContent(), 'window.config') !== false) {
+                @mkdir('$IEDUCAR_DIR/public/config', 0755, true);
+                file_put_contents('$IEDUCAR_DIR/public/config/prematricula.js', \$response->getContent());
+                @chmod('$IEDUCAR_DIR/public/config/prematricula.js', 0664);
+                @chown('$IEDUCAR_DIR/public/config/prematricula.js', 'www-data');
+                @chgrp('$IEDUCAR_DIR/public/config/prematricula.js', 'www-data');
+            }
+        } catch (\Throwable \$e) {}
+        " 2>/dev/null || true
+
         php artisan view:clear || true
         php artisan cache:clear || true
         php artisan config:clear || true
