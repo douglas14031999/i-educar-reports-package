@@ -14,6 +14,7 @@ O repositório disponibiliza scripts bash automatizados prontos para execução 
 | **`fix_search_and_notifications.sh`** | **Busca sem acento (`unaccent`) + Notificações corrigidas + PMD (tela branca resolvida)** | **~5 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_search_and_notifications.sh \| bash` |
 | **`fix_all.sh`** | **Correção Geral Completa**: busca, notificações, 136 relatórios compilados, limpeza de menus 404, realocação de módulos e permissões | **~45 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_all.sh \| bash` |
 | **`install.sh`** | **Instalador Completo do Pacote**: substitui pacote padrão, roda composer, compila templates e publica assets | **~60 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/install.sh \| bash` |
+| **`deploy_login_vps.sh`** | **Novo Design da Tela de Login/Autenticação do i-Diário (Lagoa da Canoa)** | **~10 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/deploy_login_vps.sh \| bash` |
 
 ---
 
