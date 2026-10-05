@@ -61,6 +61,32 @@ Script completo de bootstrap para novos ambientes e novas VPS:
 
 ---
 
+### 4. `deploy_login_vps.sh` (Nova Tela de Login e Autenticação do i-Diário - Lagoa da Canoa)
+Script de modernização visual e arquitetural completa para a interface de autenticação do **i-Diário (v1.6)**:
+- **Localização Inteligente do Projeto**:
+  - Detecta automaticamente o caminho do i-Diário no servidor (`/root/i-diario`, `/var/www/i-diario`, etc.) ou aceita caminho customizado como primeiro argumento.
+- **Backup Preventivo com Timestamp**:
+  - Realiza backup automático com data e hora de todas as views originais antes de qualquer modificação em `app/views_backup_login_YYYYMMDD_HHMMSS/`.
+- **Nova Identidade Visual Lagoa da Canoa**:
+  - Cenário SVG vetorial dinâmico (sol nascente com animação CSS suave, colinas, lagoa e canoa).
+  - Tipografia moderna do Google Fonts (*Atkinson Hyperlegible* e *Bitter*).
+  - Suporte nativo a Tema Claro e Escuro (*Dark Mode*) com respeito às preferências do sistema operacional (`prefers-color-scheme`).
+  - Responsividade completa para smartphones, tablets e computadores desktop.
+- **Suporte aos Modelos e Fluxos Oficiais do i-Diário**:
+  - `devise/sessions/new.html.erb`: Tela de login moderna com alternador de exibição de senha (*Mostrar/Ocultar*) e retenção do contador de tentativas bruteforce (`@time`).
+  - `layouts/registration.html.erb` e `registrations/new.html.erb`: Tela oficial de cadastro de novos usuários e servidores da rede (`@signup`), contendo validação de campos, máscara automática de CPF, confirmação de senha e seleção de perfil de servidor.
+  - `devise/passwords/new.html.erb`: Recuperação de senha ("Esqueceu sua senha?").
+  - `devise/unlocks/new.html.erb`: Reenvio de instruções de desbloqueio de conta.
+  - `layouts/_not_logged_header.html.erb`: Cabeçalho com detecção de logomarca dinâmica municipal e alternância inteligente de botões (*Criar conta* / *Acessar*).
+- **Sanitização de Notificações Flash**:
+  - Renderização segura via `sanitize`, permitindo formatação em negrito (`<b>Criar conta</b>`) sem expor código HTML como texto.
+- **Favicon Dinâmico**:
+  - Identifica e aplica a logomarca da entidade configurada (`entity_configuration`) como favicon de alta resolução e `apple-touch-icon`, com redundância para `/favicon.ico` na raiz pública.
+- **Reinício e Validação dos Serviços**:
+  - Atualiza permissões de arquivos, toca `tmp/restart.txt` e reinicia o serviço web Puma (`systemctl restart idiario-web`) automaticamente.
+
+---
+
 ## 🔍 Problemas Resolvidos e Melhorias Implementadas
 
 ### 1. Busca Rápida: Pesquisa Imune a Acentos e Caixa Alta
@@ -82,6 +108,12 @@ Script completo de bootstrap para novos ambientes e novas VPS:
 - Relatórios de acervo e empréstimos no módulo **Biblioteca** (`old: 342`).
 - Relatórios funcionais no módulo **Servidores** (`old: 71`).
 - Relatórios pedagógicos e cadastrais no módulo **Escola** (`old: 555`).
+
+---
+
+### 5. Nova Interface de Autenticação do i-Diário: Identidade Visual Lagoa da Canoa
+- **Problema anterior**: A tela padrão de login e cadastro do i-Diário 1.6 utilizava um layout legado com baixa responsividade em smartphones, tipografia antiga, notificações que exibiam tags HTML literais e ausência de favicon oficial da prefeitura.
+- **Solução implementada**: Desenvolvimento de uma suíte completa de layouts e views em ERB com cenário SVG temático animado, fontes *Atkinson Hyperlegible* e *Bitter*, formulário de cadastro responsivo integrado ao controller nativo de registro (`@signup`), sanitização de mensagens flash e aplicação do script automatizado `deploy_login_vps.sh`.
 
 ---
 
