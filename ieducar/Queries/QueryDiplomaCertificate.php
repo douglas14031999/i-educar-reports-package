@@ -8,6 +8,9 @@ class QueryDiplomaCertificate extends QueryBridge
     protected function getDefaultData()
     {
         return [
+            'ano' => 0,
+            'instituicao' => 0,
+            'escola' => 0,
             'curso' => 0,
             'serie' => 0,
             'turma' => 0,
@@ -59,7 +62,7 @@ SELECT
 FROM pmieducar.instituicao
 INNER JOIN pmieducar.escola ON (escola.ref_cod_instituicao = instituicao.cod_instituicao)
 INNER JOIN cadastro.pessoa pessoa_escola ON (pessoa_escola.idpes = escola.ref_idpes)
-INNER JOIN pmieducar.matricula ON (matricula.ref_ref_cod_escola = escola.cod_escola AND matricula.ano = $P{ano} AND matricula.ativo = 1)
+INNER JOIN pmieducar.matricula ON (matricula.ref_ref_cod_escola = escola.cod_escola AND (matricula.ano = $P{ano} OR $P{ano} = 0) AND matricula.ativo = 1)
 INNER JOIN pmieducar.aluno ON (aluno.cod_aluno = matricula.ref_cod_aluno AND aluno.ativo = 1)
 INNER JOIN cadastro.fisica ON (fisica.idpes = aluno.ref_idpes)
 INNER JOIN cadastro.pessoa pessoa_aluno ON (pessoa_aluno.idpes = fisica.idpes)
@@ -70,8 +73,8 @@ INNER JOIN pmieducar.matricula_turma ON (matricula_turma.ref_cod_matricula = mat
 INNER JOIN pmieducar.turma ON (turma.cod_turma = matricula_turma.ref_cod_turma AND turma.ativo = 1)
 INNER JOIN pmieducar.curso ON (curso.cod_curso = turma.ref_cod_curso)
 INNER JOIN pmieducar.serie ON (serie.cod_serie = turma.ref_ref_cod_serie)
-WHERE instituicao.cod_instituicao = $P{instituicao}
-  AND escola.cod_escola = $P{escola}
+WHERE (instituicao.cod_instituicao = $P{instituicao} OR $P{instituicao} = 0)
+  AND (escola.cod_escola = $P{escola} OR $P{escola} = 0)
   AND (curso.cod_curso = $P{curso} OR $P{curso} = 0)
   AND (serie.cod_serie = $P{serie} OR $P{serie} = 0)
   AND (turma.cod_turma = $P{turma} OR $P{turma} = 0)

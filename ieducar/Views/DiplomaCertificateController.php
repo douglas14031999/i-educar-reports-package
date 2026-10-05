@@ -35,9 +35,9 @@ class DiplomaCertificateController extends Portabilis_Controller_ReportCoreContr
         $this->inputsHelper()->dynamic('curso', ['required' => false]);
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
-        $this->inputsHelper()->dynamic('matricula', [
+        $this->inputsHelper()->simpleSearchMatricula(null, [
             'required' => false,
-            'label' => 'Matrícula do Aluno (deixe em branco para emitir toda a turma em lote)'
+            'label' => 'Matrícula do Aluno (deixe em branco para emitir toda a turma)'
         ]);
 
         $this->inputsHelper()->select('modelo', [
@@ -108,6 +108,45 @@ class DiplomaCertificateController extends Portabilis_Controller_ReportCoreContr
         $this->report->addArg('nome_diretor', trim((string) $this->getRequest()->nome_diretor));
         $this->report->addArg('carga_horaria', trim((string) $this->getRequest()->carga_horaria));
         $this->report->addArg('data_emissao', (string) $this->getRequest()->data_emissao);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function renderReport()
+    {
+        try {
+            $result = $this->report->dumps();
+
+            if (!$result) {
+                throw new Exception('Nenhum resultado gerado para o relatório.');
+            }
+
+            // Verifica se o retorno é HTML (começa com <!DOCTYPE ou <html)
+            $trimmed = ltrim($result);
+            $isHtml = (stripos($trimmed, '<!DOCTYPE') === 0 || stripos($trimmed, '<html') === 0);
+
+            if ($isHtml) {
+                header('Pragma: public');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Content-Type: text/html; charset=utf-8');
+                header('Content-Disposition: inline; filename="diplomas.html"');
+            } else {
+                $this->headers($result);
+            }
+
+            if (ob_get_level()) {
+                ob_clean();
+            }
+            flush();
+
+            echo $result;
+            exit();
+        } catch (Exception $e) {
+            $details = 'Detalhes: ' . $e->getMessage();
+            $this->renderError($details);
+        }
     }
 
     /**

@@ -211,6 +211,8 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
         $uniqueId = uniqid('diploma_', true);
         $tempHtml = $tempDir . '/' . $uniqueId . '.html';
         $tempPdf = $tempDir . '/' . $uniqueId . '.pdf';
+        $profileDir = $tempDir . '/chrome_profile_' . $uniqueId;
+        @mkdir($profileDir, 0777, true);
 
         file_put_contents($tempHtml, $fullHtml);
 
@@ -218,8 +220,13 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
                      (is_executable('/snap/bin/chromium') ? '/snap/bin/chromium' :
                      (is_executable('/usr/bin/chromium') ? '/usr/bin/chromium' : 'google-chrome'));
 
-        $cmd = escapeshellcmd($chromeBin) .
-            ' --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --print-to-pdf-no-header' .
+        $cmd = 'export HOME=' . escapeshellarg($tempDir) . ' && ' .
+            escapeshellcmd($chromeBin) .
+            ' --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage' .
+            ' --user-data-dir=' . escapeshellarg($profileDir) .
+            ' --no-first-run --no-default-browser-check --disable-background-networking' .
+            ' --disable-extensions --disable-sync --disable-translate' .
+            ' --print-to-pdf-no-header --run-all-compositor-stages-before-draw' .
             ' --landscape --paper-width=11.6929 --paper-height=8.2677' .
             ' --print-to-pdf=' . escapeshellarg($tempPdf) . ' ' . escapeshellarg($tempHtml) . ' 2>&1';
 
@@ -229,15 +236,15 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
             $pdfContent = file_get_contents($tempPdf);
             @unlink($tempHtml);
             @unlink($tempPdf);
+            @exec('rm -rf ' . escapeshellarg($profileDir));
             return $pdfContent;
         }
 
-        // Fallback seguro: se o Chrome headless falhar, entrega o HTML com instrução de impressão
+        // Se falhou a geração do PDF, limpa os temporários
         @unlink($tempHtml);
         @unlink($tempPdf);
+        @exec('rm -rf ' . escapeshellarg($profileDir));
 
-        header('Content-Type: text/html; charset=utf-8');
-        header('Content-Disposition: inline; filename="diplomas.html"');
-        return $fullHtml;
+        throw new Exception('Falha ao gerar o PDF via Google Chrome: ' . implode(' | ', (array) $output));
     }
 }
