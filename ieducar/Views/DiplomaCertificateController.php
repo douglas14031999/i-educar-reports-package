@@ -35,7 +35,7 @@ class DiplomaCertificateController extends Portabilis_Controller_ReportCoreContr
         $this->inputsHelper()->dynamic('curso', ['required' => false]);
         $this->inputsHelper()->dynamic('serie', ['required' => false]);
         $this->inputsHelper()->dynamic('turma', ['required' => false]);
-        $this->inputsHelper()->simpleSearchMatricula(null, [
+        $this->inputsHelper()->dynamic('matricula', [
             'required' => false,
             'label' => 'Matrícula do Aluno (deixe em branco para emitir toda a turma)'
         ]);
