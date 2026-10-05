@@ -12,7 +12,9 @@ Este documento resume a alteração da identidade visual e telas de autenticaç�
    - `app/views/devise/sessions/new.html.erb`: Tela de login com cenário SVG vetorial animado (nascer do sol animado `rise 1.4s`, lagoa, colinas e canoa), inputs modernos, botão de alternância de senha (*Mostrar/Ocultar*), persistência de bloqueio de força bruta (`@time`) e alertas dinâmicos de flash.
    - `app/views/devise/passwords/new.html.erb`: Tela "Esqueceu sua senha?" com o mesmo visual moderno e campo de e-mail estilizado.
    - `app/views/devise/unlocks/new.html.erb`: Tela "Reenviar instruções de desbloqueio".
-   - `app/views/devise/registrations/new.html.erb`: Tela de cadastro "Crie sua conta" com grid responsivo e validações.
+   - `app/views/layouts/registration.html.erb`: Layout de registro integrado à identidade visual Lagoa da Canoa.
+   - `app/views/registrations/new.html.erb`: Tela oficial de cadastro de usuários e servidores do i-Diário (`@signup`) com formulário responsivo, máscara de CPF automática, alternância de senha e seleção de servidor.
+   - `app/views/devise/registrations/new.html.erb`: Tela de cadastro fallback caso o Devise padrão seja invocado.
    - `app/views/devise/shared/_links.erb`: Links auxiliares de navegação entre as telas de autenticação.
 
 2. **Segurança e Backups**:
