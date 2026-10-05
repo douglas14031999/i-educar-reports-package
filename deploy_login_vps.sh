@@ -122,6 +122,14 @@ cat << 'EOF' > "$TARGET_DIR/app/views/layouts/devise.html.erb"
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title><%= content_for?(:title) ? yield(:title) : "Acessar | Comunidade escolar de Lagoa da Canoa" %></title>
   <%= csrf_meta_tags %>
+  <% dynamic_logo = (logo_url.presence rescue nil) %>
+  <% if dynamic_logo.present? %>
+    <link rel="icon" href="<%= dynamic_logo %>">
+    <link rel="apple-touch-icon" href="<%= dynamic_logo %>">
+  <% else %>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <% end %>
+  <link rel="shortcut icon" href="<%= dynamic_logo.presence || '/assets/favicon.ico' %>" type="image/x-icon">
   <%= render 'layouts/google_tag_manager_head' if lookup_context.exists?('layouts/_google_tag_manager_head') %>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -999,6 +1007,10 @@ EOF
 
 # 4. Reiniciar serviços se aplicável
 echo -e "${BLUE}ℹ Atualizando permissões e reiniciando aplicação...${NC}"
+# Garantir que /favicon.ico exista na raiz pública
+if [ -f "$TARGET_DIR/public/assets/favicon.ico" ]; then
+  cp "$TARGET_DIR/public/assets/favicon.ico" "$TARGET_DIR/public/favicon.ico" 2>/dev/null || true
+fi
 mkdir -p "$TARGET_DIR/tmp"
 touch "$TARGET_DIR/tmp/restart.txt" 2>/dev/null || true
 
