@@ -652,11 +652,13 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/sessions/new.html.erb"
       </div>
 
       <div class="sheet-wrapper">
-        <% if flash[:alert] %>
-          <div class="flash-alert" role="alert"><%= flash[:alert] %></div>
-        <% elsif flash[:notice] %>
-          <div class="flash-notice" role="status"><%= flash[:notice] %></div>
-        <% end %>
+        <% flash.each do |key, value| %>
+      <% next if value.blank? %>
+      <% css_class = (key.to_s == 'notice' || key.to_s == 'success') ? 'flash-notice' : 'flash-alert' %>
+      <% Array(value).each do |msg| %>
+        <div class="<%= css_class %>" role="alert"><%= sanitize(msg.to_s) %></div>
+      <% end %>
+    <% end %>
 
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "sheet", id: "f" }) do |f| %>
           <h2>Acessar</h2>
@@ -745,11 +747,13 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/passwords/new.html.erb"
       </div>
 
       <div class="sheet-wrapper">
-        <% if flash[:alert] %>
-          <div class="flash-alert" role="alert"><%= flash[:alert] %></div>
-        <% elsif flash[:notice] %>
-          <div class="flash-notice" role="status"><%= flash[:notice] %></div>
-        <% end %>
+        <% flash.each do |key, value| %>
+      <% next if value.blank? %>
+      <% css_class = (key.to_s == 'notice' || key.to_s == 'success') ? 'flash-notice' : 'flash-alert' %>
+      <% Array(value).each do |msg| %>
+        <div class="<%= css_class %>" role="alert"><%= sanitize(msg.to_s) %></div>
+      <% end %>
+    <% end %>
 
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "sheet", id: "f" }) do |f| %>
           <h2>Esqueceu sua senha?</h2>
@@ -807,11 +811,13 @@ cat << 'EOF' > "$TARGET_DIR/app/views/devise/unlocks/new.html.erb"
       </div>
 
       <div class="sheet-wrapper">
-        <% if flash[:alert] %>
-          <div class="flash-alert" role="alert"><%= flash[:alert] %></div>
-        <% elsif flash[:notice] %>
-          <div class="flash-notice" role="status"><%= flash[:notice] %></div>
-        <% end %>
+        <% flash.each do |key, value| %>
+      <% next if value.blank? %>
+      <% css_class = (key.to_s == 'notice' || key.to_s == 'success') ? 'flash-notice' : 'flash-alert' %>
+      <% Array(value).each do |msg| %>
+        <div class="<%= css_class %>" role="alert"><%= sanitize(msg.to_s) %></div>
+      <% end %>
+    <% end %>
 
         <%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "sheet", id: "f" }) do |f| %>
           <h2>Reenviar instruções de desbloqueio</h2>
@@ -869,12 +875,12 @@ cat << 'EOF' > "$TARGET_DIR/app/views/registrations/new.html.erb"
   </div>
 
   <div class="col sheetwrap">
-    <% if flash[:alert] %>
-      <div class="flash-alert" role="alert"><%= flash[:alert] %></div>
-    <% elsif flash[:notice] %>
-      <div class="flash-notice" role="status"><%= flash[:notice] %></div>
-    <% elsif flash[:error] %>
-      <div class="flash-alert" role="alert"><%= flash[:error] %></div>
+    <% flash.each do |key, value| %>
+      <% next if value.blank? %>
+      <% css_class = (key.to_s == 'notice' || key.to_s == 'success') ? 'flash-notice' : 'flash-alert' %>
+      <% Array(value).each do |msg| %>
+        <div class="<%= css_class %>" role="alert"><%= sanitize(msg.to_s) %></div>
+      <% end %>
     <% end %>
 
     <%= simple_form_for @signup, as: :signup, url: registrations_path, html: { class: "sheet", id: "f" } do |f| %>
