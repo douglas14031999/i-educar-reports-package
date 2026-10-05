@@ -61,6 +61,46 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
     }
 
     /**
+     * Verifica se o nome do genitor é válido e não representa ausência de registro.
+     *
+     * @param string|null $name
+     * @return bool
+     */
+    protected function isValidParentName(?string $name): bool
+    {
+        if (empty($name)) {
+            return false;
+        }
+
+        $trimmed = trim($name);
+        if ($trimmed === '' || $trimmed === '-') {
+            return false;
+        }
+
+        $normalized = mb_strtolower($trimmed, 'UTF-8');
+        $invalidValues = [
+            'não informado',
+            'nao informado',
+            'não informada',
+            'nao informada',
+            'pai não informado',
+            'pai nao informado',
+            'mãe não informada',
+            'mae nao informada',
+            'não declarado',
+            'nao declarado',
+            'não declarada',
+            'nao declarada',
+            'sem pai',
+            'sem mae',
+            'ignorado',
+            'ignorada',
+        ];
+
+        return !in_array($normalized, $invalidValues, true);
+    }
+
+    /**
      * Retorna o caminho do arquivo de modelo HTML selecionado.
      *
      * @param int $modelo
@@ -168,8 +208,29 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
             $idx++;
             $cargaHoraria = !empty($row['carga_horaria']) ? (string) $row['carga_horaria'] : $cargaDefault;
             $cpf = !empty($row['cpf_aluno']) ? (string) $row['cpf_aluno'] : 'Não informado';
-            $pai = !empty($row['nome_pai']) ? (string) $row['nome_pai'] : 'Pai não informado';
-            $mae = !empty($row['nome_mae']) ? (string) $row['nome_mae'] : 'Mãe não informada';
+
+            $hasPai = $this->isValidParentName($row['nome_pai'] ?? null);
+            $hasMae = $this->isValidParentName($row['nome_mae'] ?? null);
+
+            $pai = $hasPai ? trim((string) $row['nome_pai']) : '';
+            $mae = $hasMae ? trim((string) $row['nome_mae']) : '';
+
+            // Formatação inteligente da filiação (se pai não for informado, exibe apenas a mãe)
+            if ($hasPai && $hasMae) {
+                $filiacaoTexto = "filho(a) de {$pai} e de {$mae}";
+                $filiacaoTabela = "{$pai}<br>{$mae}";
+            } elseif ($hasMae) {
+                $filiacaoTexto = "filho(a) de {$mae}";
+                $filiacaoTabela = $mae;
+            } elseif ($hasPai) {
+                $filiacaoTexto = "filho(a) de {$pai}";
+                $filiacaoTabela = $pai;
+            } else {
+                $filiacaoTexto = "filho(a) de filiação não declarada";
+                $filiacaoTabela = "Não informada";
+            }
+
+            $filiacaoTag = ($modeloId === 3) ? $filiacaoTabela : $filiacaoTexto;
 
             $replacements = [
                 '{{nome_aluno}}' => (string) ($row['nome_aluno'] ?? ''),
@@ -177,6 +238,9 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
                 '{{naturalidade}}' => (string) ($row['naturalidade'] ?? 'Não informada'),
                 '{{nacionalidade}}' => (string) ($row['nacionalidade'] ?? 'Brasileira'),
                 '{{cpf_aluno}}' => $cpf,
+                '{{filiacao}}' => $filiacaoTag,
+                'filho(a) de {{nome_pai}} e de {{nome_mae}}' => $filiacaoTexto,
+                '{{nome_pai}}<br>{{nome_mae}}' => $filiacaoTabela,
                 '{{nome_pai}}' => $pai,
                 '{{nome_mae}}' => $mae,
                 '{{nome_escola}}' => (string) ($row['nome_escola'] ?? ''),
