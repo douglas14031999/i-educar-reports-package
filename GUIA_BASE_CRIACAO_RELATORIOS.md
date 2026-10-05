@@ -2103,4 +2103,155 @@ Quando solicitado a criar um novo relatório, siga rigorosamente esta sequência
 
 ---
 
+## 13. Arquitetura Especial: Relatórios e Diplomas em HTML com Conversão PDF Headless (Google Chrome)
+
+Enquanto o **JasperReports** é a ferramenta padrão para relatórios tabulares, fichas de rendimento e mapas com muitas linhas, existem cenários onde o documento exige um acabamento estético sofisticado, como:
+- **Diplomas de Conclusão de Curso**
+- **Certificados de Honra ao Mérito e Participação**
+- **Carteiras de Identificação Estudantil**
+
+Estes documentos utilizam molduras guilhochê ornamentais, arabescos, brasões oficiais em alta resolução (vetores ou base64) e tipografia refinada. O JasperReports pode apresentar dificuldades de renderização com vetores complexos ou exigir horas de ajuste de coordenadas pixel a pixel.
+
+Nesses casos, adota-se o padrão **HTML5 / CSS Paged Media + Headless Chrome**, já incorporado ao pacote a partir do relatório de **Emissão de Diplomas (Processo 999718)**.
+
+### 13.1. Quando Utilizar Cada Abordagem
+
+| Critério | JasperReports (`.jrxml`) | HTML5 + Headless Chrome |
+| :--- | :--- | :--- |
+| **Tipo de Documento** | Fichas de notas, históricos, listas de alunos, diários de classe | Diplomas, certificados, carteirinhas, certificados decorativos |
+| **Volume de Páginas** | Centenas de páginas tabulares paginadas automaticamente | 1 a dezenas de páginas decoradas com layout de arte fixa |
+| **Estilização Visual** | Rígida (regras do motor JasperReports) | Ilimitada (HTML5 moderno, CSS Grid, Flexbox, Base64, Google Fonts) |
+| **Múltiplos Modelos Visuais** | Exige arquivos `.jrxml` separados e complexos | Templates HTML independentes selecionáveis no formulário do relatório |
+| **Geração de PDF** | Motor Java JasperStarter | Google Chrome Headless nativo (`--headless=new --print-to-pdf`) |
+
+---
+
+### 13.2. Implementação Passo a Passo
+
+#### 1. Organização dos Modelos HTML (`ieducar/ModelosDiplomas/`)
+Crie templates HTML completos e autocontidos (imagens embutidas em Base64 ou caminhos locais absolutos). Utilize marcações mustache `{{nome_campo}}` para os pontos de interpolação dinâmica:
+```html
+<div class="nome-aluno">{{nome_aluno}}</div>
+<div class="texto-legal">
+    Concluiu o curso <strong>{{curso}}</strong> no ano letivo de {{ano}}...
+</div>
+```
+
+Para garantir que a geração em lote (todos os alunos da turma) funcione perfeitamente, o CSS do template deve conter a regra de quebra de página:
+```css
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .sheet {
+        page-break-after: always;
+        break-after: page;
+        width: 100vw;
+        height: 100vh;
+    }
+    .sheet:last-child {
+        page-break-after: auto;
+        break-after: auto;
+    }
+}
+```
+
+#### 2. Sobrescrita de `dumps($options = [])` no Report
+Na classe que estende `Portabilis_Report_ReportCore`:
+- **NÃO** utilize JasperPHP.
+- Sobrescreva o método `dumps($options = [])`:
+```php
+<?php
+
+class DiplomaCertificateReport extends Portabilis_Report_ReportCore
+{
+    public function templateName()
+    {
+        return 'diploma-certificate';
+    }
+
+    public function requiredArgs()
+    {
+        $this->addRequiredArg('ano');
+        $this->addRequiredArg('instituicao');
+        $this->addRequiredArg('escola');
+    }
+
+    public function getQuery()
+    {
+        return new QueryDiplomaCertificate();
+    }
+
+    public function dumps($options = [])
+    {
+        $rows = $this->getQuery()->get($this->args);
+
+        if (empty($rows)) {
+            throw new Exception('Nenhum registro encontrado para os filtros informados.');
+        }
+
+        $modeloId = (int) ($this->args['modelo'] ?? 1);
+        $templatePath = $this->getTemplateFilePath($modeloId);
+        $htmlTemplate = file_get_contents($templatePath);
+
+        // Interpolação para cada aluno e concatenação das folhas .sheet
+        $allSheets = '';
+        foreach ($rows as $row) {
+            $sheetHtml = $this->renderStudentSheet($baseSheetContent, $row);
+            $allSheets .= $sheetHtml . "\n";
+        }
+
+        $finalHtml = $headerHtml . $allSheets . $footerHtml;
+
+        // Se o usuário selecionou visualização HTML
+        if (($this->args['formato_saida'] ?? 'pdf') === 'html') {
+            header('Content-Type: text/html; charset=utf-8');
+            echo $finalHtml;
+            exit;
+        }
+
+        // Conversão para PDF via Google Chrome Headless
+        return $this->convertHtmlToPdfViaChrome($finalHtml);
+    }
+}
+```
+
+#### 3. Conversão para PDF via Google Chrome Headless
+O método de conversão grava o HTML gerado em um arquivo temporário e executa o binário do Chrome com flags de alta performance e fidelidade tipográfica:
+```php
+protected function convertHtmlToPdfViaChrome(string $html): string
+{
+    $tempHtml = tempnam(sys_get_temp_dir(), 'diploma_') . '.html';
+    $tempPdf = tempnam(sys_get_temp_dir(), 'diploma_out_') . '.pdf';
+
+    file_put_contents($tempHtml, $html);
+
+    // Parâmetros A4 Landscape: paper-width 11.6929 in, paper-height 8.2677 in
+    $cmd = sprintf(
+        'google-chrome --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage ' .
+        '--print-to-pdf-no-header --run-all-compositor-stages-before-draw ' .
+        '--landscape --paper-width=11.6929 --paper-height=8.2677 ' .
+        '--print-to-pdf=%s %s 2>&1',
+        escapeshellarg($tempPdf),
+        escapeshellarg($tempHtml)
+    );
+
+    exec($cmd, $output, $returnVar);
+
+    if ($returnVar !== 0 || !file_exists($tempPdf) || filesize($tempPdf) === 0) {
+        throw new Exception('Falha ao gerar o PDF via Google Chrome: ' . implode("\n", $output));
+    }
+
+    $pdfContent = file_get_contents($tempPdf);
+
+    @unlink($tempHtml);
+    @unlink($tempPdf);
+
+    return $pdfContent;
+}
+```
+
+---
+
 *(Fim do Guia Canônico - Mantenha este documento atualizado a cada novo padrão arquitetural introduzido no pacote).*

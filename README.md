@@ -98,6 +98,15 @@ Script de bootstrap para novos ambientes:
 | **999715** | Ficha de Acompanhamento Individual do Aluno | Acompanhamento | Registro descritivo contínuo do desenvolvimento cognitivo, social e pedagógico. |
 | **999716** | Ficha Individual - Modelo EJA | Modalidades | Ficha individual adaptada para períodos, módulos e etapas da EJA. |
 | **999717** | Histórico Escolar em Conferência | Histórico Escolar | Histórico com marca d'água de segurança "EM CONFERÊNCIA" para auditoria prévia. |
+| **999718** | Emissão de Diplomas e Certificados de Conclusão | Diplomas e Documentos | Emissão de diplomas ornamentais de alta resolução com suporte a 3 modelos visuais (Azul Tradicional, Azul Petróleo/Dourado e Verde Esmeralda com dados cadastrais completos), assinaturas e carga horária personalizáveis, renderização vetorial em PDF via Google Chrome Headless ou visualização HTML direta. Permite emissão individual ou em lote por turma. |
+
+---
+
+## 🎨 Arquitetura Híbrida: JasperReports + HTML/PDF Headless de Alta Fidelidade
+
+O pacote suporta duas arquiteturas complementares de geração de documentos:
+1. **JasperReports (`.jrxml` / `.jasper`)**: Ideal para relatórios tabulares, fichas de notas, mapas de rendimento e históricos escolares com totalizações e quebras complexas.
+2. **HTML5 / CSS Paged Media + Headless Chrome**: Ideal para documentos nobres, diplomas, certificados e carteiras que demandam bordas guilhochê ornamentais, arabescos, selos em vetor/base64 de altíssima definição e flexibilidade total de diagramação tipográfica. Utiliza o comando `google-chrome --headless=new --print-to-pdf` para gerar PDFs A4 paisagem perfeitos e sem perdas vetoriais.
 
 ---
 
@@ -107,7 +116,7 @@ Para criar novos relatórios ou customizar relatórios existentes, consulte o gu
 👉 **[GUIA_BASE_CRIACAO_RELATORIOS.md](GUIA_BASE_CRIACAO_RELATORIOS.md)**
 
 O guia conta com mais de **2.100 linhas** e inclui:
-- **Arquitetura em 5 Camadas**: `Controller` → `Report` → `QueryBridge` → `JasperReports (.jrxml)` → `Migration`.
+- **Arquitetura em 5 Camadas**: `Controller` → `Report` → `QueryBridge` → `JasperReports (.jrxml)` ou `HTML Template` → `Migration`.
 - **Catálogo de Inputs do Formulário**: Uso de inputs dinâmicos (`inputsHelper()->dynamic(...)`) e customizados (`select`, `text`, `date`, `boolean`).
 - **Padrões de Queries SQL**: Filtros opcionais com `$P{x} = 0`, busca textual com `fcn_upper_nrm`, tratamento de datas e a regra mandatória de desduplicação de enturmação ativa com `MAX(sequencial)`.
 - **Dicionário de Expressões Java para JasperReports**: Sintaxe de operadores ternários, máscaras de CPF, formatação de datas e variáveis de totalização.

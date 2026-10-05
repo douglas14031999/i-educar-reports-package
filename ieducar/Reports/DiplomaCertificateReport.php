@@ -97,7 +97,7 @@ class DiplomaCertificateReport extends Portabilis_Report_ReportCore
      * @return string
      * @throws Exception
      */
-    public function dumps()
+    public function dumps($options = [])
     {
         $rows = $this->getQuery()->get($this->args);
 
