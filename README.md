@@ -15,6 +15,7 @@ O repositório disponibiliza scripts bash automatizados prontos para execução 
 | **`fix_all.sh`** | **Correção Geral Completa**: busca, notificações, 136 relatórios compilados, limpeza de menus 404, realocação de módulos e permissões | **~45 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/fix_all.sh \| bash` |
 | **`install.sh`** | **Instalador Completo do Pacote**: substitui pacote padrão, roda composer, compila templates e publica assets | **~60 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/install.sh \| bash` |
 | **`deploy_login_vps.sh`** | **Novo Design da Tela de Login/Autenticação do i-Diário (Lagoa da Canoa)** | **~10 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/deploy_login_vps.sh \| bash` |
+| **`deploy_help_widget.sh`** | **Menu de Ajuda Flutuante Oficial do i-Educar (70 guias, 76 telas oficiais, busca e accordion)** | **~5 segundos** | `curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/deploy_help_widget.sh \| bash` |
 
 ---
 
@@ -84,6 +85,21 @@ Script de modernização visual e arquitetural completa para a interface de aute
   - Identifica e aplica a logomarca da entidade configurada (`entity_configuration`) como favicon de alta resolução e `apple-touch-icon`, com redundância para `/favicon.ico` na raiz pública.
 - **Reinício e Validação dos Serviços**:
   - Atualiza permissões de arquivos, toca `tmp/restart.txt` e reinicia o serviço web Puma (`systemctl restart idiario-web`) automaticamente.
+
+---
+
+### 5. `deploy_help_widget.sh` (Menu de Ajuda Flutuante Oficial do i-Educar)
+Script de instalação e deploy 100% autônomo do Widget Flutuante com a base de conhecimento oficial e telas:
+- **Execução Direta via Curl**:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/douglas14031999/i-educar-reports-package/2.11/deploy_help_widget.sh | bash
+  ```
+- **Totalmente Autônomo**: Não requer clone prévio; baixa automaticamente os assets (`ieducar-help-widget.js` e `help_images.tar.gz`) para o diretório `public/` do i-Educar.
+- **Detecção do Ambiente**: Localiza `/var/www/ieducar`, caminhos padrão ou aceita diretório como primeiro argumento.
+- **70 Guias Oficiais e 76 Telas**: Passo a passo com as capturas de tela oficiais posicionadas logo abaixo de cada etapa, além de suporte a ampliação em Lightbox.
+- **Busca Instantânea Inteligente**: Normalização sem acentos, tolerância a digitação e chips de filtro rápido por tema (*Matrícula*, *Enturmação*, *Ano letivo*, *Notas*, *Censo*).
+- **Injeção Idempotente no Blade**: Localiza o layout base (`resources/views/layouts/default.blade.php`, `app.blade.php` ou `vendor/adminlte/page.blade.php`), cria cópia de segurança `.bak_widget` e injeta a tag `<script src="{{ asset('js/ieducar-help-widget.js') }}" defer></script>`.
+- **Limpeza Automática de Cache**: Executa `php artisan view:clear && php artisan cache:clear` ou comandos equivalentes no Docker Compose.
 
 ---
 
