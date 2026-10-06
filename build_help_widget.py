@@ -383,30 +383,47 @@ def generate_widget():
       flex-shrink: 0;
     }}
     .ih-input-wrap {{
-      position: relative;
-      display: flex;
-      align-items: center;
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
     }}
     .ih-search-icon {{
-      position: absolute;
-      left: 12px;
-      color: #47728f;
-      pointer-events: none;
+      position: absolute !important;
+      left: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      color: #47728f !important;
+      pointer-events: none !important;
+      z-index: 5 !important;
+      width: 16px !important;
+      height: 16px !important;
+      display: block !important;
     }}
     .ih-input {{
-      width: 100%;
-      padding: 10px 32px 10px 36px;
-      border: 1px solid #c9ddec;
-      border-radius: 8px;
-      font-size: 13px;
-      background: #ffffff;
-      color: #1e293b;
-      outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100% !important;
+      height: 38px !important;
+      padding: 0 32px 0 38px !important;
+      padding-left: 38px !important;
+      padding-right: 32px !important;
+      border: 1px solid #c9ddec !important;
+      border-radius: 8px !important;
+      font-size: 13px !important;
+      background: #ffffff !important;
+      color: #1e293b !important;
+      outline: none !important;
+      box-sizing: border-box !important;
+      text-indent: 0 !important;
+      transition: border-color 0.15s, box-shadow 0.15s !important;
+    }}
+    .ih-input::placeholder {{
+      color: #829ab1 !important;
+      opacity: 1 !important;
+      font-size: 12.5px !important;
     }}
     .ih-input:focus {{
-      border-color: #47728f;
-      box-shadow: 0 0 0 2px rgba(71, 114, 143, 0.2);
+      border-color: #47728f !important;
+      box-shadow: 0 0 0 2px rgba(71, 114, 143, 0.2) !important;
     }}
     .ih-clear-btn {{
       position: absolute;
