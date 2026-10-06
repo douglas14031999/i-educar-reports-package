@@ -225,7 +225,32 @@
       "data limite",
       "fechar bimestre"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Ferramentas > Parâmetros > Bloqueio de lançamentos.",
+        "image": {
+          "local_filename": "user-figura-42-bloqueio-ano-letivo.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-42-bloqueio-ano-letivo.png",
+          "alt": "Tela de bloqueio de lançamentos por etapa e ano letivo"
+        }
+      },
+      {
+        "text": "Selecione a Instituição, Escola e o Ano Letivo desejado.",
+        "image": null
+      },
+      {
+        "text": "Defina os prazos limites para que professores lancem notas e faltas no diário, evitando alterações posteriores.",
+        "image": {
+          "local_filename": "user-figura-43-bloqueio-ano-letivo.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-43-bloqueio-ano-letivo.png",
+          "alt": "Parâmetros de bloqueio com datas de encerramento"
+        }
+      },
+      {
+        "text": "Clique no botão 'Salvar' para ativar as travas de segurança.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guia-regras-avaliacao",
@@ -241,7 +266,32 @@
       "recuperacao",
       "aprovacao"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Regras de Avaliação e clique em 'Novo'.",
+        "image": {
+          "local_filename": "user-figura-60-cadastro-regra-avaliacao-numerica.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-60-cadastro-regra-avaliacao-numerica.png",
+          "alt": "Formulário de cadastro da regra de avaliação numérica ou conceitual"
+        }
+      },
+      {
+        "text": "Informe o nome da regra (ex.: Ensino Fundamental Regular), a média para aprovação e o tipo de nota.",
+        "image": null
+      },
+      {
+        "text": "Configure a tabela de arredondamento de notas associada.",
+        "image": {
+          "local_filename": "user-figura-59-parcial-tabela-arredondamento.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-59-parcial-tabela-arredondamento.png",
+          "alt": "Tabela de arredondamento e critérios de notas parciais"
+        }
+      },
+      {
+        "text": "Defina as regras de recuperação paralela ou final e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guia-censo",
@@ -249,7 +299,7 @@
     "title": "Como importar dados do Censo Escolar",
     "category": "Administradores",
     "subtopic": "Geral",
-    "path": "EducaCenso > Importação",
+    "path": "EducaCenso > Importação / Carga Inicial",
     "keywords": [
       "censo",
       "educacenso",
@@ -257,7 +307,28 @@
       "carga inicial",
       "importar"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo EducaCenso > Importação e selecione o arquivo do Censo Escolar exportado do INEP.",
+        "image": {
+          "local_filename": "admin-figura-1.jpeg",
+          "url": "https://ieducar.org/img/admin-docs/admin-figura-1.jpeg",
+          "alt": "Painel de importação do arquivo Educacenso"
+        }
+      },
+      {
+        "text": "Verifique o Ano de referência e o layout do arquivo antes de processar.",
+        "image": {
+          "local_filename": "admin-figura-2.png",
+          "url": "https://ieducar.org/img/admin-docs/admin-figura-2.png",
+          "alt": "Validação de dados e pré-visualização do Censo Escolar"
+        }
+      },
+      {
+        "text": "Clique em 'Importar' e acompanhe o log de processamento de escolas, turmas e matrículas.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-2",
@@ -265,7 +336,7 @@
     "title": "Como configurar acesso ao sistema",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "",
+    "path": "Tela de Login do i-Educar",
     "keywords": [
       "abrir",
       "acessar",
@@ -288,7 +359,24 @@
       "navegador",
       "senha"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Abra o navegador e acesse o endereço web disponibilizado para sua rede escolar.",
+        "image": {
+          "local_filename": "user-figura-2-tela-login.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-2-tela-login.png",
+          "alt": "Tela de autenticação e acesso inicial ao i-Educar"
+        }
+      },
+      {
+        "text": "Digite seu nome de usuário (ou e-mail/CPF) e sua senha de acesso.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Acessar' para entrar no painel administrativo.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-3",
@@ -296,7 +384,7 @@
     "title": "Como configurar tela inicial",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "",
+    "path": "Página Inicial da Intranet",
     "keywords": [
       "acima",
       "alertas",
@@ -369,7 +457,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Após o login, localize no topo da página a barra de 'Busca Rápida' e os atalhos dos módulos.",
+        "image": {
+          "local_filename": "user-figura-3-busca-rapida.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-3-busca-rapida.png",
+          "alt": "Menu principal e campo de busca rápida do i-Educar"
+        }
+      },
+      {
+        "text": "O menu superior exibe os módulos disponíveis de acordo com seu perfil de permissão.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-4",
@@ -377,7 +478,7 @@
     "title": "Como configurar comportamento das listas e botões",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "",
+    "path": "Padrão de Telas e Listagens",
     "keywords": [
       "aberta",
       "aberto",
@@ -464,7 +565,32 @@
       "voltar",
       "várias"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Em qualquer listagem de registros, clique no botão azul 'Novo' para criar um novo registro.",
+        "image": {
+          "local_filename": "user-figura-4-listagem-registros-alunos.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-4-listagem-registros-alunos.png",
+          "alt": "Estrutura padrão de listagens com botões de paginação"
+        }
+      },
+      {
+        "text": "Para visualizar detalhes ou abrir edição, clique sobre o nome ou código do registro na tabela.",
+        "image": {
+          "local_filename": "user-figura-5-botoes-registro-aluno.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-5-botoes-registro-aluno.png",
+          "alt": "Barra inferior com botões de Salvar, Cancelar e Voltar"
+        }
+      },
+      {
+        "text": "Na barra inferior das telas de cadastro, utilize 'Salvar' para gravar alterações ou 'Voltar' para cancelar.",
+        "image": {
+          "local_filename": "user-figura-6-botoes-acoes-novo.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-6-botoes-acoes-novo.png",
+          "alt": "Botões de ações na tela de inserção"
+        }
+      }
+    ]
   },
   {
     "id": "guide-5",
@@ -472,7 +598,7 @@
     "title": "Como configurar filtros de busca e seleção",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "",
+    "path": "Filtros de Busca em Listagens",
     "keywords": [
       "abaixo",
       "abertos",
@@ -583,7 +709,24 @@
       "valores",
       "visualizado"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Preencha os campos de filtro no topo da listagem (ex.: Nome, Instituição, Ano, Situação).",
+        "image": {
+          "local_filename": "user-figura-8-campos-filtros-cadastro-alunos.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-8-campos-filtros-cadastro-alunos.png",
+          "alt": "Filtros avançados para localização rápida de cadastros"
+        }
+      },
+      {
+        "text": "Pressione a tecla 'Enter' ou clique no botão 'Buscar' para filtrar os resultados.",
+        "image": {
+          "local_filename": "user-figura-9-busca-rapida.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-9-busca-rapida.png",
+          "alt": "Resultado filtrado na grade de dados"
+        }
+      }
+    ]
   },
   {
     "id": "guide-7",
@@ -591,7 +734,7 @@
     "title": "Como configurar módulo endereçamento",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "",
+    "path": "Módulo Endereçamento > Cadastros > Bairros / Logradouros",
     "keywords": [
       "acessar",
       "alunos",
@@ -623,7 +766,24 @@
       "ser",
       "utilizados"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Endereçamento > Cadastros para gerenciar Bairros, Logradouros e CEPs da cidade.",
+        "image": {
+          "local_filename": "user-figura-11-modulo-enderecamento.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-11-modulo-enderecamento.png",
+          "alt": "Módulo de Endereçamento com cadastro de logradouros e municípios"
+        }
+      },
+      {
+        "text": "Clique no botão 'Novo' para registrar um logradouro ou selecionar o município pertencente.",
+        "image": null
+      },
+      {
+        "text": "Preencha nome do logradouro, bairro, tipo (Rua, Avenida, Travessa) e grave as alterações.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-8",
@@ -687,7 +847,28 @@
       "você",
       "único"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Pessoas > Cadastros > Física (para alunos, pais e servidores) ou Jurídica (para escolas e fornecedores).",
+        "image": {
+          "local_filename": "user-figura-12-modulo-pessoas.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-12-modulo-pessoas.png",
+          "alt": "Módulo de Pessoas com pesquisa de pessoas físicas e jurídicas"
+        }
+      },
+      {
+        "text": "Para cadastrar uma nova pessoa, clique no botão 'Novo' e informe Nome completo, CPF, Data de Nascimento e Sexo.",
+        "image": null
+      },
+      {
+        "text": "Vincule o endereço cadastrado no módulo de endereçamento e os dados de contato (telefone/e-mail).",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Salvar' na barra inferior para confirmar o registro da pessoa física.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-9",
@@ -695,7 +876,7 @@
     "title": "Como configurar tipos de deficiência e cor ou raça",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "Módulo Pessoas > Cadastros > Tipos > Tipos de cor ou raça",
+    "path": "Módulo Pessoas > Cadastros > Tipos > Cor ou Raça e Deficiências",
     "keywords": [
       "alunos",
       "apresentado",
@@ -775,7 +956,24 @@
       "você",
       "vínculo"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Pessoas > Cadastros > Tipos de Deficiência para consultar os tipos padrão exigidos pelo Censo.",
+        "image": {
+          "local_filename": "user-figura-13-tipos-deficiencia.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-13-tipos-deficiencia.png",
+          "alt": "Tabela de tipos de deficiências conforme classificação oficial do INEP"
+        }
+      },
+      {
+        "text": "Acesse Módulo Pessoas > Cadastros > Tipos de Cor ou Raça para verificar a classificação do IBGE (Branca, Preta, Parda, Amarela, Indígena).",
+        "image": {
+          "local_filename": "user-figura-14-listagem-raca.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-14-listagem-raca.png",
+          "alt": "Listagem de tipos de cor ou raça disponíveis no sistema"
+        }
+      }
+    ]
   },
   {
     "id": "guide-11",
@@ -783,7 +981,7 @@
     "title": "Como configurar transferência, abandono ou saída de aluno",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "Escola > Cadastros > Aluno > Matrículas > Visualizar Matrícula",
+    "path": "Escola > Cadastros > Aluno > Matrículas > Visualizar",
     "keywords": [
       "abandono",
       "advertencia",
@@ -861,7 +1059,32 @@
       "transferir",
       "mudanca de escola"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o cadastro do aluno, aba 'Matrículas', e clique em 'Visualizar' na matrícula ativa.",
+        "image": {
+          "local_filename": "user-figura-15-tipos-ocorrencias-disciplinares.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-15-tipos-ocorrencias-disciplinares.png",
+          "alt": "Cadastro de tipos de ocorrências e registros disciplinares"
+        }
+      },
+      {
+        "text": "Para registrar transferência, selecione a opção de saída por transferência e preencha a escola de destino.",
+        "image": {
+          "local_filename": "user-figura-16-tipos-transferencia.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-16-tipos-transferencia.png",
+          "alt": "Tela de opções e tipos de transferência de alunos"
+        }
+      },
+      {
+        "text": "Para registrar abandono ou desistência, informe a justificativa e confirme a finalização da matrícula.",
+        "image": {
+          "local_filename": "user-figura-17-cadastro-desistencia.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-17-cadastro-desistencia.png",
+          "alt": "Formulário para registrar desistência ou cancelamento de matrícula"
+        }
+      }
+    ]
   },
   {
     "id": "guide-12",
@@ -978,7 +1201,24 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Instituição e selecione a mantenedora da rede municipal.",
+        "image": {
+          "local_filename": "user-figura-18-documentos-padroes.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-18-documentos-padroes.png",
+          "alt": "Configurações institucionais e modelos de documentos padrões"
+        }
+      },
+      {
+        "text": "Preencha a Razão Social, CNPJ, dados de contato e os parâmetros globais da rede escolar.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para atualizar os cabeçalhos de todos os relatórios da rede.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-13",
@@ -1033,7 +1273,24 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Cursos para consultar a grade de cursos oferecidos (ex.: Ensino Fundamental, Infantil, EJA).",
+        "image": {
+          "local_filename": "user-figura-19-curso-cadastrado.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-19-curso-cadastrado.png",
+          "alt": "Listagem e detalhes de curso cadastrado com nível de ensino e carga horária"
+        }
+      },
+      {
+        "text": "Clique em 'Novo' para criar um curso, informe o Nível de Ensino, Tipo de Regime e a carga horária anual.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Salvar' para disponibilizar o curso para as escolas.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-14",
@@ -1104,7 +1361,24 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Escolas para gerenciar as unidades escolares da rede.",
+        "image": {
+          "local_filename": "user-figura-20-detalhes-escola-cadastrada.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-20-detalhes-escola-cadastrada.png",
+          "alt": "Visualização dos dados da escola cadastrada com cursos e séries"
+        }
+      },
+      {
+        "text": "Clique em 'Novo' ou selecione uma escola para editar dados de funcionamento, código INEP e cursos vinculados.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para aplicar as configurações da unidade escolar.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-15",
@@ -1193,7 +1467,40 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Alunos e clique no botão 'Novo' para iniciar o cadastro.",
+        "image": {
+          "local_filename": "user-figura-21-parcial-cadastro-aluno.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-21-parcial-cadastro-aluno.png",
+          "alt": "Formulário de cadastro com dados pessoais e filiação do estudante"
+        }
+      },
+      {
+        "text": "Utilize o recurso de 'Cadastro Rápido' se desejar vincular estudante e responsáveis em um único fluxo ágil.",
+        "image": {
+          "local_filename": "user-figura-22-cadastro-rapido-aluno.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-22-cadastro-rapido-aluno.png",
+          "alt": "Modal de cadastro rápido do aluno"
+        }
+      },
+      {
+        "text": "Vincule a filiação (Pai e Mãe) e o responsável legal pela matrícula.",
+        "image": {
+          "local_filename": "user-figura-23-pai-mae-rapido.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-23-pai-mae-rapido.png",
+          "alt": "Vinculação rápida de pai e mãe no cadastro do aluno"
+        }
+      },
+      {
+        "text": "Se desejar, anexe uma foto 3x4 do estudante e clique em 'Salvar'.",
+        "image": {
+          "local_filename": "user-figura-24-edicao-foto-aluno-pessoa-fisica.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-24-edicao-foto-aluno-pessoa-fisica.png",
+          "alt": "Upload e enquadramento da foto do aluno"
+        }
+      }
+    ]
   },
   {
     "id": "guide-16",
@@ -1297,7 +1604,24 @@
       "verificacao",
       "verificação"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Ferramentas > Unificações > Unificação de alunos para corrigir cadastros duplicados.",
+        "image": {
+          "local_filename": "user-figura-25-unificando-aluno-duplicado.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-25-unificando-aluno-duplicado.png",
+          "alt": "Ferramenta de unificação de alunos duplicados com seleção de registro principal"
+        }
+      },
+      {
+        "text": "Pesquise os dois cadastros do aluno: o cadastro correto (principal) e o cadastro duplicado a ser eliminado.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Unificar' para mesclar históricos, matrículas e notas no registro principal.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-17",
@@ -1305,7 +1629,7 @@
     "title": "Como configurar componentes curriculares",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "Módulo Escola > Cadastros > Tipos > Componentes curriculares > Tipos de dispensa",
+    "path": "Módulo Escola > Cadastros > Componentes curriculares",
     "keywords": [
       "aluno",
       "alunos",
@@ -1374,7 +1698,24 @@
       "você",
       "áreas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Componentes Curriculares (Disciplinas).",
+        "image": {
+          "local_filename": "user-figura-26-editar-disciplina-componente-curricular.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-26-editar-disciplina-componente-curricular.png",
+          "alt": "Edição de componente curricular com nome, sigla e área de conhecimento"
+        }
+      },
+      {
+        "text": "Informe o Nome da Disciplina (ex.: Matemática, Língua Portuguesa), sigla e a Área do Conhecimento da BNCC.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para disponibilizar a disciplina na matriz curricular.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-18",
@@ -1453,7 +1794,32 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Séries para configurar as séries do curso.",
+        "image": {
+          "local_filename": "user-figura-27-editando-ano-escolar-cadastro-series.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-27-editando-ano-escolar-cadastro-series.png",
+          "alt": "Configuração da série com etapas e carga horária mínima"
+        }
+      },
+      {
+        "text": "Vincule os componentes curriculares obrigatórios e a carga horária de cada disciplina.",
+        "image": {
+          "local_filename": "user-figura-28-editar-anos-escolas-disciplina-matematica.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-28-editar-anos-escolas-disciplina-matematica.png",
+          "alt": "Carga horária e dias letivos por componente curricular"
+        }
+      },
+      {
+        "text": "Em 'Séries da escola', vincule as séries ativas que cada escola tem autorização para ministrar.",
+        "image": {
+          "local_filename": "user-figura-29-editar-ano-escolar-series-escola.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-29-editar-ano-escolar-series-escola.png",
+          "alt": "Vínculo de séries disponíveis na escola"
+        }
+      }
+    ]
   },
   {
     "id": "guide-19",
@@ -1506,7 +1872,24 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Infraestrutura para cadastrar os prédios e cômodos escolares.",
+        "image": {
+          "local_filename": "user-figura-30-editar-dados-comodo.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-30-editar-dados-comodo.png",
+          "alt": "Cadastro de cômodo escolar com capacidade de alunos e metragem"
+        }
+      },
+      {
+        "text": "Informe a identificação da sala (ex.: Sala 01, Laboratório de Informática), capacidade máxima de estudantes e metragem.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para disponibilizar a sala para alocação de turmas.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-20",
@@ -1611,7 +1994,32 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Turmas e clique no botão 'Novo'.",
+        "image": {
+          "local_filename": "user-figura-31-editar-cadastro-turmas.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-31-editar-cadastro-turmas.png",
+          "alt": "Formulário de cadastro da turma com série, turno e sala"
+        }
+      },
+      {
+        "text": "Selecione a Escola, Curso, Série, Turno (Manhã, Tarde, Integral) e a Sala de aula física.",
+        "image": null
+      },
+      {
+        "text": "Para reordenar alunos alfabeticamente ou numerar a chamada, utilize o botão 'Reordenar turma'.",
+        "image": {
+          "local_filename": "user-figura-32-reordenando-alunos-turma.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-32-reordenando-alunos-turma.png",
+          "alt": "Tela de reordenação alfabética de alunos da turma"
+        }
+      },
+      {
+        "text": "Clique no botão 'Salvar' para concluir a criação da turma.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-21",
@@ -1699,7 +2107,32 @@
       "alocar",
       "quadro de horario"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Servidores > Cadastros > Servidores e localize o professor desejado.",
+        "image": {
+          "local_filename": "user-figura-33-listagem-servidores.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-33-listagem-servidores.png",
+          "alt": "Listagem de servidores cadastrados na rede escolar"
+        }
+      },
+      {
+        "text": "Clique na aba 'Alocação' para definir a escola e o turno de atuação do docente.",
+        "image": {
+          "local_filename": "user-figura-34-cadastrando-servidores.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-34-cadastrando-servidores.png",
+          "alt": "Formulário de cadastro e alocação de servidor"
+        }
+      },
+      {
+        "text": "Vincule o professor aos componentes curriculares que ele lecionará em cada turma.",
+        "image": {
+          "local_filename": "user-figura-35-exibindo-detalhes-de-um-servidor.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-35-exibindo-detalhes-de-um-servidor.png",
+          "alt": "Visualização dos detalhes de alocação e turmas do professor"
+        }
+      }
+    ]
   },
   {
     "id": "guide-22",
@@ -1810,7 +2243,24 @@
       "alocar",
       "quadro de horario"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Servidores > Cadastros > Servidor > Alocação.",
+        "image": null
+      },
+      {
+        "text": "Selecione o profissional na listagem ou clique em 'Novo' para iniciar a vinculação.",
+        "image": null
+      },
+      {
+        "text": "Defina a escola de lotação, turmas e componentes curriculares correspondentes.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para atualizar o quadro de professores e os diários.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-23",
@@ -1873,7 +2323,20 @@
       "utilizadas",
       "visto"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Servidores > Cadastros > Tipos > Categorias ou níveis para configurar o plano de cargos e salários.",
+        "image": {
+          "local_filename": "user-figura-36-cadastro-de-niveis-subniveis-de-um-servidor.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-36-cadastro-de-niveis-subniveis-de-um-servidor.png",
+          "alt": "Cadastro de níveis e subníveis de carreira dos servidores"
+        }
+      },
+      {
+        "text": "Preencha a nomenclatura do nível (ex.: Magistério Nível I, Especialista) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-24",
@@ -1943,7 +2406,20 @@
       "usuário",
       "utilizadas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Servidores > Cadastros > Tipos > Motivos de afastamento.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-25",
@@ -2036,7 +2512,24 @@
       "usuario",
       "usuário"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Servidores > Cadastros > Quadro de horários e selecione a Turma desejada.",
+        "image": {
+          "local_filename": "user-figura-37-quadro-de-horario-preenchido.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-37-quadro-de-horario-preenchido.png",
+          "alt": "Quadro de horários semanal com disciplinas por dia da semana"
+        }
+      },
+      {
+        "text": "Defina os dias da semana (Segunda a Sexta), horários de início e término e o professor responsável por cada aula.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para atualizar os diários de classe com a grade horária.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-27",
@@ -2115,7 +2608,28 @@
       "versões",
       "vinculado"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Configurações > Permissões > Usuários para gerenciar os logins de acesso ao i-Educar.",
+        "image": {
+          "local_filename": "user-figura-38-editar-usuario-acesso-sistema.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-38-editar-usuario-acesso-sistema.png",
+          "alt": "Edição de usuário com tipo de perfil, nível de acesso e status"
+        }
+      },
+      {
+        "text": "Selecione o Tipo de Usuário (Administrador, Secretário Escolar, Professor, Gestor).",
+        "image": null
+      },
+      {
+        "text": "Defina se o acesso é restrito a uma única escola ou abrangente a toda a rede municipal.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Salvar' para ativar a conta do usuário.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-29",
@@ -2179,7 +2693,20 @@
       "verificar",
       "verificação"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Configurações > Ferramentas > Auditoria geral / Backups.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-30",
@@ -2217,7 +2744,20 @@
       "usuário",
       "usuários"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Configurações > Ferramentas > Exportação de usuários.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-31",
@@ -2292,7 +2832,20 @@
       "ingresso",
       "cadastro aluno"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Aluno > [Selecionar] > Matrículas.",
+        "image": null
+      },
+      {
+        "text": "Localize o registro desejado utilizando os filtros de busca ou clique no botão 'Novo'.",
+        "image": null
+      },
+      {
+        "text": "Preencha as informações cadastrais requeridas na tela e clique no botão 'Salvar' na barra inferior.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-32",
@@ -2346,7 +2899,24 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Tipos > Tipos de Módulos para configurar a divisão do ano letivo.",
+        "image": {
+          "local_filename": "user-figura-39-listagem-cadastro-modulos.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-39-listagem-cadastro-modulos.png",
+          "alt": "Listagem de módulos com divisão por bimestre, trimestre ou semestre"
+        }
+      },
+      {
+        "text": "Clique em 'Novo', informe o nome (ex.: Bimestral - 4 Etapas) e o total de etapas do período escolar.",
+        "image": null
+      },
+      {
+        "text": "Clique em 'Salvar' para disponibilizar o módulo para as escolas.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-33",
@@ -2467,7 +3037,20 @@
       "novo ano",
       "dias letivos"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Escola > [Selecionar] > Definir Ano Letivo.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-34",
@@ -2517,7 +3100,20 @@
       "fechar bimestre",
       "bloquear notas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Ferramentas > Parâmetros > Bloqueio de lançamentos.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-35",
@@ -2625,7 +3221,20 @@
       "novo ano",
       "dias letivos"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Escola > [Selecionar] > Definir Ano Letivo.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-36",
@@ -2756,7 +3365,20 @@
       "fechar bimestre",
       "bloquear notas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Ferramentas > Parâmetros > Bloqueio de lançamentos.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-37",
@@ -2764,7 +3386,7 @@
     "title": "Como configurar calendário letivo",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "Módulo Escola > Cadastros > Tipos > Calendários > Tipos de evento do calendário",
+    "path": "Módulo Escola > Cadastros > Tipos > Calendários > Tipos de evento",
     "keywords": [
       "aberto",
       "acessar",
@@ -2852,7 +3474,28 @@
       "tipos",
       "visualizar"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Tipos > Calendários para gerenciar os tipos de dias do calendário.",
+        "image": {
+          "local_filename": "user-figura-44-calendario-letivo.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-44-calendario-letivo.png",
+          "alt": "Visualização do calendário letivo com legendas de cores e dias"
+        }
+      },
+      {
+        "text": "Clique no dia do calendário para marcar feriados, recessos, sábados letivos ou reuniões pedagógicas.",
+        "image": {
+          "local_filename": "user-figura-45-insercao-dia-letivo-calendario.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-45-insercao-dia-letivo-calendario.png",
+          "alt": "Inserção e alteração do tipo de dia no calendário escolar"
+        }
+      },
+      {
+        "text": "Confirme a alteração para atualizar a contagem de 200 dias letivos da escola.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-38",
@@ -2948,7 +3591,20 @@
       "ingresso",
       "cadastro aluno"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Aluno > [Selecionar] > Matrículas.",
+        "image": null
+      },
+      {
+        "text": "Localize o registro desejado utilizando os filtros de busca ou clique no botão 'Novo'.",
+        "image": null
+      },
+      {
+        "text": "Preencha as informações cadastrais requeridas na tela e clique no botão 'Salvar' na barra inferior.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-39",
@@ -3084,7 +3740,20 @@
       "distribuir",
       "vincular"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Movimentações > Enturmações em lote.",
+        "image": null
+      },
+      {
+        "text": "Localize o registro desejado utilizando os filtros de busca ou clique no botão 'Novo'.",
+        "image": null
+      },
+      {
+        "text": "Preencha as informações cadastrais requeridas na tela e clique no botão 'Salvar' na barra inferior.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-40",
@@ -3179,7 +3848,20 @@
       "distribuir",
       "vincular"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Movimentações > Enturmações em lote.",
+        "image": null
+      },
+      {
+        "text": "Localize o registro desejado utilizando os filtros de busca ou clique no botão 'Novo'.",
+        "image": null
+      },
+      {
+        "text": "Preencha as informações cadastrais requeridas na tela e clique no botão 'Salvar' na barra inferior.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-41",
@@ -3187,7 +3869,7 @@
     "title": "Como configurar histórico escolar",
     "category": "Usuários",
     "subtopic": "Geral",
-    "path": "Nota: Existem observações em cada ano escolar que podem ser fixadas, não sendo necessário redigitar a cada vez que processar o histórico. Neste caso, o texto do campo Observação deve ser informado no campo Observação histórico do cadastro de Séries (Cadastros > Séries).",
+    "path": "Módulo Escola > Cadastros > Alunos > [Selecionar] > Histórico Escolar",
     "keywords": [
       "alguns",
       "alunos",
@@ -3302,7 +3984,40 @@
       "utiliza",
       "vez"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse Módulo Escola > Cadastros > Alunos, selecione o aluno e clique na aba 'Histórico Escolar'.",
+        "image": {
+          "local_filename": "user-figura-55-filtro-busca-historico.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-55-filtro-busca-historico.png",
+          "alt": "Filtros para localização e consulta de histórico escolar"
+        }
+      },
+      {
+        "text": "Para processar automaticamente as notas do ano letivo recém-concluído, acesse 'Processar histórico'.",
+        "image": {
+          "local_filename": "user-figura-56-configuracao-historico-escolar.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-56-configuracao-historico-escolar.png",
+          "alt": "Parâmetros para geração e consolidação do histórico escolar"
+        }
+      },
+      {
+        "text": "Verifique a listagem de alunos processados e as médias consolidadas por disciplina.",
+        "image": {
+          "local_filename": "user-figura-57-listagem-historico-alunos-processados-nao-processados.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-57-listagem-historico-alunos-processados-nao-processados.png",
+          "alt": "Grade de alunos com status de processamento do histórico"
+        }
+      },
+      {
+        "text": "Para adicionar anos cursados em outras instituições de fora, utilize 'Inserir dados avulsos'.",
+        "image": {
+          "local_filename": "user-figura-58-insercao-dados-avulsos-historico.png",
+          "url": "https://ieducar.org/img/user-docs/user-figura-58-insercao-dados-avulsos-historico.png",
+          "alt": "Formulário para lançamento de histórico escolar avulso de outra rede"
+        }
+      }
+    ]
   },
   {
     "id": "guide-42",
@@ -3398,7 +4113,20 @@
       "visualizada",
       "visualizar"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Alunos > Selecionar Aluno > Selecionar Atualizar histórico.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-43",
@@ -3495,7 +4223,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-44",
@@ -3563,7 +4304,20 @@
       "aprovacao",
       "reprovacao"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Regras de Avaliação.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-45",
@@ -3668,7 +4422,20 @@
       "nota quebrada",
       "regra"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Tabelas de Arredondamento.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-46",
@@ -3752,7 +4519,20 @@
       "variaveis",
       "variáveis"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Tipos > Regras de avaliação > Fórmulas de cálculo da média.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-47",
@@ -3860,7 +4640,20 @@
       "aprovacao",
       "reprovacao"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Regras de Avaliação.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-48",
@@ -3971,7 +4764,20 @@
       "lancar nota",
       "lancar"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Movimentações > Notas e Faltas.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-50",
@@ -4089,7 +4895,20 @@
       "utilizacao",
       "utilização"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Para que o usuário possa emitir estes documentos, basta ele acessar o Módulo Escola > Documentos > Documentação padrão..",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-51",
@@ -4129,7 +4948,20 @@
       "usuário",
       "usuários"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-52",
@@ -4211,7 +5043,20 @@
       "versões",
       "vinculado"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Configurações > Permissões > Usuários.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-53",
@@ -4247,7 +5092,20 @@
       "seção",
       "são"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Cursos.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-54",
@@ -4276,7 +5134,20 @@
       "seção",
       "são"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Configurações > Usuários > Permissões.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-55",
@@ -4329,7 +5200,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Tipos > Escolas > Tipos de Etapas.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-56",
@@ -4451,7 +5335,20 @@
       "novo ano",
       "dias letivos"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Escola > [Selecionar] > Definir Ano Letivo.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-57",
@@ -4477,7 +5374,20 @@
       "seção",
       "são"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Configurações > Usuários > Permissões.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-58",
@@ -4528,7 +5438,20 @@
       "são",
       "turmas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Escolas.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-59",
@@ -4589,7 +5512,20 @@
       "aprovacao",
       "reprovacao"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Regras de Avaliação.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-60",
@@ -4698,7 +5634,20 @@
       "nota quebrada",
       "regra"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Tabelas de Arredondamento.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-61",
@@ -4784,7 +5733,20 @@
       "variaveis",
       "variáveis"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Tipos > Regras de avaliação > Fórmulas de cálculo da média.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-62",
@@ -4896,7 +5858,20 @@
       "aprovacao",
       "reprovacao"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Cadastros > Regras de Avaliação.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-63",
@@ -4942,7 +5917,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Séries.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-64",
@@ -5002,7 +5990,20 @@
       "você",
       "áreas"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Componentes curriculares.",
+        "image": null
+      },
+      {
+        "text": "Preencha os dados requeridos no formulário ou selecione o item desejado na grade.",
+        "image": null
+      },
+      {
+        "text": "Confirme a operação clicando no botão 'Salvar' na barra inferior da página.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-65",
@@ -5054,7 +6055,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Escola > Cadastros > Séries da escola.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-66",
@@ -5128,7 +6142,20 @@
       "distribuir",
       "vincular"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Escola > Movimentações > Enturmações em lote.",
+        "image": null
+      },
+      {
+        "text": "Localize o registro desejado utilizando os filtros de busca ou clique no botão 'Novo'.",
+        "image": null
+      },
+      {
+        "text": "Preencha as informações cadastrais requeridas na tela e clique no botão 'Salvar' na barra inferior.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-68",
@@ -5202,7 +6229,20 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: EducaCenso > Importação.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Novo' ou selecione um registro existente para editar suas configurações.",
+        "image": null
+      },
+      {
+        "text": "Ajuste os parâmetros necessários (nome, código, carga horária ou etapas) e clique em 'Salvar'.",
+        "image": null
+      }
+    ]
   },
   {
     "id": "guide-69",
@@ -5247,6 +6287,19 @@
       "voce",
       "você"
     ],
-    "steps": []
+    "steps": [
+      {
+        "text": "Acesse o menu: Módulo Educacenso > Importações > Importação Educacenso.",
+        "image": null
+      },
+      {
+        "text": "Selecione o arquivo correspondente (formato exigido pelo INEP/Censo) em seu computador.",
+        "image": null
+      },
+      {
+        "text": "Clique no botão 'Importar' e aguarde a validação e processamento dos registros.",
+        "image": null
+      }
+    ]
   }
 ]
