@@ -99,10 +99,13 @@ if id "www-data" &>/dev/null; then
   echo -e " -> ${GREEN}Permissões ajustadas para www-data!${NC}"
 fi
 
-# 4. Localizar arquivo de Layout Blade
-echo -e "\n${BLUE}[2/4] Localizando template base do Blade...${NC}"
+# 4. Localizar arquivos de Layout Blade Ativos
+echo -e "\n${BLUE}[2/4] Localizando templates base do Blade...${NC}"
 
 POSSIBLE_LAYOUTS=(
+  "$TARGET_DIR/resources/views/layout/default.blade.php"
+  "$TARGET_DIR/resources/views/layout/base.blade.php"
+  "$TARGET_DIR/resources/views/layout/public.blade.php"
   "$TARGET_DIR/resources/views/layouts/default.blade.php"
   "$TARGET_DIR/resources/views/layouts/app.blade.php"
   "$TARGET_DIR/resources/views/layouts/master.blade.php"
@@ -113,33 +116,36 @@ POSSIBLE_LAYOUTS=(
   "$TARGET_DIR/ieducar/intranet/templates/padrao.blade.php"
 )
 
-LAYOUT_FILE=""
+FOUND_LAYOUTS=()
 for l in "${POSSIBLE_LAYOUTS[@]}"; do
   if [ -f "$l" ]; then
-    LAYOUT_FILE="$l"
-    break
+    FOUND_LAYOUTS+=("$l")
   fi
 done
 
-# Se não encontrou nas rotas comuns, busca por layouts com </body>
-if [ -z "$LAYOUT_FILE" ] && [ -d "$TARGET_DIR/resources/views" ]; then
-  LAYOUT_FILE=$(grep -rn "</body>" "$TARGET_DIR/resources/views" 2>/dev/null | head -n 1 | cut -d: -f1 || true)
+# Se não encontrou nas rotas comuns, busca por layouts com </body> excluindo backups
+if [ "${#FOUND_LAYOUTS[@]}" -eq 0 ] && [ -d "$TARGET_DIR/resources/views" ]; then
+  while IFS= read -r f; do
+    if [ -n "$f" ] && [[ "$f" != *.bak* ]] && [[ "$f" != *.backup* ]]; then
+      FOUND_LAYOUTS+=("$f")
+    fi
+  done < <(grep -rn "</body>" "$TARGET_DIR/resources/views" 2>/dev/null | cut -d: -f1 | sort -u)
 fi
 
-TAG_INJECTION="    <!-- Central de Ajuda Oficial i-Educar -->\n    <script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>"
+INJECTED_COUNT=0
+for LAYOUT_FILE in "${FOUND_LAYOUTS[@]}"; do
+  if [ -f "$LAYOUT_FILE" ]; then
+    echo -e " -> ${GREEN}Layout identificado:${NC} $LAYOUT_FILE"
 
-if [ -n "$LAYOUT_FILE" ] && [ -f "$LAYOUT_FILE" ]; then
-  echo -e " -> ${GREEN}Layout identificado:${NC} $LAYOUT_FILE"
+    if grep -q "ieducar-help-widget.js" "$LAYOUT_FILE"; then
+      echo -e "    ${YELLOW}O script já estava injetado neste layout.${NC}"
+    else
+      # Criar cópia de segurança
+      cp "$LAYOUT_FILE" "${LAYOUT_FILE}.bak_widget"
+      echo -e "    ${GREEN}Backup preventivo salvo como ${LAYOUT_FILE}.bak_widget${NC}"
 
-  if grep -q "ieducar-help-widget.js" "$LAYOUT_FILE"; then
-    echo -e " -> ${YELLOW}O script já estava injetado no layout Blade.${NC}"
-  else
-    # Criar cópia de segurança
-    cp "$LAYOUT_FILE" "${LAYOUT_FILE}.bak_widget"
-    echo -e " -> ${GREEN}Backup preventivo salvo como ${LAYOUT_FILE}.bak_widget${NC}"
-
-    if command -v python3 &>/dev/null; then
-      python3 -c "
+      if command -v python3 &>/dev/null; then
+        python3 -c "
 import sys
 fpath = sys.argv[1]
 with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
@@ -152,16 +158,20 @@ else:
 with open(fpath, 'w', encoding='utf-8') as f:
     f.write(c)
 " "$LAYOUT_FILE"
-    else
-      if grep -q "</body>" "$LAYOUT_FILE"; then
-        sed -i "s|</body>|    <!-- Central de Ajuda Oficial i-Educar -->\n    <script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>\n</body>|" "$LAYOUT_FILE"
       else
-        echo -e "\n<script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>" >> "$LAYOUT_FILE"
+        if grep -q "</body>" "$LAYOUT_FILE"; then
+          sed -i "s|</body>|    <!-- Central de Ajuda Oficial i-Educar -->\n    <script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>\n</body>|" "$LAYOUT_FILE"
+        else
+          echo -e "\n<script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>" >> "$LAYOUT_FILE"
+        fi
       fi
+      echo -e "    ${GREEN}Script injetado com sucesso no Blade layout!${NC}"
+      INJECTED_COUNT=$((INJECTED_COUNT + 1))
     fi
-    echo -e " -> ${GREEN}Script injetado com sucesso no Blade layout!${NC}"
   fi
-else
+done
+
+if [ "${#FOUND_LAYOUTS[@]}" -eq 0 ]; then
   echo -e "${YELLOW}[!] Não foi possível identificar o layout Blade principal automaticamente.${NC}"
   echo -e "    Insira manualmente esta linha antes de </body> no seu layout base:"
   echo -e "    <script src=\"{{ asset('js/ieducar-help-widget.js') }}\" defer></script>"
