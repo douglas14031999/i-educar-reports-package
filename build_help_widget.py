@@ -267,7 +267,7 @@ def generate_widget():
     /* Botão Flutuante (Formato Exato da Captura de Referência) */
     #ieducar-help-btn {{
       position: fixed;
-      bottom: 20px;
+      bottom: 52px;
       right: 24px;
       display: inline-flex;
       align-items: center;
@@ -311,12 +311,12 @@ def generate_widget():
     /* Balão Flutuante Posicionado Acima do Botão */
     #ieducar-help-balloon {{
       position: fixed;
-      bottom: 66px;
+      bottom: 98px;
       right: 24px;
       width: 420px;
       max-width: calc(100vw - 32px);
       height: 590px;
-      max-height: calc(100vh - 86px);
+      max-height: calc(100vh - 118px);
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 16px 40px rgba(71, 114, 143, 0.22), 0 4px 16px rgba(0, 0, 0, 0.08);
